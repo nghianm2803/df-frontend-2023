@@ -5,10 +5,99 @@
     <meta name="viewport" content="width=device-width" />
     <title>Bookstore</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
 
   <body>
-    Hello world
+    <!-- Header -->
+    <div class="header">
+      <a href="" class="logo">Bookstore</a>
+      <div class="header-right">
+        <img src="../assets/avatar.png" alt="avatar" class="avatar"/>
+        <a href="https://github.com/nghianm2803" target="_blank">Du Xa Xiu</a>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-add">
+      <div class="search-container">
+        <form id="search-form">
+          <input type="text" placeholder="Search books" name="search" />
+          <button type="submit" class="icon" class="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      </div>
+      <button type="submit" class="btnPrimary" id="addBtn">Add Book</button>
+    </div>
+
+    <!-- Add Book Modal -->
+    <div id="addBookModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Add book</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="Book name" name="name" />
+          <input type="text" placeholder="Author" name="author" />
+          <select>
+            <option value="Programming">Programming</option>
+            <option value="Database">Database</option>
+            <option value="DevOps">DevOps</option>
+          </select>
+          <p id="error-message" style="color: red"></p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btnPrimary" id="createBtn">
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Book Modal -->
+    <div id="deleteBookModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Delete book</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <!-- <p id="error-message">Do you want to delete <b>this</b> book?</p> -->
+          <p id="confirm-message"></p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btnPrimary" id="deleteBtnConfirm">
+            Delete
+          </button>
+          <button type="submit" class="btnSecondary" id="cancelBtn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Book  -->
+    <div class="table-container">
+      <table id="myTable">
+        <thead>
+          <tr class="table-header">
+            <th style="width: 50%">Name</th>
+            <th style="width: 20%">Author</th>
+            <th style="width: 20%">Topic</th>
+            <th style="width: 10%">Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
