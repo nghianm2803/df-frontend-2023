@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/ico" href="assets/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <title>Bookstore</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
@@ -14,10 +15,15 @@
   <body>
     <!-- Header -->
     <div class="header">
-      <a href="" class="logo">Bookstore</a>
+      <div class="header-left">
+        <a href="" class="logo">
+          <img src="assets/logo.png" alt="logo" class="logo" />Bookstore</a
+        >
+      </div>
       <div class="header-right">
-        <img src="./avatar.png" alt="avatar" class="avatar"/>
-        <a href="https://github.com/nghianm2803" target="_blank">Du Xa Xiu</a>
+        <a href="https://github.com/nghianm2803" target="_blank">
+          <img src="assets/avatar.png" alt="avatar" class="avatar" />Du Xa Xiu
+        </a>
       </div>
     </div>
 
@@ -42,13 +48,22 @@
           <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-          <input type="text" placeholder="Book name" name="name" />
-          <input type="text" placeholder="Author" name="author" />
-          <select>
-            <option value="Programming">Programming</option>
-            <option value="Database">Database</option>
-            <option value="DevOps">DevOps</option>
-          </select>
+          <div class="finput">
+            <label for="fname">Name</label>
+            <input type="text" placeholder="Book name" name="fname" />
+          </div>
+          <div class="finput">
+            <label for="fauthor">Author</label>
+            <input type="text" placeholder="Author" name="fauthor" />
+          </div>
+          <div class="finput">
+            <label for="ftopic">Topic</label>
+            <select>
+              <option value="Programming">Programming</option>
+              <option value="Database">Database</option>
+              <option value="DevOps">DevOps</option>
+            </select>
+          </div>
           <p id="error-message" style="color: red"></p>
         </div>
 
@@ -68,7 +83,6 @@
           <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-          <!-- <p id="error-message">Do you want to delete <b>this</b> book?</p> -->
           <p id="confirm-message"></p>
         </div>
 
@@ -83,11 +97,24 @@
       </div>
     </div>
 
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Success!</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p id="toast-message"></p>
+        </div>
+      </div>
+    </div>
+
     <!-- Table Book  -->
     <div class="table-container">
       <table id="myTable">
         <thead>
           <tr class="table-header">
+            <th style="width: 10%">ID</th>
             <th style="width: 50%">Name</th>
             <th style="width: 20%">Author</th>
             <th style="width: 20%">Topic</th>
@@ -96,6 +123,11 @@
         </thead>
         <tbody></tbody>
       </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 2023 Handcrafted by Du Xa Xiu</p>
     </div>
 
     <script src="script.js"></script>

@@ -25,11 +25,14 @@ loadBooksFromLocalStorage();
 // Modal
 const addModal = document.getElementById("addBookModal");
 const deleteModal = document.getElementById("deleteBookModal");
+const successModal = document.getElementById("successModal");
 const addBtn = document.getElementById("addBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const deleteBtnConfirm = document.getElementById("deleteBtnConfirm");
 const closeAddModal = document.querySelector("#addBookModal .close");
 const closeDeleteModal = document.querySelector("#deleteBookModal .close");
+const closeSuccessModal = document.querySelector("#successModal .close");
+const toastText = document.getElementById("toast-message");
 
 closeAddModal.addEventListener("click", function () {
   document.getElementById("addBookModal").style.display = "none";
@@ -39,12 +42,17 @@ closeDeleteModal.addEventListener("click", function () {
   document.getElementById("deleteBookModal").style.display = "none";
 });
 
+closeSuccessModal.addEventListener("click", function () {
+  document.getElementById("successModal").style.display = "none";
+});
+
 cancelBtn.onclick = function () {
   document.getElementById("deleteBookModal").style.display = "none";
 };
 
 addBtn.onclick = function () {
   addModal.style.display = "block";
+  document.querySelector('input[name="fname"]').focus();
 };
 
 window.onclick = function (event) {
@@ -54,14 +62,20 @@ window.onclick = function (event) {
   if (event.target == deleteModal) {
     deleteModal.style.display = "none";
   }
+  if (event.target == successModal) {
+    deleteModal.style.display = "none";
+  }
 };
 
 // Function to add book
 function addBook() {
-  const nameInput = document.querySelector('input[name="name"]');
-  const authorInput = document.querySelector('input[name="author"]');
+  const nameInput = document.querySelector('input[name="fname"]');
+  const authorInput = document.querySelector('input[name="fauthor"]');
   const topicSelect = document.querySelector("select");
   const errorMessage = document.getElementById("error-message");
+
+  let lastUsedBookId =
+    books.length > 0 ? Math.max(...books.map((book) => book.id)) : 0;
 
   // Validate input
   if (!nameInput.value) {
@@ -77,10 +91,12 @@ function addBook() {
   const author = authorInput.value;
   const topic = topicSelect.value;
 
-  const bookId = books.length + 1;
+  const bookId = lastUsedBookId + 1;
   const newBook = { id: bookId, name, author, topic };
   books.push(newBook);
   localStorage.setItem("books", JSON.stringify(books));
+
+  lastUsedBookId = bookId;
 
   nameInput.value = "";
   authorInput.value = "";
@@ -89,6 +105,8 @@ function addBook() {
   populateTable();
 
   addModal.style.display = "none";
+  successModal.style.display = "block";
+  toastText.innerHTML = `Add <b>${name}</b> successful!`;
 }
 
 const createButton = document.getElementById("createBtn");
@@ -125,6 +143,7 @@ function populateTable(filteredData) {
 
   dataToRender.forEach((item) => {
     const row = document.createElement("tr");
+    const id = document.createElement("td");
     const name = document.createElement("td");
     const author = document.createElement("td");
     const topic = document.createElement("td");
@@ -132,6 +151,8 @@ function populateTable(filteredData) {
     const deleteLink = document.createElement("a");
     const deleteText = document.getElementById("confirm-message");
 
+    id.textContent = item.id;
+    row.appendChild(id);
     name.textContent = item.name;
     row.appendChild(name);
     author.textContent = item.author;
@@ -146,11 +167,12 @@ function populateTable(filteredData) {
     deleteLink.addEventListener("click", () => {
       const deleteBookId = item.id;
       deleteModal.style.display = "block";
-
       deleteText.innerHTML = `Do you want to delete <b>${item.name}</b> book?`;
+
       // Click on delete confirm
       deleteBtnConfirm.addEventListener("click", () => {
         deleteBook(deleteBookId);
+        toastText.innerHTML = `Delete <b>${item.name}</b> successful!`;
       });
     });
 
@@ -170,6 +192,7 @@ function deleteBook(bookId) {
     localStorage.setItem("books", JSON.stringify(books));
   }
   deleteModal.style.display = "none";
+  successModal.style.display = "block";
 }
 
 populateTable();

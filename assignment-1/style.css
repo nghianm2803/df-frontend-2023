@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,600&family=Rubik:wght@400;500;600;700&display=swap");
 
+/* ===== Base CSS ===== */
+
 * {
   margin: 0;
   padding: 0;
@@ -47,15 +49,26 @@ td {
   padding: 7px;
 }
 
-/* ===== Style the header ===== */
+/* ===== Style header ===== */
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
     rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  float: right;
 }
 
 .header a {
+  display: flex;
+  align-items: center;
   float: left;
   color: #273542;
   text-align: center;
@@ -66,29 +79,37 @@ td {
   border-radius: 0.375rem;
 }
 
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  float: right;
-}
-
-.avatar {
+.header img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-/* ===== Style the search and add btn ===== */
+/* ===== Style search and add btn ===== */
 .search-add {
   margin-top: 30px;
   margin-right: 30px;
   display: flex;
   justify-content: right;
+}
+
+.search-container .icon {
+  float: right;
+  padding: 6px 10px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  transition: 0.3s;
+}
+
+.search-container .icon:hover {
+  background: #ccc;
 }
 
 input[type="text"] {
@@ -98,10 +119,11 @@ input[type="text"] {
   outline: none;
   transition: border-color 0.3s;
   box-sizing: border-box;
+  border-radius: 5px;
 }
 
 input[type="text"]:focus {
-  border: 1px solid #d2445a;
+  border: 1px solid #292828;
 }
 
 .btnPrimary {
@@ -140,23 +162,7 @@ input[type="text"]:focus {
   animation: button-push 0.3s linear 1;
 }
 
-.search-container .icon {
-  float: right;
-  padding: 6px 10px;
-  margin-right: 16px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
-    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
-}
-
-.search-container .icon:hover {
-  background: #ccc;
-}
-
-/* ===== Stype add modal ===== */
+/* ===== Style modal ===== */
 .modal {
   padding: 2px 16px;
   display: none;
@@ -179,6 +185,39 @@ input[type="text"]:focus {
   border: 1px solid #888;
   border-radius: 0.375rem;
   width: 30%;
+
+  -webkit-animation-name: popout;
+  -webkit-animation-duration: 0.3s;
+  animation-name: popout;
+  animation-duration: 0.3s;
+}
+
+/*
+  Why keyframes and webkit keyframes?
+  Whenever you add a "@webkit" prefix, allowing support for chrome browser to render animation.
+  @Doocharsiu
+*/
+
+@-webkit-keyframes popout {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes popout {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modal-header {
@@ -196,11 +235,23 @@ input[type="text"]:focus {
   margin: 10px;
 }
 
+.finput {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 5px;
+  color: #4e4d4d;
+  font-weight: bold;
+}
+
 .modal-body input,
 select {
   width: 350px;
   padding: 5px;
-  margin: 5px;
+}
+
+.modal-body p {
+  color: #4e4d4d;
 }
 
 .modal-footer {
@@ -221,6 +272,21 @@ select {
   cursor: pointer;
 }
 
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
 /* ===== Style table ===== */
 .table-container {
   max-width: 1080px;
@@ -238,4 +304,13 @@ select {
 .deleteLink {
   color: #d2445a;
   cursor: pointer;
+}
+
+/* ===== Style footer ===== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
 }
