@@ -248,6 +248,7 @@ input[type="text"]:focus {
 select {
   width: 350px;
   padding: 5px;
+  border-radius: 5px;
 }
 
 .modal-body p {

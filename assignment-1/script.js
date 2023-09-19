@@ -16,7 +16,7 @@ function loadBooksFromLocalStorage() {
   const storedBooks = JSON.parse(localStorage.getItem("books"));
   if (storedBooks) {
     books = storedBooks;
-    populateTable();
+    displayBook();
   }
 }
 
@@ -28,32 +28,32 @@ const deleteModal = document.getElementById("deleteBookModal");
 const successModal = document.getElementById("successModal");
 const addBtn = document.getElementById("addBtn");
 const cancelBtn = document.getElementById("cancelBtn");
-const deleteBtnConfirm = document.getElementById("deleteBtnConfirm");
 const closeAddModal = document.querySelector("#addBookModal .close");
 const closeDeleteModal = document.querySelector("#deleteBookModal .close");
 const closeSuccessModal = document.querySelector("#successModal .close");
 const toastText = document.getElementById("toast-message");
 
-closeAddModal.addEventListener("click", function () {
-  document.getElementById("addBookModal").style.display = "none";
-});
+closeAddModal.addEventListener("click", () => closeModal("addBookModal"));
+closeDeleteModal.addEventListener("click", () => closeModal("deleteBookModal"));
+cancelBtn.addEventListener("click", () => closeModal("deleteBookModal"));
+closeSuccessModal.addEventListener("click", () => closeModal("successModal"));
 
-closeDeleteModal.addEventListener("click", function () {
-  document.getElementById("deleteBookModal").style.display = "none";
-});
+addBtn.addEventListener("click", () => openModal("addBookModal"));
 
-closeSuccessModal.addEventListener("click", function () {
-  document.getElementById("successModal").style.display = "none";
-});
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
 
-cancelBtn.onclick = function () {
-  document.getElementById("deleteBookModal").style.display = "none";
-};
-
-addBtn.onclick = function () {
-  addModal.style.display = "block";
-  document.querySelector('input[name="fname"]').focus();
-};
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = "block";
+    document.querySelector('input[name="fname"]').focus();
+  }
+}
 
 window.onclick = function (event) {
   if (event.target == addModal) {
@@ -63,7 +63,7 @@ window.onclick = function (event) {
     deleteModal.style.display = "none";
   }
   if (event.target == successModal) {
-    deleteModal.style.display = "none";
+    successModal.style.display = "none";
   }
 };
 
@@ -98,14 +98,15 @@ function addBook() {
 
   lastUsedBookId = bookId;
 
+  // Reset form
   nameInput.value = "";
   authorInput.value = "";
   errorMessage.textContent = "";
 
-  populateTable();
+  displayBook();
 
-  addModal.style.display = "none";
-  successModal.style.display = "block";
+  closeModal("addBookModal");
+  openModal("successModal");
   toastText.innerHTML = `Add <b>${name}</b> successful!`;
 }
 
@@ -122,7 +123,7 @@ function searchBooks() {
     book.name.toLowerCase().includes(searchInput)
   );
   console.log("filter books:", filteredBooks);
-  populateTable(filteredBooks);
+  displayBook(filteredBooks);
 }
 
 const searchForm = document.querySelector("#search-form");
@@ -132,67 +133,69 @@ searchForm.addEventListener("submit", function (e) {
 });
 
 // Function to show book
-function populateTable(filteredData) {
+function displayBook(filteredData) {
   const tbody = document.querySelector("tbody");
-
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
-  }
+  tbody.innerHTML = "";
 
   const dataToRender = filteredData || books;
 
-  dataToRender.forEach((item) => {
+  dataToRender.forEach((book) => {
     const row = document.createElement("tr");
-    const id = document.createElement("td");
-    const name = document.createElement("td");
-    const author = document.createElement("td");
-    const topic = document.createElement("td");
-    const deleteBtn = document.createElement("td");
-    const deleteLink = document.createElement("a");
-    const deleteText = document.getElementById("confirm-message");
-
-    id.textContent = item.id;
-    row.appendChild(id);
-    name.textContent = item.name;
-    row.appendChild(name);
-    author.textContent = item.author;
-    row.appendChild(author);
-    topic.textContent = item.topic;
-    row.appendChild(topic);
-
-    deleteLink.textContent = "Delete";
-    deleteLink.classList.add("deleteLink");
-
-    // Open delete modal
-    deleteLink.addEventListener("click", () => {
-      const deleteBookId = item.id;
-      deleteModal.style.display = "block";
-      deleteText.innerHTML = `Do you want to delete <b>${item.name}</b> book?`;
-
-      // Click on delete confirm
-      deleteBtnConfirm.addEventListener("click", () => {
-        deleteBook(deleteBookId);
-        toastText.innerHTML = `Delete <b>${item.name}</b> successful!`;
-      });
-    });
-
-    deleteBtn.appendChild(deleteLink);
-    row.appendChild(deleteBtn);
+    row.innerHTML = `
+        <td>${book.id}</td>
+        <td>${book.name}</td>
+        <td>${book.author}</td>
+        <td>${book.topic}</td>
+        <td><a class="deleteLink" data-id="${book.id}" onclick="handleDeleteBook(${book.id})">Delete</a></td>
+    `;
 
     tbody.appendChild(row);
+  });
+  addDeleteEventListeners();
+}
+
+// Add a click event listener to each delete link
+function addDeleteEventListeners() {
+  const deleteLinks = document.querySelectorAll(".deleteLink");
+
+  deleteLinks.forEach((deleteLink) => {
+    deleteLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const bookId = deleteLink.getAttribute("data-id");
+      handleDeleteBook(bookId);
+    });
+  });
+}
+
+function handleDeleteBook(bookId) {
+  openModal("deleteBookModal");
+  const book = books.find((book) => book.id === parseInt(bookId, 10));
+  if (book) {
+    const deleteText = document.getElementById("confirm-message");
+    deleteText.innerHTML = `Do you want to delete <b>${book.name}</b> book?`;
+  }
+
+  const deleteBtnConfirm = document.getElementById("deleteBtnConfirm");
+  deleteBtnConfirm.setAttribute("data-id", bookId);
+
+  // Click on delete confirm
+  deleteBtnConfirm.addEventListener("click", () => {
+    const bookId = deleteBtnConfirm.getAttribute("data-id");
+    deleteBook(bookId);
+    closeModal("deleteBookModal");
+    openModal("successModal");
+    toastText.innerHTML = `Delete <b>${book.name}</b> successful!`;
   });
 }
 
 // Function to delete book
 function deleteBook(bookId) {
-  const index = books.findIndex((item) => item.id === bookId);
+  const index = books.findIndex((item) => item.id === parseInt(bookId, 10));
   if (index !== -1) {
     books.splice(index, 1);
-    populateTable();
     localStorage.setItem("books", JSON.stringify(books));
+    displayBook();
   }
-  deleteModal.style.display = "none";
-  successModal.style.display = "block";
 }
 
-populateTable();
+displayBook();
