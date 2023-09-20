@@ -251,6 +251,10 @@ select {
 }
 
 .modal-body p {
+  color: #292828;
+}
+
+.finput p {
   color: #f53a56;
 }
 

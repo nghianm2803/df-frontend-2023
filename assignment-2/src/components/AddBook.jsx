@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-function AddBook({ open, handleClose, addBook }) {
+function AddBook({ open, closeAddBook, addBook }) {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState("Programming");
   const [nameError, setNameError] = useState(false);
   const [authorError, setAuthorError] = useState(false);
 
@@ -34,7 +34,9 @@ function AddBook({ open, handleClose, addBook }) {
       return;
     }
 
+    const bookId = Math.floor(Math.random() * 1000);
     const newBook = {
+      id: bookId,
       name,
       author,
       topic,
@@ -47,15 +49,15 @@ function AddBook({ open, handleClose, addBook }) {
     setAuthor("");
     setTopic("");
 
-    handleClose();
+    closeAddBook();
   };
 
   return (
-    <div id="addBookModal" className="modal" open={open} onClose={handleClose}>
+    <div id="addBookModal" className="modal" open={open} onClose={closeAddBook}>
       <div className="modal-content">
         <div className="modal-header">
           <h2>Add book</h2>
-          <span className="close" onClick={handleClose}>
+          <span className="close" onClick={closeAddBook}>
             &times;
           </span>
         </div>
@@ -93,13 +95,9 @@ function AddBook({ open, handleClose, addBook }) {
             </div>
             <div className="finput">
               <label htmlFor="ftopic">Topic</label>
-              <select onChange={handleChange}>
+              <select onChange={handleChange} value={topic}>
                 {topics.map((topic, index) => (
-                  <option
-                    key={index}
-                    value={topic.value}
-                    defaultValue={topics[0].value}
-                  >
+                  <option key={index} value={topic.value}>
                     {topic.label}
                   </option>
                 ))}

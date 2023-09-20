@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from "react";
+import DeleteBook from "./DeleteBook"; // Import the DeleteBook component
 
-function TableBook({ books }) {
-  // Store LocalStorage
-  // function loadBooksFromLocalStorage() {
-  //   const storedBooks = JSON.parse(localStorage.getItem("books"));
-  //   if (storedBooks) {
-  //     setBooks(storedBooks);
-  //   }
-  // }
+function TableBook({ books, setBooks, openDeleteModal, closeDeleteBook }) {
+  const [deleteModal, setDeleteModal] = useState(false);
 
-  // useEffect(() => {
-  //   loadBooksFromLocalStorage();
-  // }, []);
-
-  function handleDeleteBook() {
-    console.log("sth");
+  function loadBooksFromLocalStorage() {
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    if (storedBooks) {
+      setBooks(storedBooks);
+    }
   }
+
+  useEffect(() => {
+    loadBooksFromLocalStorage();
+  }, []);
+
+  const handleDeleteBook = () => {
+    setDeleteModal(true);
+  };
+
+  const handleCloseDeleteBook = () => {
+    setDeleteModal(false);
+  };
+
+  const deleteBook = (bookToDelete) => {
+    const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
+    setBooks(updatedBooks);
+
+    localStorage.setItem("books", JSON.stringify(updatedBooks));
+  };
 
   return (
     <div className="table-container">
@@ -37,7 +50,10 @@ function TableBook({ books }) {
               <td>{book.author}</td>
               <td>{book.topic}</td>
               <td>
-                <button className="deletebtn" onClick={handleDeleteBook()}>
+                <button
+                  className="deletebtn"
+                  onClick={() => handleDeleteBook()}
+                >
                   Delete
                 </button>
               </td>
@@ -45,6 +61,13 @@ function TableBook({ books }) {
           ))}
         </tbody>
       </table>
+      {deleteModal && (
+        <DeleteBook
+          open={deleteModal}
+          closeDeleteBook={handleCloseDeleteBook}
+          deleteBook={deleteBook}
+        />
+      )}
     </div>
   );
 }

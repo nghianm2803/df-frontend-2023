@@ -30,7 +30,7 @@ function MainBody() {
     setAddModal(true);
   };
 
-  const handleClose = () => {
+  const handleCloseAddBook = () => {
     setAddModal(false);
   };
 
@@ -50,9 +50,13 @@ function MainBody() {
         </button>
       </div>
       {addModal && (
-        <AddBook open={addModal} handleClose={handleClose} addBook={addBook} />
+        <AddBook
+          open={addModal}
+          closeAddBook={handleCloseAddBook}
+          addBook={addBook}
+        />
       )}
-      <TableBook books={books} />
+      <TableBook books={books} setBooks={setBooks} />
     </div>
   );
 }
