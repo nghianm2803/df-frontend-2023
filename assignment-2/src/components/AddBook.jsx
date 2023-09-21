@@ -69,6 +69,7 @@ function AddBook({ closeAddBook, addBook }) {
                 type="text"
                 placeholder="Book name"
                 name="fname"
+                autoFocus
                 onChange={(e) => {
                   setName(e.target.value);
                   setNameError(false);

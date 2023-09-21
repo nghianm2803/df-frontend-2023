@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import TableBook from "../components/TableBook";
 import AddBook from "../components/AddBook";
+import Toast from "../components/Toast";
 
 function MainBody() {
   const [addModal, setAddModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const [books, setBooks] = useState([
     {
       id: 1,
@@ -36,9 +39,26 @@ function MainBody() {
     setAddModal(false);
   };
 
+  const openToast = () => {
+    setShowToast(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2000);
+  };
+
+  // Function to close the toast
+  const closeToast = () => {
+    setShowToast(false);
+    setToastMessage("");
+  };
+
   const addBook = (newBook) => {
     const newBooks = [...books, newBook];
     setBooks(newBooks);
+    const message = `Add <b>${newBook.name}</b> successful!`;
+    setToastMessage(message);
+    openToast();
 
     localStorage.setItem("books", JSON.stringify(newBooks));
   };
@@ -76,6 +96,7 @@ function MainBody() {
           addBook={addBook}
         />
       )}
+      {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
       <TableBook books={displayedBooks} setBooks={setBooks} />
     </div>
   );

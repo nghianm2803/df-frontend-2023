@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DeleteBook from "./DeleteBook";
+import Toast from "./Toast";
 
 function TableBook({ books, setBooks }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [bookToDelete, setBookToDelete] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   function loadBooksFromLocalStorage() {
     const storedBooks = JSON.parse(localStorage.getItem("books"));
@@ -25,10 +28,24 @@ function TableBook({ books, setBooks }) {
     setDeleteModal(false);
   };
 
+  const openToast = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2000);
+  };
+
+  const closeToast = () => {
+    setShowToast(false);
+    setToastMessage("");
+  };
+
   const deleteBook = (bookToDelete) => {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
     setBooks(updatedBooks);
-
+    openToast(true);
+    const message = `Delete <b>${bookToDelete.name}</b> successful!`;
+    setToastMessage(message);
     localStorage.setItem("books", JSON.stringify(updatedBooks));
   };
 
@@ -74,6 +91,7 @@ function TableBook({ books, setBooks }) {
           bookToDelete={bookToDelete}
         />
       )}
+      {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
     </div>
   );
 }
