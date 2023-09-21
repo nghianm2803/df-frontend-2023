@@ -1,18 +1,33 @@
 import React from "react";
-import "./themestyle.css";
+import "../theme/themestyle.css";
+import { useTheme } from "../theme/ThemeContext";
 
 function ThemeToggle({ toggleTheme }) {
+  const { isDarkTheme } = useTheme();
+
   return (
     <label id="theme-toggle-button" onClick={toggleTheme}>
-      <input type="checkbox" id="toggle" style={{ display: "none" }} />
+      <input
+        type="checkbox"
+        id="toggle"
+        style={{ display: "none" }}
+        checked={isDarkTheme}
+      />
       <svg
         viewBox="0 0 69.667 44"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         xmlns="http://www.w3.org/2000/svg"
         onClick={toggleTheme}
       >
-        <g transform="translate(3.5 3.5)" dataName="Component 15 – 1" id="Component_15_1">
-          <g filter="url(#container)" transform="matrix(1, 0, 0, 1, -3.5, -3.5)">
+        <g
+          transform="translate(3.5 3.5)"
+          dataName="Component 15 – 1"
+          id="Component_15_1"
+        >
+          <g
+            filter="url(#container)"
+            transform="matrix(1, 0, 0, 1, -3.5, -3.5)"
+          >
             <rect
               fill="#83cbd8"
               transform="translate(3.5 3.5)"
@@ -26,7 +41,10 @@ function ThemeToggle({ toggleTheme }) {
 
           <g transform="translate(2.333 2.333)" id="button">
             <g dataName="sun" id="sun">
-              <g filter="url(#sun-outer)" transform="matrix(1, 0, 0, 1, -5.83, -5.83)">
+              <g
+                filter="url(#sun-outer)"
+                transform="matrix(1, 0, 0, 1, -5.83, -5.83)"
+              >
                 <circle
                   fill="#f8e664"
                   transform="translate(5.83 5.83)"
@@ -37,7 +55,10 @@ function ThemeToggle({ toggleTheme }) {
                   id="sun-outer-2"
                 ></circle>
               </g>
-              <g filter="url(#sun)" transform="matrix(1, 0, 0, 1, -5.83, -5.83)">
+              <g
+                filter="url(#sun)"
+                transform="matrix(1, 0, 0, 1, -5.83, -5.83)"
+              >
                 <path
                   fill="rgba(246,254,247,0.29)"
                   transform="translate(9.33 9.33)"
@@ -46,10 +67,20 @@ function ThemeToggle({ toggleTheme }) {
                   id="sun-3"
                 ></path>
               </g>
-              <circle fill="#fcf4b9" transform="translate(8.167 8.167)" r="7" cy="7" cx="7" id="sun-inner"></circle>
+              <circle
+                fill="#fcf4b9"
+                transform="translate(8.167 8.167)"
+                r="7"
+                cy="7"
+                cx="7"
+                id="sun-inner"
+              ></circle>
             </g>
             <g dataName="moon" id="moon">
-              <g filter="url(#moon)" transform="matrix(1, 0, 0, 1, -31.5, -5.83)">
+              <g
+                filter="url(#moon)"
+                transform="matrix(1, 0, 0, 1, -31.5, -5.83)"
+              >
                 <circle
                   fill="#cce6ee"
                   transform="translate(31.5 5.83)"
@@ -60,13 +91,52 @@ function ThemeToggle({ toggleTheme }) {
                   id="moon-3"
                 ></circle>
               </g>
-              <g fill="#a6cad0" transform="translate(-24.415 -1.009)" id="patches">
-                <circle transform="translate(43.009 4.496)" r="2" cy="2" cx="2"></circle>
-                <circle transform="translate(39.366 17.952)" r="2" cy="2" cx="2" dataName="patch"></circle>
-                <circle transform="translate(33.016 8.044)" r="1" cy="1" cx="1" dataName="patch"></circle>
-                <circle transform="translate(51.081 18.888)" r="1" cy="1" cx="1" dataName="patch"></circle>
-                <circle transform="translate(33.016 22.503)" r="1" cy="1" cx="1" dataName="patch"></circle>
-                <circle transform="translate(50.081 10.53)" r="1.5" cy="1.5" cx="1.5" dataName="patch"></circle>
+              <g
+                fill="#a6cad0"
+                transform="translate(-24.415 -1.009)"
+                id="patches"
+              >
+                <circle
+                  transform="translate(43.009 4.496)"
+                  r="2"
+                  cy="2"
+                  cx="2"
+                ></circle>
+                <circle
+                  transform="translate(39.366 17.952)"
+                  r="2"
+                  cy="2"
+                  cx="2"
+                  dataName="patch"
+                ></circle>
+                <circle
+                  transform="translate(33.016 8.044)"
+                  r="1"
+                  cy="1"
+                  cx="1"
+                  dataName="patch"
+                ></circle>
+                <circle
+                  transform="translate(51.081 18.888)"
+                  r="1"
+                  cy="1"
+                  cx="1"
+                  dataName="patch"
+                ></circle>
+                <circle
+                  transform="translate(33.016 22.503)"
+                  r="1"
+                  cy="1"
+                  cx="1"
+                  dataName="patch"
+                ></circle>
+                <circle
+                  transform="translate(50.081 10.53)"
+                  r="1.5"
+                  cy="1.5"
+                  cx="1.5"
+                  dataName="patch"
+                ></circle>
               </g>
             </g>
           </g>
@@ -127,4 +197,3 @@ function ThemeToggle({ toggleTheme }) {
 }
 
 export default ThemeToggle;
-

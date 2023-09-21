@@ -82,7 +82,7 @@ function MainBody() {
   const displayedBooks = filteredBooks.length > 0 ? filteredBooks : books;
 
   return (
-    <div>
+    <>
       <div className="search-add">
         <SearchBar onSearch={handleSearch} />
         <button type="submit" className="btnPrimary" onClick={handleAddBook}>
@@ -98,7 +98,7 @@ function MainBody() {
       )}
       {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
       <TableBook books={displayedBooks} setBooks={setBooks} />
-    </div>
+    </>
   );
 }
 

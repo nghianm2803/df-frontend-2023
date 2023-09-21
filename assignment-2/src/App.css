@@ -307,6 +307,8 @@ select {
 
 .deletebtn {
   background-color: white;
+  border-radius: 5px;
+  padding: 5px;
   color: #d2445a;
   font-size: large;
   cursor: pointer;
@@ -319,4 +321,40 @@ select {
   margin-top: 20px;
   width: 100%;
   text-align: center;
+}
+
+/* ===== Loader ===== */
+.loader {
+  margin: auto;
+  text-align: center;
+}
+
+
+/* Dark theme style*/
+.App.dark-theme {
+  background-color: #333;
+  color: #fff;
+}
+
+.App.dark-theme .header,
+.App.dark-theme .header a {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme th,
+.dark-theme td,
+.dark-theme p {
+  color: #fff;
+}
+
+.dark-theme .modal-content {
+  background-color: #333;
+  border: 1px solid #888;
+}
+
+.dark-theme .finput {
+  color: #fff;
 }
