@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import DeleteBook from "./DeleteBook"; // Import the DeleteBook component
+import DeleteBook from "./DeleteBook";
 
-function TableBook({ books, setBooks, openDeleteModal, closeDeleteBook }) {
+function TableBook({ books, setBooks }) {
   const [deleteModal, setDeleteModal] = useState(false);
+  const [bookToDelete, setBookToDelete] = useState(null);
 
   function loadBooksFromLocalStorage() {
     const storedBooks = JSON.parse(localStorage.getItem("books"));
@@ -13,6 +14,7 @@ function TableBook({ books, setBooks, openDeleteModal, closeDeleteBook }) {
 
   useEffect(() => {
     loadBooksFromLocalStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteBook = () => {
@@ -52,7 +54,10 @@ function TableBook({ books, setBooks, openDeleteModal, closeDeleteBook }) {
               <td>
                 <button
                   className="deletebtn"
-                  onClick={() => handleDeleteBook()}
+                  onClick={() => {
+                    setBookToDelete(book);
+                    handleDeleteBook();
+                  }}
                 >
                   Delete
                 </button>
@@ -66,6 +71,7 @@ function TableBook({ books, setBooks, openDeleteModal, closeDeleteBook }) {
           open={deleteModal}
           closeDeleteBook={handleCloseDeleteBook}
           deleteBook={deleteBook}
+          bookToDelete={bookToDelete}
         />
       )}
     </div>

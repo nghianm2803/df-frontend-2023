@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../assets/logo.png";
 import Avatar from "../assets/avatar.png";
+import ThemeToggle from "../components/ThemeToggle";
 
 function MainHeader() {
   return (
@@ -12,7 +13,12 @@ function MainHeader() {
         </a>
       </div>
       <div className="header-right">
-        <a href="https://github.com/nghianm2803" target="_blank" rel="noreferrer">
+        <ThemeToggle />
+        <a
+          href="https://github.com/nghianm2803"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img src={Avatar} alt="avatar" className="avatar" />
           Du Xa Xiu
         </a>

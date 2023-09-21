@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import TableBook from "../components/TableBook";
 import AddBook from "../components/AddBook";
@@ -25,6 +25,8 @@ function MainBody() {
       topic: "DevOps",
     },
   ]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   const handleAddBook = () => {
     setAddModal(true);
@@ -41,10 +43,28 @@ function MainBody() {
     localStorage.setItem("books", JSON.stringify(newBooks));
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  useEffect(() => {
+    const formattedQuery = searchQuery.trim().toLowerCase();
+    if (formattedQuery === "") {
+      setFilteredBooks([]);
+    } else {
+      const filtered = books.filter((book) =>
+        book.name.toLowerCase().includes(formattedQuery)
+      );
+      setFilteredBooks(filtered);
+    }
+  }, [searchQuery, books]);
+
+  const displayedBooks = filteredBooks.length > 0 ? filteredBooks : books;
+
   return (
     <div>
       <div className="search-add">
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
         <button type="submit" className="btnPrimary" onClick={handleAddBook}>
           Add Book
         </button>
@@ -56,7 +76,7 @@ function MainBody() {
           addBook={addBook}
         />
       )}
-      <TableBook books={books} setBooks={setBooks} />
+      <TableBook books={displayedBooks} setBooks={setBooks} />
     </div>
   );
 }

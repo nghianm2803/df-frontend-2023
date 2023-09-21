@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AddBook({ open, closeAddBook, addBook }) {
+function AddBook({ closeAddBook, addBook }) {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [topic, setTopic] = useState("Programming");
@@ -53,7 +53,7 @@ function AddBook({ open, closeAddBook, addBook }) {
   };
 
   return (
-    <div id="addBookModal" className="modal" open={open} onClose={closeAddBook}>
+    <div id="addBookModal" className="modal">
       <div className="modal-content">
         <div className="modal-header">
           <h2>Add book</h2>

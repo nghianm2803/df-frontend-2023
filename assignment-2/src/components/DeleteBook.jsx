@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
-function DeleteBook({ open, closeDeleteBook, deleteBook, bookToDelete }) {
-  const [confirmationMessage, setConfirmationMessage] = useState("");
-
+function DeleteBook({ closeDeleteBook, deleteBook, bookToDelete }) {
   // Function to handle book deletion
   const handleDelete = () => {
     if (bookToDelete) {
       deleteBook(bookToDelete);
-      setConfirmationMessage(`Book "${bookToDelete.name}" has been deleted.`);
     }
+    closeDeleteBook();
   };
 
   return (
-    <div
-      id="deleteBookModal"
-      className="modal"
-      open={open}
-      onClose={closeDeleteBook}
-    >
+    <div id="deleteBookModal" className="modal" >
       <div className="modal-content">
         <div className="modal-header">
           <h2>Delete book</h2>
@@ -27,7 +20,7 @@ function DeleteBook({ open, closeDeleteBook, deleteBook, bookToDelete }) {
         </div>
         <div className="modal-body">
           <p id="confirm-message">
-            {confirmationMessage || "Do you want to delete this book?"}
+            Do you want to delete <b>{`${bookToDelete.name}`}</b> book?
           </p>
         </div>
 
