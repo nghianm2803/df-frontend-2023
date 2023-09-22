@@ -6,15 +6,12 @@ function Toast({ closeToast, message }) {
       <div className="modal-content">
         <div className="modal-header">
           <h2>Success!</h2>
-          <span className="close" onClick={closeToast}>
+          <button className="close" onClick={closeToast}>
             &times;
-          </span>
+          </button>
         </div>
         <div className="modal-body">
-          <p
-            id="toast-message"
-            dangerouslySetInnerHTML={{ __html: message }}
-          ></p>
+          <p id="toast-message" dangerouslySetInnerHTML={{ __html: message }} />
         </div>
       </div>
     </div>

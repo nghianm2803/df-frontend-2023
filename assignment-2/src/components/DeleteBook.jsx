@@ -14,9 +14,9 @@ function DeleteBook({ closeDeleteBook, deleteBook, bookToDelete }) {
       <div className="modal-content">
         <div className="modal-header">
           <h2>Delete book</h2>
-          <span className="close" onClick={closeDeleteBook}>
+          <button className="close" onClick={closeDeleteBook}>
             &times;
-          </span>
+          </button>
         </div>
         <div className="modal-body">
           <p id="confirm-message">

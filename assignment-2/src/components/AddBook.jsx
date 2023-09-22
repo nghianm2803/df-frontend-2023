@@ -43,7 +43,7 @@ function AddBook({ closeAddBook, addBook }) {
     };
 
     addBook(newBook);
-    console.log("New Book:", newBook);
+    // console.log("New Book:", newBook);
 
     setName("");
     setAuthor("");
@@ -57,9 +57,9 @@ function AddBook({ closeAddBook, addBook }) {
       <div className="modal-content">
         <div className="modal-header">
           <h2>Add book</h2>
-          <span className="close" onClick={closeAddBook}>
+          <button className="close" onClick={closeAddBook}>
             &times;
-          </span>
+          </button>
         </div>
         <form onSubmit={submit}>
           <div className="modal-body">

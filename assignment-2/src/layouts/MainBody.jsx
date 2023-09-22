@@ -62,22 +62,22 @@ function MainBody() {
   const addBook = (newBook) => {
     const newBooks = [...books, newBook];
     setBooks(newBooks);
+    openToast();
     const message = `Add <b>${newBook.name}</b> successful!`;
     setToastMessage(message);
-    openToast();
 
     localStorage.setItem("books", JSON.stringify(newBooks));
   };
 
-  // Function to handle book deletion
   const deleteBook = (bookToDelete) => {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
     setBooks(updatedBooks);
-    openToast(true);
+    openToast();
+
     const message = `Delete <b>${bookToDelete.name}</b> successful!`;
     setToastMessage(message);
     localStorage.setItem("books", JSON.stringify(updatedBooks));
-    console.log("updatedBooks: ", displayedBooks.length);
+    // console.log("updatedBooks: ", displayedBooks.length);
     if (displayedBooks.length === 1) {
       setCurrentPage(1);
     }
