@@ -2,7 +2,7 @@ import React from "react";
 import { useMemo } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import "../theme/pagination.css"
+import "../theme/pagination.css";
 
 export const DOTS = "...";
 
@@ -103,7 +103,6 @@ const Pagination = (props) => {
 
   // If there are less than 2 items in the pagination range, we shall not render the component
   if (currentPage === 0 || paginationRange.length < 2) {
-    console.log("Pagination component not rendering due to conditions");
     return null;
   }
 
@@ -111,23 +110,17 @@ const Pagination = (props) => {
 
   const onNext = () => {
     if (currentPage === lastPage) {
-      console.log("Next button clicked, but already on the last page");
       return;
     }
     onChangePage(currentPage + 1);
-    console.log("Next button clicked");
   };
 
   const onPrevious = () => {
     if (currentPage === 1) {
-      console.log("Previous button clicked, but already on the first page");
       return;
     }
     onChangePage(currentPage - 1);
-    console.log("Previous button clicked");
   };
-
-  console.log("Pagination component rendering");
 
   return (
     <ul className="pagination">

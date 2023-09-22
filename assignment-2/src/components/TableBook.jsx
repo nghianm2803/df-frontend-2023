@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DeleteBook from "./DeleteBook";
-import Toast from "./Toast";
 
-function TableBook({ books, setBooks }) {
+function TableBook({ books, setBooks, deleteBook }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [bookToDelete, setBookToDelete] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   function loadBooksFromLocalStorage() {
@@ -26,29 +23,10 @@ function TableBook({ books, setBooks }) {
     setDeleteModal(true);
   };
 
-  const handleCloseDeleteBook = () => {
+  const confirmDelete = () => {
+    deleteBook(bookToDelete);
     setDeleteModal(false);
-  };
-
-  const openToast = () => {
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 2000);
-  };
-
-  const closeToast = () => {
-    setShowToast(false);
-    setToastMessage("");
-  };
-
-  const deleteBook = (bookToDelete) => {
-    const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
-    setBooks(updatedBooks);
-    openToast(true);
-    const message = `Delete <b>${bookToDelete.name}</b> successful!`;
-    setToastMessage(message);
-    localStorage.setItem("books", JSON.stringify(updatedBooks));
+    setBookToDelete(null);
   };
 
   return (
@@ -92,13 +70,10 @@ function TableBook({ books, setBooks }) {
           {deleteModal && (
             <DeleteBook
               open={deleteModal}
-              closeDeleteBook={handleCloseDeleteBook}
-              deleteBook={deleteBook}
+              closeDeleteBook={() => setDeleteModal(false)}
+              deleteBook={confirmDelete}
               bookToDelete={bookToDelete}
             />
-          )}
-          {showToast && (
-            <Toast message={toastMessage} closeToast={closeToast} />
           )}
         </div>
       )}

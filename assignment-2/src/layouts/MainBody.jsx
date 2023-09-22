@@ -69,6 +69,20 @@ function MainBody() {
     localStorage.setItem("books", JSON.stringify(newBooks));
   };
 
+  // Function to handle book deletion
+  const deleteBook = (bookToDelete) => {
+    const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
+    setBooks(updatedBooks);
+    openToast(true);
+    const message = `Delete <b>${bookToDelete.name}</b> successful!`;
+    setToastMessage(message);
+    localStorage.setItem("books", JSON.stringify(updatedBooks));
+    console.log("updatedBooks: ", displayedBooks.length);
+    if (displayedBooks.length === 1) {
+      setCurrentPage(1);
+    }
+  };
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     setCurrentPage(1);
@@ -94,11 +108,6 @@ function MainBody() {
     displayedBooks = books.slice(startIndex, endIndex);
   }
 
-  /**
-   * Bug:
-   * Delete an item -> Show left item in current page
-   */
-
   return (
     <>
       <div className="search-add">
@@ -115,7 +124,11 @@ function MainBody() {
         />
       )}
       {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
-      <TableBook books={displayedBooks} setBooks={setBooks} />
+      <TableBook
+        books={displayedBooks}
+        setBooks={setBooks}
+        deleteBook={deleteBook}
+      />
       {displayedBooks.length >= 5 || currentPage > 1 ? (
         <Pagination
           totalCount={filteredTotalCount}
