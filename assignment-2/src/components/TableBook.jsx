@@ -6,17 +6,17 @@ function TableBook({ books, setBooks, deleteBook }) {
   const [bookToDelete, setBookToDelete] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  function loadBooksFromLocalStorage() {
-    const storedBooks = JSON.parse(localStorage.getItem("books"));
-    if (storedBooks) {
-      setBooks(storedBooks);
+  useEffect(() => {
+    try {
+      const storedBooksString = localStorage.getItem("books");
+      if (storedBooksString) {
+        const storedBooks = JSON.parse(storedBooksString);
+        setBooks(storedBooks);
+      }
+    } catch (error) {
+      console.error("Error get books from localStorage:", error);
     }
     setIsLoading(false);
-  }
-
-  useEffect(() => {
-    loadBooksFromLocalStorage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteBook = () => {
