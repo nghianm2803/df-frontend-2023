@@ -1,38 +1,371 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,600&family=Rubik:wght@400;500;600;700&display=swap");
+
+/* ===== Base CSS ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Rubik", san-serif;
+  line-height: 1.7;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+select {
+  padding: 6px;
+  font-size: 17px;
+  border: 1px solid #888;
+  outline: none;
+}
+
+h1,
+h2 {
+  color: #273542;
+}
+
+th,
+td {
+  color: #273542;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  text-align: left;
+  padding: 7px;
+  transition: 0.3s;
+}
+
+/* ===== Style header ===== */
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+.header a {
+  display: flex;
+  align-items: center;
+  float: left;
+  color: #273542;
   text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 0.375rem;
+  transition: 0.3s;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* ===== Style search and add btn ===== */
+.search-add {
+  margin: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-container .icon {
+  float: right;
+  padding: 6px 10px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-container .icon:hover {
+  background: #ccc;
+}
+
+input[type="text"] {
+  padding: 6px;
+  font-size: 17px;
+  border: 1px solid #888;
+  outline: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+input[type="text"]:focus {
+  border: 1px solid #292828;
+}
+
+.btnPrimary {
+  padding: 0.75rem 1.3rem;
+  line-height: 1;
+  border-radius: 0.375rem;
+  box-shadow: 0 0 1px rgb(0 0 0 / 0%);
+  border: 1px solid transparent;
+  color: #fff;
+  display: inline-block;
+  background-color: #d2445a;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btnPrimary:hover {
+  background-color: #bb2c41;
+}
+
+.btnSecondary {
+  padding: 0.75rem 1.3rem;
+  line-height: 1;
+  border-radius: 0.375rem;
+  box-shadow: 0 0 1px rgb(0 0 0 / 0%);
+  border: 1px solid transparent;
+  color: #000;
+  display: inline-block;
+  background-color: #ccc;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btnSecondary:hover {
+  background-color: #838282;
+}
+
+/* ===== Style modal ===== */
+.modal {
+  padding: 2px 16px;
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 150px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 4;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 0.375rem;
+  width: 30%;
+
+  -webkit-animation-name: popout;
+  -webkit-animation-duration: 0.3s;
+  animation-name: popout;
+  animation-duration: 0.3s;
+}
+
+/*
+  Why keyframes and webkit keyframes?
+  Whenever you add a "@webkit" prefix, allowing support for chrome browser to render animation.
+  @Doocharsiu
+*/
+
+@-webkit-keyframes popout {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@keyframes popout {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-align: center;
+  margin: 10px;
+}
+
+.finput {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 5px;
+  color: #4e4d4d;
+  font-weight: bold;
+}
+
+.modal-body input,
+select {
+  width: 350px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.modal-body p {
+  color: #292828;
+}
+
+.finput p {
+  color: #f53a56;
+}
+
+.modal-footer {
+  text-align: right;
+}
+
+.close {
+  background-color: transparent;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #4e4d4d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.closebtn {
+  margin-left: 15px;
   color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+.closebtn:hover {
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* ===== Style table ===== */
+.table-container {
+  max-width: 1080px;
+  padding-top: 3rem;
+  margin: 0 auto;
+}
+
+#myTable {
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  width: 100%;
+  font-size: 18px;
+}
+
+.deletebtn {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  color: #d2445a;
+  font-size: large;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.deletebtn:hover {
+  color: #bb2c41;
+  background-color: #e7e7e7;
+}
+
+/* ===== Style footer ===== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* ===== Loader ===== */
+.loader {
+  margin: auto;
+  text-align: center;
+}
+
+/* Dark theme style*/
+.App.dark-theme {
+  background-color: #333;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.App.dark-theme .header,
+.App.dark-theme .header a {
+  background-color: #333;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme th,
+.dark-theme td,
+.dark-theme p {
+  color: #fff;
+  transition: 0.3s;
+}
+
+.dark-theme .modal-content {
+  background-color: #333;
+  border: 1px solid #888;
+  transition: 0.3s;
+}
+
+.dark-theme .finput {
+  color: #fff;
+  transition: 0.3s;
 }
