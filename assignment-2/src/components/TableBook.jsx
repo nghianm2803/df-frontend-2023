@@ -38,7 +38,6 @@ function TableBook({ books, setBooks, deleteBook }) {
           <table id="myTable">
             <thead>
               <tr className="table-header">
-                <th style={{ width: "10%" }}>ID</th>
                 <th style={{ width: "50%" }}>Name</th>
                 <th style={{ width: "20%" }}>Author</th>
                 <th style={{ width: "20%" }}>Topic</th>
@@ -48,7 +47,6 @@ function TableBook({ books, setBooks, deleteBook }) {
             <tbody>
               {books.map((book, index) => (
                 <tr key={index}>
-                  <td>{book.id}</td>
                   <td>{book.name}</td>
                   <td>{book.author}</td>
                   <td>{book.topic}</td>
