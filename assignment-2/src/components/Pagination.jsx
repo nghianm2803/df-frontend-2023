@@ -1,5 +1,8 @@
 import React from "react";
 import { useMemo } from "react";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import "../theme/pagination.css"
 
 export const DOTS = "...";
 
@@ -18,7 +21,7 @@ export const usePagination = ({
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
-    const totalPageNumbers = siblingCount + 5;
+    const totalPageNumbers = siblingCount * 2 + 5;
 
     /*
       Case 1:
@@ -134,9 +137,8 @@ const Pagination = (props) => {
         onClick={onPrevious}
         key="on_prev_pagination"
       >
-        <span className="arrow left">
-          Left arrow
-          {/* <Icon source={ChevronLeftMinor} color="base" /> */}
+        <span className="arrow-left">
+          <AiOutlineArrowLeft />
         </span>
       </li>
       {paginationRange.map((pageNumber, index) => {
@@ -144,7 +146,7 @@ const Pagination = (props) => {
         if (pageNumber === DOTS) {
           return (
             <li className="pagination-item dots" key={`dots_${index}`}>
-              &#8230;
+              <a>&#8230;</a>
             </li>
           );
         }
@@ -172,9 +174,8 @@ const Pagination = (props) => {
         onClick={onNext}
         key="on_next_pagination"
       >
-        <span className="arrow right">
-          Right arrow
-          {/* <Icon source={ChevronRightMinor} color="base" /> */}
+        <span className="arrow-right">
+          <AiOutlineArrowRight />
         </span>
       </li>
     </ul>

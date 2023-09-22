@@ -31,22 +31,11 @@ function MainBody() {
   ]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [mainQuery, setMainQuery] = useState({
-    ...{
-      page: 1,
-      limit: 5,
-    },
-    ...searchQuery,
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filteredTotalCount, setFilteredTotalCount] = useState(books.length);
 
-  /**
-   * Change page number
-   */
   const onChangePageNumber = useCallback((numPage) => {
-    setMainQuery((prevMainQuery) => ({
-      ...prevMainQuery,
-      page: numPage,
-    }));
+    setCurrentPage(numPage);
   }, []);
 
   const handleAddBook = () => {
@@ -65,7 +54,6 @@ function MainBody() {
     }, 2000);
   };
 
-  // Function to close the toast
   const closeToast = () => {
     setShowToast(false);
     setToastMessage("");
@@ -83,6 +71,7 @@ function MainBody() {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -91,11 +80,24 @@ function MainBody() {
       book.name.toLowerCase().includes(formattedQuery)
     );
     setFilteredBooks(filtered);
+
+    setFilteredTotalCount(filtered.length);
   }, [searchQuery, books]);
 
-  const startIndex = (mainQuery.page - 1) * mainQuery.limit;
-  const endIndex = startIndex + mainQuery.limit;
-  const displayedBooks = filteredBooks.slice(startIndex, endIndex) || books.slice(startIndex, endIndex);
+  let displayedBooks;
+  const startIndex = (currentPage - 1) * 5;
+  const endIndex = startIndex + 5;
+
+  if (searchQuery) {
+    displayedBooks = filteredBooks.slice(startIndex, endIndex);
+  } else {
+    displayedBooks = books.slice(startIndex, endIndex);
+  }
+
+  /**
+   * Bug:
+   * Delete an item -> Show left item in current page
+   */
 
   return (
     <>
@@ -114,14 +116,14 @@ function MainBody() {
       )}
       {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
       <TableBook books={displayedBooks} setBooks={setBooks} />
-      {books.length > mainQuery.limit && (
+      {displayedBooks.length >= 5 || currentPage > 1 ? (
         <Pagination
-          totalCount={books.length}
-          currentPage={mainQuery.page}
+          totalCount={filteredTotalCount}
+          currentPage={currentPage}
           pageSize={5}
           onChangePage={onChangePageNumber}
         />
-      )}
+      ) : null}
     </>
   );
 }
