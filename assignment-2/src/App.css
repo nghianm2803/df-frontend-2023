@@ -167,7 +167,6 @@ input[type="text"]:focus {
   padding: 2px 16px;
   display: block;
   position: fixed;
-  z-index: 1;
   padding-top: 150px;
   left: 0;
   top: 0;
@@ -264,6 +263,18 @@ select {
   text-align: right;
 }
 
+#successModal {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
 .close {
   background-color: transparent;
   color: #aaaaaa;
@@ -351,38 +362,38 @@ select {
 }
 
 /* Dark theme style*/
-.App.dark-theme {
+.App.darkTheme {
   background-color: #333;
   color: #fff;
   transition: 0.3s;
 }
 
-.App.dark-theme .header {
+.App.darkTheme .header {
   background-color: #333;
   transition: 0.3s;
 }
 
-.App.dark-theme .header a {
+.App.darkTheme .header a {
   color: #fff;
   transition: 0.3s;
 }
 
-.dark-theme h1,
-.dark-theme h2,
-.dark-theme th,
-.dark-theme td,
-.dark-theme p {
+.darkTheme h1,
+.darkTheme h2,
+.darkTheme th,
+.darkTheme td,
+.darkTheme p {
   color: #fff;
   transition: 0.3s;
 }
 
-.dark-theme .modalContent {
+.darkTheme .modalContent {
   background-color: #333;
   border: 1px solid #888;
   transition: 0.3s;
 }
 
-.dark-theme .fieldInput {
+.darkTheme .fieldInput {
   color: #fff;
   transition: 0.3s;
 }

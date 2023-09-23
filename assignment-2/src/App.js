@@ -6,7 +6,7 @@ function App() {
   const { isDarkTheme } = useTheme();
   console.log("isDarkTheme:", isDarkTheme);
   return (
-    <div className={`App ${isDarkTheme ? "dark-theme" : ""}`}>
+    <div className={`App ${isDarkTheme ? "darkTheme" : ""}`}>
       <MainLayout />
     </div>
   );
