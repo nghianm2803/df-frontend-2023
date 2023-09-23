@@ -1,10 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DeleteBook from "./DeleteBook";
+import Pagination from "./Pagination";
+import EmptyData from "./EmptyData";
 
-function TableBook({ books, setBooks, deleteBook }) {
+function TableBook({
+  books,
+  setBooks,
+  deleteBook,
+  currentPage,
+  setCurrentPage,
+}) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [bookToDelete, setBookToDelete] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const onChangePageNumber = useCallback(
+    (numPage) => {
+      setCurrentPage(numPage);
+    },
+    [setCurrentPage]
+  );
 
   useEffect(() => {
     try {
@@ -17,7 +32,7 @@ function TableBook({ books, setBooks, deleteBook }) {
       console.error("Error get books from localStorage:", error);
     }
     setIsLoading(false);
-  }, []);
+  }, [setBooks]);
 
   const handleDeleteBook = () => {
     setDeleteModal(true);
@@ -27,7 +42,14 @@ function TableBook({ books, setBooks, deleteBook }) {
     deleteBook(bookToDelete);
     setDeleteModal(false);
     setBookToDelete(null);
+    if (slicedBooks.length === 1) {
+      setCurrentPage(1);
+    }
   };
+
+  const startIndex = (currentPage - 1) * 5;
+  const endIndex = startIndex + 5;
+  const slicedBooks = books.slice(startIndex, endIndex);
 
   return (
     <>
@@ -45,7 +67,7 @@ function TableBook({ books, setBooks, deleteBook }) {
               </tr>
             </thead>
             <tbody>
-              {books.map((book, index) => (
+              {slicedBooks.map((book, index) => (
                 <tr key={index}>
                   <td>{book.name}</td>
                   <td>{book.author}</td>
@@ -65,6 +87,7 @@ function TableBook({ books, setBooks, deleteBook }) {
               ))}
             </tbody>
           </table>
+          {slicedBooks.length === 0 ? <EmptyData /> : null}
           {deleteModal && (
             <DeleteBook
               open={deleteModal}
@@ -75,6 +98,14 @@ function TableBook({ books, setBooks, deleteBook }) {
           )}
         </div>
       )}
+      {slicedBooks.length >= 5 || currentPage > 1 ? (
+        <Pagination
+          totalCount={books.length}
+          currentPage={currentPage}
+          pageSize={5}
+          onChangePage={onChangePageNumber}
+        />
+      ) : null}
     </>
   );
 }

@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import TableBook from "../components/TableBook";
 import AddBook from "../components/AddBook";
 import Toast from "../components/Toast";
-import Pagination from "../components/Pagination";
 
 function MainBody() {
   const [addModal, setAddModal] = useState(false);
@@ -32,11 +31,6 @@ function MainBody() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredTotalCount, setFilteredTotalCount] = useState(books.length);
-
-  const onChangePageNumber = useCallback((numPage) => {
-    setCurrentPage(numPage);
-  }, []);
 
   const handleAddBook = () => {
     setAddModal(true);
@@ -77,10 +71,6 @@ function MainBody() {
     const message = `Delete <b>${bookToDelete.name}</b> successful!`;
     setToastMessage(message);
     localStorage.setItem("books", JSON.stringify(updatedBooks));
-    // console.log("updatedBooks: ", displayedBooks.length);
-    if (displayedBooks.length === 1) {
-      setCurrentPage(1);
-    }
   };
 
   const handleSearch = (query) => {
@@ -94,19 +84,9 @@ function MainBody() {
       book.name.toLowerCase().includes(formattedQuery)
     );
     setFilteredBooks(filtered);
-
-    setFilteredTotalCount(filtered.length);
   }, [searchQuery, books]);
 
-  let displayedBooks;
-  const startIndex = (currentPage - 1) * 5;
-  const endIndex = startIndex + 5;
-
-  if (searchQuery) {
-    displayedBooks = filteredBooks.slice(startIndex, endIndex);
-  } else {
-    displayedBooks = books.slice(startIndex, endIndex);
-  }
+  const displayedBooks = filteredBooks || books;
 
   return (
     <>
@@ -128,15 +108,9 @@ function MainBody() {
         books={displayedBooks}
         setBooks={setBooks}
         deleteBook={deleteBook}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
-      {displayedBooks.length >= 5 || currentPage > 1 ? (
-        <Pagination
-          totalCount={filteredTotalCount}
-          currentPage={currentPage}
-          pageSize={5}
-          onChangePage={onChangePageNumber}
-        />
-      ) : null}
     </>
   );
 }
