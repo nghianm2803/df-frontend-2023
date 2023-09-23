@@ -10,8 +10,8 @@ function SearchBar({ onSearch }) {
   }
 
   return (
-    <div className="search-container">
-      <form id="search-form" onSubmit={handleSearch}>
+    <div className="searchContainer">
+      <form id="searchForm" onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="Search books"

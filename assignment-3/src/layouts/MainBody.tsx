@@ -99,16 +99,18 @@ function MainBody(): JSX.Element {
   }, [searchQuery, books])
 
   let displayedBooks: IBook[] = []
+  const startIndex = (currentPage - 1) * 5;
+  const endIndex = startIndex + 5;
 
   if (searchQuery) {
-    displayedBooks = filteredBooks
+    displayedBooks = filteredBooks.slice(startIndex, endIndex);
   } else {
-    displayedBooks = books
+    displayedBooks = books.slice(startIndex, endIndex);
   }
 
   return (
     <>
-      <div className="search-add">
+      <div className="searchAdd">
         <SearchBar onSearch={handleSearch} />
         <button type="submit" className="btnPrimary" onClick={handleAddBook}>
           Add Book
@@ -118,11 +120,6 @@ function MainBody(): JSX.Element {
         <AddBook closeAddBook={handleCloseAddBook} addBook={addBook} />
       )}
       {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
-      <TableBook
-        books={displayedBooks}
-        setBooks={setBooks}
-        deleteBook={deleteBook}
-      />
       {displayedBooks.length >= 5 || currentPage > 1 ? (
         <Pagination
           totalCount={filteredTotalCount}
@@ -131,6 +128,11 @@ function MainBody(): JSX.Element {
           onChangePage={onChangePageNumber}
         />
       ) : null}
+      <TableBook
+        books={displayedBooks}
+        setBooks={setBooks}
+        deleteBook={deleteBook}
+      />
     </>
   )
 }

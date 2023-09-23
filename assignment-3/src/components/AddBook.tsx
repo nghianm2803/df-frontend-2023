@@ -59,23 +59,23 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
 
   return (
     <div id="addBookModal" className="modal">
-      <div className="modal-content">
-        <div className="modal-header">
+      <div className="modalContent">
+        <div className="modalHeader">
           <h2>Add book</h2>
           <button className="close" onClick={closeAddBook}>
             &times;
           </button>
         </div>
         <form onSubmit={submit}>
-          <div className="modal-body">
-            <div className="finput">
-              <label htmlFor="fname">
+          <div className="modalBody">
+            <div className="fieldInput">
+              <label htmlFor="fieldName">
                 {' '}
                 <input
                   type="text"
                   placeholder="Book name"
-                  id="fname"
-                  name="fname"
+                  id="fieldName"
+                  name="fieldName"
                   autoFocus
                   value={name}
                   onChange={(e) => {
@@ -86,16 +86,16 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               </label>
 
               {nameError && (
-                <p className="error-message">Name field is required.</p>
+                <p className="errorMessage">Name field is required.</p>
               )}
             </div>
-            <div className="finput">
-              <label htmlFor="fauthor">
+            <div className="fieldInput">
+              <label htmlFor="fieldAuthor">
                 <input
                   type="text"
                   placeholder="Author"
-                  id="fauthor"
-                  name="fauthor"
+                  id="fieldAuthor"
+                  name="fieldAuthor"
                   value={author}
                   onChange={(e) => {
                     setAuthor(e.target.value)
@@ -105,11 +105,11 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               </label>
 
               {authorError && (
-                <p className="error-message">Author field is required.</p>
+                <p className="errorMessage">Author field is required.</p>
               )}
             </div>
-            <div className="finput">
-              <label htmlFor="ftopic">
+            <div className="fieldInput">
+              <label htmlFor="fieldTopic">
                 {' '}
                 <select onChange={handleChange} value={topic}>
                   {topics.map((topic, index) => (
@@ -121,7 +121,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               </label>
             </div>
           </div>
-          <div className="modal-footer">
+          <div className="modalFooter">
             <button type="submit" className="btnPrimary" id="createBtn">
               Create
             </button>

@@ -45,10 +45,10 @@ function TableBook({
       {isLoading ? (
         <div className="loader">Loading...</div>
       ) : (
-        <div className="table-container">
+        <div className="tableContainer">
           <table id="myTable">
             <thead>
-              <tr className="table-header">
+              <tr className="tableHeader">
                 <th style={{ width: '50%' }}>Name</th>
                 <th style={{ width: '20%' }}>Author</th>
                 <th style={{ width: '20%' }}>Topic</th>

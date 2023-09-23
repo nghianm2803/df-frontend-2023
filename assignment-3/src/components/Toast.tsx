@@ -8,15 +8,15 @@ interface ToastProps {
 function Toast({ closeToast, message }: ToastProps): JSX.Element {
   return (
     <div id="successModal" className="modal">
-      <div className="modal-content">
-        <div className="modal-header">
+      <div className="modalContent">
+        <div className="modalHeader">
           <h2>Success!</h2>
           <button className="close" onClick={closeToast}>
             &times;
           </button>
         </div>
-        <div className="modal-body">
-          <p id="toast-message" dangerouslySetInnerHTML={{ __html: message }} />
+        <div className="modalBody">
+          <p id="toastMessage" dangerouslySetInnerHTML={{ __html: message }} />
         </div>
       </div>
     </div>

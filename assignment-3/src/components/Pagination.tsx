@@ -130,51 +130,54 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
   }
 
   return (
-    <ul className="pagination">
+    <div className="pagination">
       {/* Left navigation arrow */}
-      <li
-        className={`pagination-item ` + (currentPage === 1 ? 'disabled' : '')}
+      <button
+        className={`pagination-item ${currentPage === 1 ? 'disabled' : ''}`}
         onClick={onPrevious}
         key="on_prev_pagination"
       >
-        <span className="arrow-left">Arrow Left</span>
-      </li>
+        <p className="arrow-left">Arrow Left</p>
+      </button>
+      {/* pageNumber: any */}
       {paginationRange.map((pageNumber: any, index: number) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {
           return (
-            <li className="pagination-item dots" key={`dots_${index}`}>
-              <a>&#8230;</a>
-            </li>
+            <button>
+              <p className="pagination-item dots" key={`dots_${index}`}>
+                &#8230;
+              </p>
+            </button>
           )
         }
 
-        let randomKey = pageNumber + '_nPageKey'
+        const randomKey = `${pageNumber}_nPageKey`
 
         // Render our Page Pills
         return (
-          <li
-            className={
-              `pagination-item ` + (pageNumber === currentPage ? 'active' : '')
-            }
+          <button
+            className={`pagination-item ${
+              pageNumber === currentPage ? 'active' : ''
+            }`}
             onClick={() => onChangePage(pageNumber)}
             key={randomKey}
           >
-            <a>{pageNumber}</a>
-          </li>
+            <p>{pageNumber}</p>
+          </button>
         )
       })}
       {/*  Right Navigation arrow */}
-      <li
-        className={
-          `pagination-item ` + (currentPage === lastPage ? 'disabled' : '')
-        }
+      <button
+        className={`pagination-item ${
+          currentPage === lastPage ? 'disabled' : ''
+        }`}
         onClick={onNext}
         key="on_next_pagination"
       >
-        <span className="arrow-right">Arrow right</span>
-      </li>
-    </ul>
+        <p className="arrow-right">Arrow right</p>
+      </button>
+    </div>
   )
 }
 
