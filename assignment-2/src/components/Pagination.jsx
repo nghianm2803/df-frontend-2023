@@ -123,55 +123,57 @@ const Pagination = (props) => {
   };
 
   return (
-    <ul className="pagination">
+    <div className="pagination">
       {/* Left navigation arrow */}
-      <li
-        className={`pagination-item ` + (currentPage === 1 ? "disabled" : "")}
+      <button
+        className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
         onClick={onPrevious}
         key="on_prev_pagination"
       >
-        <span className="arrow-left">
+        <p className="arrow-left">
           <AiOutlineArrowLeft />
-        </span>
-      </li>
+        </p>
+      </button>
       {paginationRange.map((pageNumber, index) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
           return (
-            <li className="pagination-item dots" key={`dots_${index}`}>
-              <a>&#8230;</a>
-            </li>
+            <button>
+              <p className="pagination-item dots" key={`dots_${index}`}>
+                &#8230;
+              </p>
+            </button>
           );
         }
 
-        const randomKey = pageNumber + "_nPageKey";
+        const randomKey = `${pageNumber}_nPageKey`;
 
         // Render our Page Pills
         return (
-          <li
-            className={
-              `pagination-item ` + (pageNumber === currentPage ? "active" : "")
-            }
+          <button
+            className={`pagination-item ${
+              pageNumber === currentPage ? "active" : ""
+            }`}
             onClick={() => onChangePage(pageNumber)}
             key={randomKey}
           >
-            <a>{pageNumber}</a>
-          </li>
+            <p>{pageNumber}</p>
+          </button>
         );
       })}
       {/*  Right Navigation arrow */}
-      <li
-        className={
-          `pagination-item ` + (currentPage === lastPage ? "disabled" : "")
-        }
+      <button
+        className={`pagination-item ${
+          currentPage === lastPage ? "disabled" : ""
+        }`}
         onClick={onNext}
         key="on_next_pagination"
       >
-        <span className="arrow-right">
+        <p className="arrow-right">
           <AiOutlineArrowRight />
-        </span>
-      </li>
-    </ul>
+        </p>
+      </button>
+    </div>
   );
 };
 

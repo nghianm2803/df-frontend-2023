@@ -4,14 +4,18 @@
   border-radius: 4px;
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
 }
 
-.pagination > li {
+.pagination > button {
   display: inline-block;
+  background-color: transparent;
 }
 
-.pagination > li > a,
-.pagination > li > span {
+.pagination > button > p {
   position: relative;
   float: left;
   cursor: pointer;
@@ -24,23 +28,19 @@
   border: 1px solid #ddd;
 }
 
-.pagination > li:first-child > a,
-.pagination > li:first-child > span {
+.pagination > button:first-child > p {
   margin-left: 0;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
-.pagination > li:last-child > a,
-.pagination > li:last-child > span {
+.pagination > button:last-child > p {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover {
+.pagination > button > p:focus,
+.pagination > button > p:hover {
   z-index: 3;
   cursor: pointer;
   color: #000;
@@ -48,71 +48,52 @@
   border-color: #ddd;
 }
 
-.pagination > .active > a,
-.pagination > .active > a:focus,
-.pagination > .active > a:hover,
-.pagination > .active > span,
-.pagination > .active > span:focus,
-.pagination > .active > span:hover {
+.pagination > .active > p,
+.pagination > .active > p:focus,
+.pagination > .active > p:hover {
   z-index: 2;
   color: #333;
   cursor: pointer;
   background-color: #ddd;
 }
 
-.pagination > .disabled > a,
-.pagination > .disabled > a:focus,
-.pagination > .disabled > a:hover,
-.pagination > .disabled > span,
-.pagination > .disabled > span:focus,
-.pagination > .disabled > span:hover {
+.pagination > .disabled > p,
+.pagination > .disabled > p:focus,
+.pagination > .disabled > p:hover {
   color: #777;
   cursor: not-allowed;
   background-color: transparent;
   border-color: #ddd;
 }
 
-.pagination-lg > li > a,
-.pagination-lg > li > span {
+.pagination-lg > button > p {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
 }
 
-.pagination-lg > li:first-child > a,
-.pagination-lg > li:first-child > span {
+.pagination-lg > button:first-child > p {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-.pagination-lg > li:last-child > a,
-.pagination-lg > li:last-child > span {
+.pagination-lg > button:last-child > p {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
 
-.pagination-sm > li > a,
-.pagination-sm > li > span {
+.pagination-sm > button > p {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
 }
 
-.pagination-sm > li:first-child > a,
-.pagination-sm > li:first-child > span {
+.pagination-sm > button:first-child > p {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.pagination-sm > li:last-child > a,
-.pagination-sm > li:last-child > span {
+.pagination-sm > button:last-child > p {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-}
-
-.arrow-left,
-.arrow-right {
-  display: flex;
-  align-items: center;
-  min-height: 36.84px;
 }

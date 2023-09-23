@@ -297,7 +297,7 @@ select {
 /* ===== Style table ===== */
 .table-container {
   max-width: 1080px;
-  padding-top: 3rem;
+  padding-top: 1rem;
   margin: 0 auto;
 }
 
