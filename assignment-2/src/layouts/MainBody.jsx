@@ -90,7 +90,7 @@ function MainBody() {
 
   return (
     <>
-      <div className="search-add">
+      <div className="searchAdd">
         <SearchBar onSearch={handleSearch} />
         <button type="submit" className="btnPrimary" onClick={handleAddBook}>
           Add Book

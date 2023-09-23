@@ -61,8 +61,8 @@ td {
   transition: 0.3s;
 }
 
-.header-left,
-.header-right {
+.headerLeft,
+.headerRight {
   display: flex;
   align-items: center;
   float: right;
@@ -92,13 +92,13 @@ td {
 }
 
 /* ===== Style search and add btn ===== */
-.search-add {
+.searchAdd {
   margin: 30px;
   display: flex;
   justify-content: space-between;
 }
 
-.search-container .icon {
+.searchContainer .icon {
   float: right;
   padding: 6px 10px;
   margin-right: 16px;
@@ -110,7 +110,7 @@ td {
   transition: 0.3s;
 }
 
-.search-container .icon:hover {
+.searchContainer .icon:hover {
   background: #ccc;
 }
 
@@ -179,7 +179,7 @@ input[type="text"]:focus {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modalContent {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -221,13 +221,13 @@ input[type="text"]:focus {
   }
 }
 
-.modal-header {
+.modalHeader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.modal-body {
+.modalBody {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -236,7 +236,7 @@ input[type="text"]:focus {
   margin: 10px;
 }
 
-.finput {
+.fieldInput {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -245,22 +245,22 @@ input[type="text"]:focus {
   font-weight: bold;
 }
 
-.modal-body input,
+.modalBody input,
 select {
   width: 350px;
   padding: 5px;
   border-radius: 5px;
 }
 
-.modal-body p {
+.modalBody p {
   color: #292828;
 }
 
-.finput p {
+.fieldInput p {
   color: #f53a56;
 }
 
-.modal-footer {
+.modalFooter {
   text-align: right;
 }
 
@@ -295,7 +295,7 @@ select {
 }
 
 /* ===== Style table ===== */
-.table-container {
+.tableContainer {
   max-width: 1080px;
   padding-top: 1rem;
   margin: 0 auto;
@@ -338,14 +338,14 @@ select {
 }
 
 /* ===== EmptyData ===== */
-.emptydata {
+.emptyData {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.emptydata img {
+.emptyData img {
   max-width: 50%;
   height: auto;
 }
@@ -376,13 +376,13 @@ select {
   transition: 0.3s;
 }
 
-.dark-theme .modal-content {
+.dark-theme .modalContent {
   background-color: #333;
   border: 1px solid #888;
   transition: 0.3s;
 }
 
-.dark-theme .finput {
+.dark-theme .fieldInput {
   color: #fff;
   transition: 0.3s;
 }

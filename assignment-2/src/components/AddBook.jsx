@@ -54,21 +54,21 @@ function AddBook({ closeAddBook, addBook }) {
 
   return (
     <div id="addBookModal" className="modal">
-      <div className="modal-content">
-        <div className="modal-header">
+      <div className="modalContent">
+        <div className="modalHeader">
           <h2>Add book</h2>
           <button className="close" onClick={closeAddBook}>
             &times;
           </button>
         </div>
         <form onSubmit={submit}>
-          <div className="modal-body">
-            <div className="finput">
-              <label htmlFor="fname">Name</label>
+          <div className="modalBody">
+            <div className="fieldInput">
+              <label htmlFor="fieldName">Name</label>
               <input
                 type="text"
                 placeholder="Book name"
-                name="fname"
+                name="fieldName"
                 autoFocus
                 onChange={(e) => {
                   setName(e.target.value);
@@ -79,12 +79,12 @@ function AddBook({ closeAddBook, addBook }) {
                 <p className="error-message">Name field is required.</p>
               )}
             </div>
-            <div className="finput">
-              <label htmlFor="fauthor">Author</label>
+            <div className="fieldInput">
+              <label htmlFor="fieldAuthor">Author</label>
               <input
                 type="text"
                 placeholder="Author"
-                name="fauthor"
+                name="fieldAuthor"
                 onChange={(e) => {
                   setAuthor(e.target.value);
                   setAuthorError(false);
@@ -94,7 +94,7 @@ function AddBook({ closeAddBook, addBook }) {
                 <p className="error-message">Author field is required.</p>
               )}
             </div>
-            <div className="finput">
+            <div className="fieldInput">
               <label htmlFor="ftopic">Topic</label>
               <select onChange={handleChange} value={topic}>
                 {topics.map((topic, index) => (
@@ -105,7 +105,7 @@ function AddBook({ closeAddBook, addBook }) {
               </select>
             </div>
           </div>
-          <div className="modal-footer">
+          <div className="modalFooter">
             <button type="submit" className="btnPrimary" id="createBtn">
               Create
             </button>
