@@ -7,7 +7,8 @@ interface ToastProps {
 
 function Toast({ closeToast, message }: ToastProps): JSX.Element {
   return (
-    <div id="successModal" className="modal">
+    // Semantic check
+    <button id="successModal" className="toast" onClick={closeToast}>
       <div className="modalContent">
         <div className="modalHeader">
           <h2>Success!</h2>
@@ -19,7 +20,7 @@ function Toast({ closeToast, message }: ToastProps): JSX.Element {
           <p id="toastMessage" dangerouslySetInnerHTML={{ __html: message }} />
         </div>
       </div>
-    </div>
+    </button>
   )
 }
 

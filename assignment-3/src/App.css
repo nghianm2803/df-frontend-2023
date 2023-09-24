@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,600&family=Rubik:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,600&family=Rubik:wght@400;500;600;700&display=swap');
 
 /* ===== Base CSS ===== */
 
@@ -18,7 +18,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "Rubik", san-serif;
+  font-family: 'Rubik', san-serif;
   line-height: 1.7;
 }
 
@@ -54,8 +54,10 @@ td {
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
-    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
   display: flex;
   justify-content: space-between;
   transition: 0.3s;
@@ -114,7 +116,7 @@ td {
   background: #ccc;
 }
 
-input[type="text"] {
+input[type='text'] {
   padding: 6px;
   font-size: 17px;
   border: 1px solid #888;
@@ -124,7 +126,7 @@ input[type="text"] {
   border-radius: 5px;
 }
 
-input[type="text"]:focus {
+input[type='text']:focus {
   border: 1px solid #292828;
 }
 
@@ -167,7 +169,6 @@ input[type="text"]:focus {
   padding: 2px 16px;
   display: block;
   position: fixed;
-  z-index: 1;
   padding-top: 150px;
   left: 0;
   top: 0;
@@ -264,6 +265,32 @@ select {
   text-align: right;
 }
 
+#successModal {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.toast {
+  padding: 2px 16px;
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 4;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .close {
   background-color: transparent;
   color: #aaaaaa;
@@ -351,38 +378,38 @@ select {
 }
 
 /* Dark theme style*/
-.App.dark-theme {
+.App.darkTheme {
   background-color: #333;
   color: #fff;
   transition: 0.3s;
 }
 
-.App.dark-theme .header {
+.App.darkTheme .header {
   background-color: #333;
   transition: 0.3s;
 }
 
-.App.dark-theme .header a {
+.App.darkTheme .header a {
   color: #fff;
   transition: 0.3s;
 }
 
-.dark-theme h1,
-.dark-theme h2,
-.dark-theme th,
-.dark-theme td,
-.dark-theme p {
+.darkTheme h1,
+.darkTheme h2,
+.darkTheme th,
+.darkTheme td,
+.darkTheme p {
   color: #fff;
   transition: 0.3s;
 }
 
-.dark-theme .modalContent {
+.darkTheme .modalContent {
   background-color: #333;
   border: 1px solid #888;
   transition: 0.3s;
 }
 
-.dark-theme .fieldInput {
+.darkTheme .fieldInput {
   color: #fff;
   transition: 0.3s;
 }

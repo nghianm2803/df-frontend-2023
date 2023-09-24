@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
 import { IBook } from '../components/BookModel'
 import Toast from '../components/Toast'
-import Pagination from '../components/Pagination'
 
 function MainBody(): JSX.Element {
   const [addModal, setAddModal] = useState<boolean>(false)
@@ -32,12 +31,7 @@ function MainBody(): JSX.Element {
   ])
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [filteredTotalCount, setFilteredTotalCount] = useState(books.length)
-
-  const onChangePageNumber = useCallback((numPage: number) => {
-    setCurrentPage(numPage)
-  }, [])
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const handleAddBook = () => {
     setAddModal(true)
@@ -94,19 +88,9 @@ function MainBody(): JSX.Element {
       book.name.toLowerCase().includes(formattedQuery),
     )
     setFilteredBooks(filtered)
-
-    setFilteredTotalCount(filtered.length)
   }, [searchQuery, books])
 
-  let displayedBooks: IBook[] = []
-  const startIndex = (currentPage - 1) * 5;
-  const endIndex = startIndex + 5;
-
-  if (searchQuery) {
-    displayedBooks = filteredBooks.slice(startIndex, endIndex);
-  } else {
-    displayedBooks = books.slice(startIndex, endIndex);
-  }
+  const displayedBooks = filteredBooks || books
 
   return (
     <>
@@ -120,18 +104,12 @@ function MainBody(): JSX.Element {
         <AddBook closeAddBook={handleCloseAddBook} addBook={addBook} />
       )}
       {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
-      {displayedBooks.length >= 5 || currentPage > 1 ? (
-        <Pagination
-          totalCount={filteredTotalCount}
-          currentPage={currentPage}
-          pageSize={5}
-          onChangePage={onChangePageNumber}
-        />
-      ) : null}
       <TableBook
         books={displayedBooks}
         setBooks={setBooks}
         deleteBook={deleteBook}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </>
   )
