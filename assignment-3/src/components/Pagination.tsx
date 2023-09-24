@@ -137,7 +137,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         onClick={onPrevious}
         key="on_prev_pagination"
       >
-        <p className="arrow-left">Arrow Left</p>
+        <p className="arrow-left">Prev</p>
       </button>
       {/* pageNumber: any */}
       {paginationRange.map((pageNumber: any, index: number) => {
@@ -175,7 +175,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         onClick={onNext}
         key="on_next_pagination"
       >
-        <p className="arrow-right">Arrow right</p>
+        <p className="arrow-right">Next</p>
       </button>
     </div>
   )

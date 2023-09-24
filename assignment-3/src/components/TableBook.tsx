@@ -106,8 +106,8 @@ function TableBook({
           )}
         </div>
       )}
-      <p>books count: {books.length}</p>
-      <p>Slice books count: {slicedBooks.length}</p>
+      {/* <p>books count: {books.length}</p>
+      <p>Slice books count: {slicedBooks.length}</p> */}
       {slicedBooks.length >= 5 || currentPage > 1 ? (
         <Pagination
           totalCount={books.length}
