@@ -3,31 +3,13 @@ import SearchBar from "../components/SearchBar";
 import TableBook from "../components/TableBook";
 import AddBook from "../components/AddBook";
 import Toast from "../components/Toast";
+import { BOOKS } from "../constant/book";
 
 function MainBody() {
   const [addModal, setAddModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const [books, setBooks] = useState([
-    {
-      id: 1,
-      name: "Refactoring",
-      author: "Martin Fowler",
-      topic: "Programming",
-    },
-    {
-      id: 2,
-      name: "Designing Data-Intensive Applications",
-      author: "Martin Kleppmann",
-      topic: "Database",
-    },
-    {
-      id: 3,
-      name: "The Phoenix Project",
-      author: "Gene Kim",
-      topic: "DevOps",
-    },
-  ]);
+  const [books, setBooks] = useState(BOOKS);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

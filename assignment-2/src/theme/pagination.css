@@ -4,10 +4,6 @@
   border-radius: 4px;
   display: flex;
   justify-content: center;
-  position: absolute;
-  bottom: 40px;
-  left: 0;
-  right: 0;
 }
 
 .pagination > button {
