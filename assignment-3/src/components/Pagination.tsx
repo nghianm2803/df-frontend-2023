@@ -129,18 +129,10 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     onChangePage(currentPage - 1)
   }
 
-  return (
-    <div className="pagination">
-      {/* Left navigation arrow */}
-      <button
-        className={`pagination-item}
-        onClick={onPrevious}
-        key="on_prev_pagination"
-      >
         <p className="arrow-left">Prev</p>
       </button>
       {/* pageNumber: any */}
-      {paginationRange.map((pageNumber) => {
+      {paginationRange.map((pageNumber: any, index: number) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {
           return (
