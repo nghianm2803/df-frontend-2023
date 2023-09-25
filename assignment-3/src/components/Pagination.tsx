@@ -133,14 +133,14 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     <div className="pagination">
       {/* Left navigation arrow */}
       <button
-        className={`pagination-item ${currentPage === 1 ? 'disabled' : ''}`}
+        className={`pagination-item}
         onClick={onPrevious}
         key="on_prev_pagination"
       >
         <p className="arrow-left">Prev</p>
       </button>
       {/* pageNumber: any */}
-      {paginationRange.map((pageNumber: any, index: number) => {
+      {paginationRange.map((pageNumber) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {
           return (
