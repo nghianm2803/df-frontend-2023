@@ -51,11 +51,6 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{html, css, tsx, jsx, ts, js}": "prettier --write",
     "*.tsx": [
