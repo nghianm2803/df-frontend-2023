@@ -129,6 +129,14 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     onChangePage(currentPage - 1)
   }
 
+  return (
+    <div className="pagination">
+      {/* Left navigation arrow */}
+      <button
+        className={`pagination-item ${currentPage === 1 ? 'disabled' : ''}`}
+        onClick={onPrevious}
+        key="on_prev_pagination"
+      >
         <p className="arrow-left">Prev</p>
       </button>
       {/* pageNumber: any */}

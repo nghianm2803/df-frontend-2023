@@ -4,6 +4,7 @@ import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
 import EmptyData from './EmptyData'
 
+var a
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
@@ -47,7 +48,7 @@ function TableBook({
   useEffect(() => {
     const storedPage = localStorage.getItem('currentPage')
     if (storedPage) {
-      setCurrentPage(parseInt(storedPage))
+      setCurrentPage(parseInt(storedPage, 10))
     }
   }, [setCurrentPage])
 

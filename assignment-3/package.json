@@ -3,6 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "6.x",
+    "@typescript-eslint/parser": "6.x",
+    "babel-eslint": "10.x",
+    "eslint": "8.x",
+    "eslint-config-airbnb": "19.x",
+    "eslint-config-airbnb-typescript": "17.x",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-config-react": "1.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "5.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "4.x",
+    "eslint-plugin-testing-library": "5.x",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -16,7 +30,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -44,7 +59,7 @@
   "lint-staged": {
     "*": "prettier --write",
     "*.tsx": [
-      "eslint --fix --max-warnings 0",
+      "eslint --fix",
       "git add"
     ]
   },
