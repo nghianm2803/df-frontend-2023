@@ -4,7 +4,7 @@ import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
 import EmptyData from './EmptyData'
 
-var ashello aasdcsasa sa
+var asdsd
 
 interface TableBookProps {
   books: IBook[]
