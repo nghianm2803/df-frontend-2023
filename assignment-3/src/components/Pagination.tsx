@@ -144,10 +144,8 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {
           return (
-            <button>
-              <p className="pagination-item dots" key={`dots_${index}`}>
-                &#8230;
-              </p>
+            <button key={`dots_${index}`}>
+              <p className="pagination-item dots">&#8230;</p>
             </button>
           )
         }

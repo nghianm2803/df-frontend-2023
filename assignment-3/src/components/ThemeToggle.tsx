@@ -4,6 +4,9 @@ import { useTheme } from '../theme/ThemeContext'
 
 function ThemeToggle({ toggleTheme }) {
   const { isDarkTheme } = useTheme()
+  const handleToggleChange = () => {
+    toggleTheme();
+  };
 
   return (
     <button id="theme-toggle-button" onClick={toggleTheme}>
@@ -12,6 +15,7 @@ function ThemeToggle({ toggleTheme }) {
         id="toggle"
         style={{ display: 'none' }}
         checked={isDarkTheme}
+        onChange={handleToggleChange}
       />
       <svg
         viewBox="0 0 69.667 44"

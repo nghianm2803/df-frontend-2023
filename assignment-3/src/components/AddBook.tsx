@@ -70,7 +70,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
           <div className="modalBody">
             <div className="fieldInput">
               <label htmlFor="fieldName">
-                {' '}
+                Name
                 <input
                   type="text"
                   placeholder="Book name"
@@ -91,6 +91,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
             </div>
             <div className="fieldInput">
               <label htmlFor="fieldAuthor">
+                Author
                 <input
                   type="text"
                   placeholder="Author"
@@ -110,7 +111,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
             </div>
             <div className="fieldInput">
               <label htmlFor="fieldTopic">
-                {' '}
+                Topic
                 <select onChange={handleChange} value={topic}>
                   {topics.map((topic, index) => (
                     <option key={index} value={topic.value}>

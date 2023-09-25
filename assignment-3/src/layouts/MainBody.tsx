@@ -4,31 +4,13 @@ import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
 import { IBook } from '../components/BookModel'
 import Toast from '../components/Toast'
+import { BOOKS } from '../constant/book'
 
 function MainBody(): JSX.Element {
   const [addModal, setAddModal] = useState<boolean>(false)
   const [showToast, setShowToast] = useState<boolean>(false)
   const [toastMessage, setToastMessage] = useState<string>('')
-  const [books, setBooks] = useState<IBook[]>([
-    {
-      id: 1,
-      name: 'Refactoring',
-      author: 'Martin Fowler',
-      topic: 'Programming',
-    },
-    {
-      id: 2,
-      name: 'Designing Data-Intensive Applications',
-      author: 'Martin Kleppmann',
-      topic: 'Database',
-    },
-    {
-      id: 3,
-      name: 'The Phoenix Project',
-      author: 'Gene Kim',
-      topic: 'DevOps',
-    },
-  ])
+  const [books, setBooks] = useState<IBook[]>(BOOKS)
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)

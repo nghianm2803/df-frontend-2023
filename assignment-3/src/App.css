@@ -417,6 +417,10 @@ select {
   transition: 0.3s;
 }
 
+.darkTheme .errorMessage {
+  color: #f53a56;
+}
+
 .darkTheme .modalContent {
   background-color: #333;
   border: 1px solid #888;
