@@ -13,7 +13,7 @@ function SearchBar({ onSearch }) {
     <div className="searchContainer">
       <form id="searchForm" onSubmit={handleSearch}>
         <input
-          type="text"
+          type="search"
           placeholder="Search books"
           name="search"
           value={searchQuery}

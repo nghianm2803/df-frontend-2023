@@ -6,6 +6,7 @@
     width: 3em;
     height: 1.8rem;
     cursor: pointer;
+    background-color: transparent;
   }
   
   /* Hide default HTML checkbox */
