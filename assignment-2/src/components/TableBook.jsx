@@ -17,9 +17,17 @@ function TableBook({
   const onChangePageNumber = useCallback(
     (numPage) => {
       setCurrentPage(numPage);
+      localStorage.setItem("currentPage", numPage.toString());
     },
     [setCurrentPage]
   );
+
+  useEffect(() => {
+    const storedPage = localStorage.getItem("currentPage");
+    if (storedPage) {
+      setCurrentPage(parseInt(storedPage));
+    }
+  }, [setCurrentPage]);
 
   useEffect(() => {
     try {
