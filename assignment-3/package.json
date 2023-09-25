@@ -51,12 +51,17 @@
       "last 1 safari version"
     ]
   },
-  "lint-staged": {
-    "*.{html, css, tsx, jsx, ts, js}": "prettier --write",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+},
+"lint-staged": {
     "*.tsx": [
-      "eslint"
+      "eslint 'src/**' --fix",
+      "npm run test:staged"
     ]
-  },
+},
   "devDependencies": {
     "@dwarvesf/react-eslint-config": "^1.0.1",
     "@testing-library/jest-dom": "^6.1.3",
