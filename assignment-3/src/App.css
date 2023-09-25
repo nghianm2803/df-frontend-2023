@@ -338,6 +338,7 @@ select {
 /* ===== Style table ===== */
 .tableContainer {
   max-width: 1080px;
+  min-height: 350px;
   padding-top: 1rem;
   margin: 0 auto;
 }
