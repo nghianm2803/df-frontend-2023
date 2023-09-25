@@ -76,7 +76,7 @@ function AddBook({ closeAddBook, addBook }) {
                 }}
               />
               {nameError && (
-                <p className="error-message">Name field is required.</p>
+                <p className="errorMessage">Name field is required.</p>
               )}
             </div>
             <div className="fieldInput">
@@ -91,7 +91,7 @@ function AddBook({ closeAddBook, addBook }) {
                 }}
               />
               {authorError && (
-                <p className="error-message">Author field is required.</p>
+                <p className="errorMessage">Author field is required.</p>
               )}
             </div>
             <div className="fieldInput">
