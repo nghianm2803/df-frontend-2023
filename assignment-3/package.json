@@ -52,7 +52,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "node ../../.git/hooks/pre-commit"
+      "pre-commit": "npx lint-staged"
     }
   },
   "lint-staged": {
