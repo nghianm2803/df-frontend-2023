@@ -140,7 +140,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         <p className="arrow-left">Prev</p>
       </button>
       {/* pageNumber: any */}
-      {paginationRange.map((pageNumber: any, index: number) => {
+      {paginationRange.map((pageNumber, index: number) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {
           return (
