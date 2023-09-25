@@ -85,7 +85,7 @@ devDependencies:
     specifier: ^18.2.7
     version: 18.2.7
   husky:
-    specifier: ^8.0.3
+    specifier: ^8.0.0
     version: 8.0.3
   lint-staged:
     specifier: ^14.0.1
