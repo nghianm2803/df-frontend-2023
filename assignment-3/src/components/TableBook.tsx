@@ -3,13 +3,13 @@ import { IBook } from './BookModel'
 import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
 import EmptyData from './EmptyData'
-
-var sadgfdg asdsd sadsd sdsdsd
+import EditBook from './EditBook'
 
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
   deleteBook: (book: IBook) => void
+  editBook: (book: IBook) => void
   currentPage: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
@@ -18,9 +18,12 @@ function TableBook({
   books,
   setBooks,
   deleteBook,
+  editBook,
   currentPage,
   setCurrentPage,
 }: TableBookProps): JSX.Element {
+  const [editModal, setEditModal] = useState<boolean>(false)
+  const [bookToEdit, setBookToEdit] = useState<any>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -53,7 +56,13 @@ function TableBook({
     }
   }, [setCurrentPage])
 
-  const handleDeleteBook = () => {
+  const handleEditBook = (book: IBook) => {
+    setBookToEdit(book)
+    setEditModal(true)
+  }
+
+  const handleDeleteBook = (book: IBook) => {
+    setBookToDelete(book)
     setDeleteModal(true)
   }
 
@@ -92,21 +101,37 @@ function TableBook({
                   <td>{book.author}</td>
                   <td>{book.topic}</td>
                   <td>
-                    <button
-                      className="deletebtn"
-                      onClick={() => {
-                        setBookToDelete(book)
-                        handleDeleteBook()
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <div className="action">
+                      <button
+                        className="editbtn"
+                        onClick={() => {
+                          handleEditBook(book)
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="deletebtn"
+                        onClick={() => {
+                          handleDeleteBook(book)
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
           {slicedBooks.length === 0 ? <EmptyData /> : null}
+          {editModal && (
+            <EditBook
+              closeEditBook={() => setEditModal(false)}
+              bookToEdit={bookToEdit}
+              editBook={editBook}
+            />
+          )}
           {deleteModal && (
             <DeleteBook
               closeDeleteBook={() => setDeleteModal(false)}

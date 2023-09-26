@@ -4,7 +4,7 @@ import { IBook } from './BookModel'
 interface DeleteBookProps {
   closeDeleteBook: () => void
   deleteBook: (book: IBook | null) => void
-  bookToDelete: IBook | null
+  bookToDelete: IBook
 }
 
 function DeleteBook({
@@ -35,22 +35,24 @@ function DeleteBook({
         </div>
 
         <div className="modalFooter">
-          <button
-            type="button"
-            className="btnPrimary"
-            id="deleteBtnConfirm"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
-          <button
-            type="button"
-            className="btnSecondary"
-            id="cancelBtn"
-            onClick={closeDeleteBook}
-          >
-            Cancel
-          </button>
+          <div className="confirmAction">
+            <button
+              type="button"
+              className="btnPrimary"
+              id="deleteBtnConfirm"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className="btnSecondary"
+              id="cancelBtn"
+              onClick={closeDeleteBook}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

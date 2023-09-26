@@ -28,7 +28,7 @@ function MainBody(): JSX.Element {
 
     setTimeout(() => {
       setShowToast(false)
-    }, 2000)
+    }, 1000)
   }
 
   const closeToast = () => {
@@ -44,6 +44,18 @@ function MainBody(): JSX.Element {
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(newBooks))
+  }
+
+  const editBook = (editedBook: IBook) => {
+    const updatedBooks = books.map((book) =>
+      book.id === editedBook.id ? editedBook : book,
+    )
+    setBooks(updatedBooks)
+    openToast()
+
+    const message = `Edit <b>${editedBook.name}</b> successful!`
+    setToastMessage(message)
+    localStorage.setItem('books', JSON.stringify(updatedBooks))
   }
 
   const deleteBook = (bookToDelete: IBook) => {
@@ -89,6 +101,7 @@ function MainBody(): JSX.Element {
       <TableBook
         books={displayedBooks}
         setBooks={setBooks}
+        editBook={editBook}
         deleteBook={deleteBook}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
