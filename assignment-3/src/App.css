@@ -294,6 +294,10 @@ select {
   justify-content: center;
 }
 
+#confirmMessage{
+  text-align: center;
+}
+
 #successModal {
   position: fixed;
   display: block;
@@ -327,7 +331,16 @@ select {
   height: 100%;
   background-color: #55d244;
   position: absolute;
-  animation: progressBar 1s linear forwards;
+  animation: progressBar 1.5s linear forwards;
+}
+
+@keyframes progressBar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .close {
@@ -427,15 +440,6 @@ select {
 .loader {
   margin: auto;
   text-align: center;
-}
-
-@keyframes progressBar {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
 }
 
 /* ===== EmptyData ===== */

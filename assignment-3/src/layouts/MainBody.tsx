@@ -28,7 +28,7 @@ function MainBody(): JSX.Element {
 
     setTimeout(() => {
       setShowToast(false)
-    }, 1000)
+    }, 1500)
   }
 
   const closeToast = () => {

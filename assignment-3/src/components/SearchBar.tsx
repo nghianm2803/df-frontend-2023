@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from 'react'
-// import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 function SearchBar({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -20,8 +20,7 @@ function SearchBar({ onSearch }) {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button type="submit" className="icon">
-          {/* <AiOutlineSearch /> */}
-          Search
+          <AiOutlineSearch />
         </button>
       </form>
     </div>

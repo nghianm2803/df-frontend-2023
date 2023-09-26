@@ -1,4 +1,5 @@
 import React, { useMemo, FunctionComponent } from 'react'
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import '../theme/pagination.css'
 
 interface PaginationProps {
@@ -137,7 +138,10 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         onClick={onPrevious}
         key="on_prev_pagination"
       >
-        <p className="arrow-left">Prev</p>
+        <p className="arrow-left">
+          {' '}
+          <AiOutlineArrowLeft />
+        </p>
       </button>
       {/* pageNumber: any */}
       {paginationRange.map((pageNumber: any, index: number) => {
@@ -173,7 +177,10 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         onClick={onNext}
         key="on_next_pagination"
       >
-        <p className="arrow-right">Next</p>
+        <p className="arrow-right">
+          {' '}
+          <AiOutlineArrowRight />
+        </p>
       </button>
     </div>
   )

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IBook } from './BookModel'
 import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
@@ -27,6 +27,17 @@ function TableBook({
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+
+ const prevPageRef = useRef(currentPage);
+  useEffect(() => {
+    if (currentPage !== prevPageRef.current) {
+      const params = `?page=${currentPage}`;
+      // console.log("Updating URL with params:", params);
+      window.history.replaceState({}, "", params);
+
+      prevPageRef.current = currentPage;
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     try {
@@ -70,9 +81,6 @@ function TableBook({
     deleteBook(bookToDelete)
     setDeleteModal(false)
     setBookToDelete(null)
-    if (slicedBooks.length === 1) {
-      setCurrentPage(1)
-    }
   }
 
   const startIndex = (currentPage - 1) * 5
