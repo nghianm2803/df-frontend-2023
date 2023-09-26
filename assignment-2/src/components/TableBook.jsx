@@ -71,15 +71,6 @@ function TableBook({
     deleteBook(bookToDelete);
     setDeleteModal(false);
     setBookToDelete(null);
-    if (slicedBooks.length === 1) {
-      setCurrentPage(1);
-
-      const newParams = `?page=${1}`;
-      // console.log("Update URL newParams:", newParams);
-      // console.log("Before URL update:", window.location.href);
-      window.history.replaceState({}, "", newParams);
-      // console.log("After URL update:", window.location.href);
-    }
   };
 
   const startIndex = (currentPage - 1) * 5;

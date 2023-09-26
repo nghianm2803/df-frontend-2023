@@ -294,6 +294,10 @@ select {
   justify-content: center;
 }
 
+#confirmMessage {
+  text-align: center;
+}
+
 #successModal {
   position: fixed;
   display: block;
