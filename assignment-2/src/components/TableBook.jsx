@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import DeleteBook from "./DeleteBook";
 import Pagination from "./Pagination";
 import EmptyData from "./EmptyData";
@@ -17,6 +17,17 @@ function TableBook({
   const [deleteModal, setDeleteModal] = useState(false);
   const [bookToDelete, setBookToDelete] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const prevPageRef = useRef(currentPage);
+  useEffect(() => {
+    if (currentPage !== prevPageRef.current) {
+      const params = `?page=${currentPage}`;
+      // console.log("Updating URL with params:", params);
+      window.history.replaceState({}, "", params);
+
+      prevPageRef.current = currentPage;
+    }
+  }, [currentPage]);
 
   const onChangePageNumber = useCallback(
     (numPage) => {
@@ -62,6 +73,12 @@ function TableBook({
     setBookToDelete(null);
     if (slicedBooks.length === 1) {
       setCurrentPage(1);
+
+      const newParams = `?page=${1}`;
+      // console.log("Update URL newParams:", newParams);
+      // console.log("Before URL update:", window.location.href);
+      window.history.replaceState({}, "", newParams);
+      // console.log("After URL update:", window.location.href);
     }
   };
 

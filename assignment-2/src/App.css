@@ -30,7 +30,7 @@ button {
 
 select {
   padding: 6px;
-  font-size: 17px;
+  font-size: 1.063rem;
   border: 1px solid #888;
   outline: none;
 }
@@ -113,7 +113,7 @@ td {
   padding: 6px 10px;
   margin-right: 16px;
   background: #ddd;
-  font-size: 17px;
+  font-size: 1.063rem;
   border: 1px solid transparent;
   border-radius: 5px;
   cursor: pointer;
@@ -126,7 +126,7 @@ td {
 
 input[type="text"] {
   padding: 6px;
-  font-size: 17px;
+  font-size: 1.063rem;
   border: 1px solid #888;
   outline: none;
   transition: border-color 0.3s;
@@ -140,7 +140,7 @@ input[type="text"]:focus {
 
 input[type="search"] {
   padding: 6px;
-  font-size: 17px;
+  font-size: 1.063rem;
   border: 1px solid #888;
   outline: none;
   transition: border-color 0.3s;
@@ -394,8 +394,8 @@ select {
 
 /* ===== Style footer ===== */
 .footer {
-  position: fixed;
-  bottom: 0;
+  position: relative;
+  margin-top: 10px;
   width: 100%;
   text-align: center;
 }
