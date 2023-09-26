@@ -1,7 +1,5 @@
-import React from "react";
-import { useMemo } from "react";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import React, { useMemo } from "react";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import "../theme/pagination.css";
 
 export const DOTS = "...";
