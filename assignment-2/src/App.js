@@ -4,7 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 
 function App() {
   const { isDarkTheme } = useTheme();
-  console.log("isDarkTheme:", isDarkTheme);
+  // console.log("isDarkTheme:", isDarkTheme);
   return (
     <div className={`App ${isDarkTheme ? "darkTheme" : ""}`}>
       <MainLayout />

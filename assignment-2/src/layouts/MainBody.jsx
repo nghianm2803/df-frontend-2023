@@ -45,6 +45,18 @@ function MainBody() {
     localStorage.setItem("books", JSON.stringify(newBooks));
   };
 
+  const editBook = (editedBook) => {
+    const updatedBooks = books.map((book) =>
+      book.id === editedBook.id ? editedBook : book
+    );
+    setBooks(updatedBooks);
+    openToast();
+
+    const message = `Edit <b>${editedBook.name}</b> successful!`;
+    setToastMessage(message);
+    localStorage.setItem("books", JSON.stringify(updatedBooks));
+  };
+
   const deleteBook = (bookToDelete) => {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
     setBooks(updatedBooks);
@@ -79,16 +91,13 @@ function MainBody() {
         </button>
       </div>
       {addModal && (
-        <AddBook
-          open={addModal}
-          closeAddBook={handleCloseAddBook}
-          addBook={addBook}
-        />
+        <AddBook closeAddBook={handleCloseAddBook} addBook={addBook} />
       )}
       {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
       <TableBook
         books={displayedBooks}
         setBooks={setBooks}
+        editBook={editBook}
         deleteBook={deleteBook}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

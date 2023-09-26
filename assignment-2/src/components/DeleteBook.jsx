@@ -10,7 +10,7 @@ function DeleteBook({ closeDeleteBook, deleteBook, bookToDelete }) {
   };
 
   return (
-    <div id="deleteBookModal" className="modal" >
+    <div id="deleteBookModal" className="modal">
       <div className="modalContent">
         <div className="modalHeader">
           <h2>Delete book</h2>
@@ -25,22 +25,24 @@ function DeleteBook({ closeDeleteBook, deleteBook, bookToDelete }) {
         </div>
 
         <div className="modalFooter">
-          <button
-            type="button"
-            className="btnPrimary"
-            id="deleteBtnConfirm"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
-          <button
-            type="button"
-            className="btnSecondary"
-            id="cancelBtn"
-            onClick={closeDeleteBook}
-          >
-            Cancel
-          </button>
+          <div className="confirmAction">
+            <button
+              type="button"
+              className="btnPrimary"
+              id="deleteBtnConfirm"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className="btnSecondary"
+              id="cancelBtn"
+              onClick={closeDeleteBook}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

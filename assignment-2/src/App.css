@@ -40,7 +40,15 @@ h2 {
   color: #273542;
 }
 
-th,
+th {
+  color: #273542;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  text-align: center;
+  padding: 7px;
+  transition: 0.3s;
+}
+
 td {
   color: #273542;
   border: 1px solid #ddd;
@@ -54,8 +62,10 @@ td {
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
-    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
   display: flex;
   justify-content: space-between;
   transition: 0.3s;
@@ -161,6 +171,7 @@ input[type="search"]:focus {
 
 .btnSecondary {
   padding: 0.75rem 1.3rem;
+  margin-left: 10px;
   line-height: 1;
   border-radius: 0.375rem;
   box-shadow: 0 0 1px rgb(0 0 0 / 0%);
@@ -275,6 +286,13 @@ select {
 
 .modalFooter {
   text-align: right;
+  margin-top: 20px;
+}
+
+.confirmAction {
+  display: flex;
+  justify-content: center;
+  
 }
 
 #successModal {
@@ -334,6 +352,29 @@ select {
   font-size: 18px;
 }
 
+/* Group edit and add button */
+.action {
+  display: flex;
+}
+
+.editbtn {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 10px;
+  color: #55d244;
+  font-size: large;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.editbtn:hover {
+  color: #42c031;
+  background-color: #e7e7e7;
+  border: 1px solid #42c031;
+}
+
 .deletebtn {
   background-color: white;
   border-radius: 5px;
@@ -341,12 +382,14 @@ select {
   color: #d2445a;
   font-size: large;
   cursor: pointer;
+  border: 1px solid transparent;
   transition: 0.3s;
 }
 
 .deletebtn:hover {
   color: #bb2c41;
   background-color: #e7e7e7;
+  border: 1px solid #bb2c41;
 }
 
 /* ===== Style footer ===== */
