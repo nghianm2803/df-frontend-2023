@@ -87,7 +87,7 @@ td {
   text-align: center;
   padding: 12px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 25px;
   border-radius: 0.375rem;
   transition: 0.3s;
@@ -292,7 +292,6 @@ select {
 .confirmAction {
   display: flex;
   justify-content: center;
-  
 }
 
 #successModal {
@@ -307,11 +306,35 @@ select {
   cursor: pointer;
 }
 
+.loaderSlice {
+  margin: auto;
+  height: 3px;
+  background-color: #ccc;
+  position: relative;
+}
+
+.progressBar {
+  width: 0;
+  height: 100%;
+  background-color: #55d244;
+  position: absolute;
+  animation: progressBar 1.5s linear forwards;
+}
+
+@keyframes progressBar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 .close {
   background-color: transparent;
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: bold;
 }
 
@@ -320,21 +343,6 @@ select {
   color: #4e4d4d;
   text-decoration: none;
   cursor: pointer;
-}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
 }
 
 /* ===== Style table ===== */
@@ -349,7 +357,7 @@ select {
   border-collapse: collapse;
   border: 1px solid #ddd;
   width: 100%;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 /* Group edit and add button */

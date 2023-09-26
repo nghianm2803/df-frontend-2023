@@ -27,7 +27,7 @@ function MainBody() {
 
     setTimeout(() => {
       setShowToast(false);
-    }, 2000);
+    }, 1500);
   };
 
   const closeToast = () => {

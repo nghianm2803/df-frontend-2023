@@ -13,6 +13,9 @@ function Toast({ closeToast, message }) {
         <div className="modalBody">
           <p id="toastMessage" dangerouslySetInnerHTML={{ __html: message }} />
         </div>
+        <div className="loaderSlice">
+          <div className="progressBar" />
+        </div>
       </div>
     </div>
   );
