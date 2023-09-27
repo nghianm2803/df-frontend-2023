@@ -4,9 +4,8 @@ import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
 import EmptyData from './EmptyData'
 import EditBook from './EditBook'
-
-var asdsdas dsad sadsad  as
-
+ 
+ascsc 
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
