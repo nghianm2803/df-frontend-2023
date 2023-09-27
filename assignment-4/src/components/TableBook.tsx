@@ -93,7 +93,7 @@ function TableBook({
       {isLoading ? (
         <LoadingSkeleton />
       ) : (
-        <div className="pt-8 m-4 h-96 min-h-full">
+        <div className="pt-3 m-4 h-96 min-h-full">
           <table className="border-collapse border border-slate-300 w-full text-lg ">
             <thead>
               <tr className="table-row">

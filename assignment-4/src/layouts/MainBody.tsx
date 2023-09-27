@@ -15,6 +15,7 @@ function MainBody(): JSX.Element {
   const [books, setBooks] = useState<IBook[]>(BOOKS)
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([])
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
 
   const handleAddBook = () => {
@@ -90,7 +91,7 @@ function MainBody(): JSX.Element {
 
   return (
     <>
-      <div className="flex justify-between m-8">
+      <div className="flex justify-between m-8 pt-20">
         <SearchBar  onSearch={handleSearch}/>
         <button type="submit" className="btn-primary" onClick={handleAddBook}>
           Add Book
@@ -105,6 +106,8 @@ function MainBody(): JSX.Element {
         setBooks={setBooks}
         editBook={editBook}
         deleteBook={deleteBook}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </>
   )

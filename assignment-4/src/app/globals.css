@@ -16,6 +16,12 @@
   }
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -45,4 +51,8 @@ body {
 
 .btn-close {
   @apply bg-transparent text-gray-500 float-right text-2xl font-bold hover:text-gray-700 hover:cursor-pointer;
+}
+
+.btn-pagination{
+  @apply relative float-left cursor-pointer px-2 py-2 leading-6 no-underline border transition hover:bg-gray-300 ;
 }

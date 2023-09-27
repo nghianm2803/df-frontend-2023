@@ -131,24 +131,27 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
   }
 
   return (
-    <div className="pagination">
+    <div className="flex justify-center p-2 rounded">
       {/* Left navigation arrow */}
       <button
-        className={`pagination-item ${currentPage === 1 ? 'disabled' : ''}`}
+        className={`btn-pagination rounded-tl-md rounded-bl-md inline-block bg-transparent text-blue-400 hover:text-black   ${
+          currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
         onClick={onPrevious}
         key="on_prev_pagination"
+        disabled={currentPage === 1}
       >
-        <p className="arrow-left">
-          {' '}
-          <AiOutlineArrowLeft />
-        </p>
+        <AiOutlineArrowLeft />
       </button>
       {/* pageNumber: any */}
       {paginationRange.map((pageNumber: any, index: number) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {
           return (
-            <button key={`dots_${index}`}>
+            <button
+              className="btn-pagination opacity-50 cursor-not-allowed"
+              key={`dots_${index}`}
+            >
               <p className="pagination-item dots">&#8230;</p>
             </button>
           )
@@ -159,28 +162,30 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         // Render our Page Pills
         return (
           <button
-            className={`pagination-item ${
-              pageNumber === currentPage ? 'active' : ''
+            className={` btn-pagination inline-block hover:text-black focus:bg-gray-300  ${
+              pageNumber === currentPage
+                ? 'bg-gray-300 text-black'
+                : 'bg-transparent text-blue-400'
             }`}
             onClick={() => onChangePage(pageNumber)}
             key={randomKey}
           >
-            <p>{pageNumber}</p>
+            <p className="px-1 active:bg-gray-300 focus:bg-gray-300 focus:text-black">
+              {pageNumber}
+            </p>
           </button>
         )
       })}
       {/*  Right Navigation arrow */}
       <button
-        className={`pagination-item ${
-          currentPage === lastPage ? 'disabled' : ''
+        className={`btn-pagination rounded-tr-md rounded-br-md bg-transparent text-blue-400 hover:text-black ${
+          currentPage === lastPage ? 'opacity-50 cursor-not-allowed' : ''
         }`}
         onClick={onNext}
         key="on_next_pagination"
+        disabled={currentPage === lastPage}
       >
-        <p className="arrow-right">
-          {' '}
-          <AiOutlineArrowRight />
-        </p>
+        <AiOutlineArrowRight />
       </button>
     </div>
   )
