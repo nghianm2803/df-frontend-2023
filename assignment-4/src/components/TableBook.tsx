@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IBook } from '../lib/book'
 import EmptyData from '../components/EmptyData'
 import DeleteBook from './DeleteBook'
 import LoadingSkeleton from './LoadingSkeleton'
 import EditBook from './EditBook'
+import Pagination from './Pagination'
 
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
   deleteBook: (book: IBook) => void
   editBook: (book: IBook) => void
+  currentPage: number
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
 
 function TableBook({
@@ -17,13 +20,25 @@ function TableBook({
   setBooks,
   deleteBook,
   editBook,
+  currentPage,
+  setCurrentPage,
 }: TableBookProps): JSX.Element {
   const [editModal, setEditModal] = useState<boolean>(false)
   const [bookToEdit, setBookToEdit] = useState<any>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
-
   const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  const prevPageRef = useRef(currentPage)
+  useEffect(() => {
+    if (currentPage !== prevPageRef.current) {
+      const params = `?page=${currentPage}`
+      // console.log("Updating URL with params:", params);
+      window.history.replaceState({}, '', params)
+
+      prevPageRef.current = currentPage
+    }
+  }, [currentPage])
 
   useEffect(() => {
     try {
@@ -37,6 +52,21 @@ function TableBook({
     }
     setIsLoading(false)
   }, [setBooks])
+
+  const onChangePageNumber = useCallback(
+    (numPage: number) => {
+      setCurrentPage(numPage)
+      localStorage.setItem('currentPage', numPage.toString())
+    },
+    [setCurrentPage],
+  )
+
+  useEffect(() => {
+    const storedPage = localStorage.getItem('currentPage')
+    if (storedPage) {
+      setCurrentPage(parseInt(storedPage, 10))
+    }
+  }, [setCurrentPage])
 
   const handleEditBook = (book: IBook) => {
     setBookToEdit(book)
@@ -54,6 +84,10 @@ function TableBook({
     setBookToDelete(null)
   }
 
+  const startIndex = (currentPage - 1) * 5
+  const endIndex = startIndex + 5
+  const slicedBooks = books.slice(startIndex, endIndex)
+
   return (
     <div>
       {isLoading ? (
@@ -70,7 +104,7 @@ function TableBook({
               </tr>
             </thead>
             <tbody>
-              {books.map((book: IBook, index: number) => (
+              {slicedBooks.map((book: IBook, index: number) => (
                 <tr key={index}>
                   <td className="data-cell">{book.name}</td>
                   <td className="data-cell">{book.author}</td>
@@ -108,7 +142,7 @@ function TableBook({
               ))}
             </tbody>
           </table>
-          {books.length === 0 ? <EmptyData /> : null}
+          {slicedBooks.length === 0 ? <EmptyData /> : null}
           {editModal && (
             <EditBook
               closeEditBook={() => setEditModal(false)}
@@ -125,6 +159,14 @@ function TableBook({
           )}
         </div>
       )}
+      {slicedBooks.length >= 5 || currentPage > 1 ? (
+        <Pagination
+          totalCount={books.length}
+          currentPage={currentPage}
+          pageSize={5}
+          onChangePage={onChangePageNumber}
+        />
+      ) : null}
     </div>
   )
 }

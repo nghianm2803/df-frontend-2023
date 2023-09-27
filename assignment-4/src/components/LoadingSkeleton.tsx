@@ -7,16 +7,16 @@ const TableSkeleton = () => {
         <thead>
           <tr className="animate-pulse">
             <th className="py-2">
-              <div className="h-6 w-24 bg-gray-300 rounded-md"></div>
+              <div className="h-6 w-24 bg-gray-300 rounded-md"/>
             </th>
             <th className="py-2">
-              <div className="h-6 w-28 bg-gray-300 rounded-md"></div>
+              <div className="h-6 w-28 bg-gray-300 rounded-md"/>
             </th>
             <th className="py-2">
-              <div className="h-6 w-32 bg-gray-300 rounded-md"></div>
+              <div className="h-6 w-32 bg-gray-300 rounded-md"/>
             </th>
             <th className="py-2">
-              <div className="h-6 w-28 bg-gray-300 rounded-md"></div>
+              <div className="h-6 w-28 bg-gray-300 rounded-md"/>
             </th>
           </tr>
         </thead>
