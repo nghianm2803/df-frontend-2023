@@ -25,3 +25,19 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.header-cell {
+  @apply text-gray-800 border border-slate-300 border-collapse text-center p-2;
+}
+
+.data-cell {
+  @apply text-gray-800 border border-slate-300 border-collapse text-left p-2;
+}
+
+.btn-primary {
+  @apply inline-block rounded-md text-base font-bold text-white bg-red-600 hover:bg-red-700 transition px-3 py-2;
+}
+
+.btn-secondary {
+  @apply inline-block rounded-md text-base font-bold text-black bg-gray-400 hover:bg-gray-500 transition px-3 py-2;
+}

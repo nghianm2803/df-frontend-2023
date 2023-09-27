@@ -17,9 +17,23 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "6.x",
+    "@typescript-eslint/parser": "6.x",
+    "babel-eslint": "10.x",
+    "eslint-config-airbnb": "19.x",
+    "eslint-config-airbnb-typescript": "17.x",
+    "eslint-config-prettier": "8.x",
+    "eslint-config-react": "1.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "5.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "4.x",
+    "eslint-plugin-testing-library": "5.x",
     "next": "^13.5.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
     "@dwarvesf/react-eslint-config": "^1.0.1",
