@@ -59,7 +59,7 @@ function TableBook({
       {isLoading ? (
         <LoadingSkeleton />
       ) : (
-        <div className="pt-8 m-4">
+        <div className="pt-8 m-4 h-96 min-h-full">
           <table className="border-collapse border border-slate-300 w-full text-lg ">
             <thead>
               <tr className="table-row">
@@ -78,6 +78,14 @@ function TableBook({
                   <td className="data-cell">
                     <div className="flex w-1">
                       <button
+                        className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-blue-500 text-lg transition hover:border-blue-500 hover:bg-gray-200"
+                        // onClick={() => {
+                        //   handleEditBook(book)
+                        // }}
+                      >
+                        View
+                      </button>
+                      <button
                         className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-green-500 text-lg transition hover:border-green-500 hover:bg-gray-200"
                         onClick={() => {
                           handleEditBook(book)
@@ -85,6 +93,7 @@ function TableBook({
                       >
                         Edit
                       </button>
+
                       <button
                         className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-red-500 text-lg transition hover:border-red-500 hover:bg-gray-200"
                         onClick={() => {

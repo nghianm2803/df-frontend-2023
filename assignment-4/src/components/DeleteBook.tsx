@@ -29,7 +29,7 @@ function DeleteBook({
           </button>
         </div>
         <div className="flex flex-col align-middle justify-center text-center m-3">
-          <p id="text-center">
+          <p className="text-center">
             Do you want to delete <b>{`${bookToDelete?.name}`}</b> book?
           </p>
         </div>

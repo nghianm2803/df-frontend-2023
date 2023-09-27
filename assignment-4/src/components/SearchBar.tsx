@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
+  const [searchQuery, setSearchQuery] = useState<string>('')
+
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    onSearch(searchQuery)
+  }
+
   return (
     <div className="flex justify-between">
-      <form id="searchForm">
+      <form id="searchForm" onSubmit={handleSearch}>
         <input
           className="outline-none box-border p-2 text-base rounded-l-lg border transition focus:border-gray-500 "
           type="search"
           placeholder="Search books"
           name="search"
-          // value={searchQuery}
-          // onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button
           type="submit"
