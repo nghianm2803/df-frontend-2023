@@ -1,12 +1,17 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { IBook } from '../lib/book'
 
-interface AddBookProps {
-  closeAddBook: () => void
-  addBook: (book: IBook) => void
+interface EditBookProps {
+  closeEditBook: () => void
+  editBook: (book: IBook) => void
+  bookToEdit: IBook
 }
 
-function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
+function EditBook({
+  closeEditBook,
+  editBook,
+  bookToEdit,
+}: EditBookProps): JSX.Element {
   const [name, setName] = useState<string>('')
   const [author, setAuthor] = useState<string>('')
   const [topic, setTopic] = useState<string>('Programming')
@@ -18,6 +23,15 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
     { label: 'Database', value: 'Database' },
     { label: 'DevOps', value: 'DevOps' },
   ]
+
+  useEffect(() => {
+    if (bookToEdit) {
+      setName(bookToEdit.name || '')
+      setAuthor(bookToEdit.author || '')
+      setTopic(bookToEdit.topic || '')
+    }
+    // eslint-disable-next-line
+  }, [])
 
   function ValidateInput() {
     if (name.trim() === '') {
@@ -39,30 +53,29 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
       return
     }
 
-    const bookId = Math.floor(Math.random() * 1000)
-    const newBook: IBook = {
-      id: bookId,
+    // Assuming that currentBook contains the ID of the book being edited
+    const editedBook: IBook = {
+      id: bookToEdit.id,
       name,
       author,
       topic,
     }
 
-    addBook(newBook)
-    // console.log('New Book:', newBook);
+    editBook(editedBook)
+    // console.log("Updated book:", editedBook);
 
     setName('')
     setAuthor('')
     setTopic('')
-
-    closeAddBook()
+    closeEditBook()
   }
 
   return (
-    <div className="w-full h-full block fixed px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
+    <div className="fixed top-32 w-full h-full block px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
       <div className="m-auto bg-white p-5 border rounded-md w-96">
         <div className="flex flex-row justify-between">
-          <h2 className="text-gray-800 font-bold text-2xl">Add book</h2>
-          <button className="btn-close" onClick={closeAddBook}>
+          <h2 className="text-gray-800 font-bold text-2xl">Edit book</h2>
+          <button className="btn-close" onClick={closeEditBook}>
             &times;
           </button>
         </div>
@@ -131,9 +144,9 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               </select>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-right mt-5">
             <button type="submit" className="btn-primary">
-              Create
+              Save
             </button>
           </div>
         </form>
@@ -142,4 +155,4 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
   )
 }
 
-export default AddBook
+export default EditBook

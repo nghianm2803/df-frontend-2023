@@ -3,18 +3,23 @@ import { IBook } from '../lib/book'
 import EmptyData from '../components/EmptyData'
 import DeleteBook from './DeleteBook'
 import LoadingSkeleton from './LoadingSkeleton'
+import EditBook from './EditBook'
 
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
   deleteBook: (book: IBook) => void
+  editBook: (book: IBook) => void
 }
 
 function TableBook({
   books,
   setBooks,
   deleteBook,
+  editBook,
 }: TableBookProps): JSX.Element {
+  const [editModal, setEditModal] = useState<boolean>(false)
+  const [bookToEdit, setBookToEdit] = useState<any>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
 
@@ -32,6 +37,11 @@ function TableBook({
     }
     setIsLoading(false)
   }, [setBooks])
+
+  const handleEditBook = (book: IBook) => {
+    setBookToEdit(book)
+    setEditModal(true)
+  }
 
   const handleDeleteBook = (book: IBook) => {
     setBookToDelete(book)
@@ -69,9 +79,9 @@ function TableBook({
                     <div className="flex w-1">
                       <button
                         className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-green-500 text-lg transition hover:border-green-500 hover:bg-gray-200"
-                        // onClick={() => {
-                        //   handleEditBook(book)
-                        // }}
+                        onClick={() => {
+                          handleEditBook(book)
+                        }}
                       >
                         Edit
                       </button>
@@ -90,6 +100,13 @@ function TableBook({
             </tbody>
           </table>
           {books.length === 0 ? <EmptyData /> : null}
+          {editModal && (
+            <EditBook
+              closeEditBook={() => setEditModal(false)}
+              bookToEdit={bookToEdit}
+              editBook={editBook}
+            />
+          )}
           {deleteModal && (
             <DeleteBook
               closeDeleteBook={() => setDeleteModal(false)}

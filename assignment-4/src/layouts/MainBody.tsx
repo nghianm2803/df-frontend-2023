@@ -30,6 +30,18 @@ function MainBody(): JSX.Element {
     localStorage.setItem('books', JSON.stringify(newBooks))
   }
 
+  const editBook = (editedBook: IBook) => {
+    const updatedBooks = books.map((book) =>
+      book.id === editedBook.id ? editedBook : book,
+    )
+    setBooks(updatedBooks)
+    // openToast()
+
+    // const message = `Edit <b>${editedBook.name}</b> successful!`
+    // setToastMessage(message)
+    localStorage.setItem('books', JSON.stringify(updatedBooks))
+  }
+
   const deleteBook = (bookToDelete: IBook) => {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
     setBooks(updatedBooks)
@@ -54,7 +66,12 @@ function MainBody(): JSX.Element {
       {addModal && (
         <AddBook closeAddBook={handleCloseAddBook} addBook={addBook} />
       )}
-      <TableBook books={books} setBooks={setBooks} deleteBook={deleteBook} />
+      <TableBook
+        books={books}
+        setBooks={setBooks}
+        editBook={editBook}
+        deleteBook={deleteBook}
+      />
     </>
   )
 }
