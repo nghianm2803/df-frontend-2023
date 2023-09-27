@@ -32,7 +32,7 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "cd .. && husky install assignment-3/.husky"
+    "prepare": "cd .. && husky install assignment-3/.husky"
   },
   "eslintConfig": {
     "extends": [
@@ -52,11 +52,16 @@
       "last 1 safari version"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm lint-staged"
+    },
+    "gitDir": "../.git"
+  },
   "lint-staged": {
     "*.{html, css, tsx, jsx, ts, js}": "prettier --write",
     "*.tsx": [
-      "pnpm run lint",
-      "git add ."
+      "pnpm run lint"
     ]
   },
   "devDependencies": {
