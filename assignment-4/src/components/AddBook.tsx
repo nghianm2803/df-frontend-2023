@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { IBook } from '../lib/book'
+import { IBook } from '../interface/book'
 
 interface AddBookProps {
   closeAddBook: () => void
@@ -59,7 +59,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
 
   return (
     <div className="w-full h-full block fixed px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
-      <div className="m-auto bg-white p-5 border rounded-md w-96">
+      <div className="m-auto bg-white p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">
         <div className="flex flex-row justify-between">
           <h2 className="text-gray-800 font-bold text-2xl">Add book</h2>
           <button className="btn-close" onClick={closeAddBook}>

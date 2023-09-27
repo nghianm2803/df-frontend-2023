@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { IBook } from '../lib/book'
+import { IBook } from '../interface/book'
 import EmptyData from '../components/EmptyData'
 import DeleteBook from './DeleteBook'
 import LoadingSkeleton from './LoadingSkeleton'
@@ -120,7 +120,7 @@ function TableBook({
                         View
                       </button>
                       <button
-                        className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-green-500 text-lg transition hover:border-green-500 hover:bg-gray-200"
+                        className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-[#55d244] text-lg transition hover:border-[#42c031] hover:bg-gray-200"
                         onClick={() => {
                           handleEditBook(book)
                         }}
@@ -129,7 +129,7 @@ function TableBook({
                       </button>
 
                       <button
-                        className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-red-500 text-lg transition hover:border-red-500 hover:bg-gray-200"
+                        className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-[#d2445a] text-lg transition hover:border-red-500 hover:bg-gray-200"
                         onClick={() => {
                           handleDeleteBook(book)
                         }}

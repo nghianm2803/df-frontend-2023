@@ -24,13 +24,13 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
-  /* background-color: white; */
+    rgb(var(--background-start-rgb)); */
+  background-color: white;
 }
 
 .header-cell {
@@ -42,7 +42,7 @@ body {
 }
 
 .btn-primary {
-  @apply inline-block rounded-md text-base font-bold text-white bg-red-600 hover:bg-red-700 transition px-3 py-2;
+  @apply inline-block rounded-md text-base font-bold text-white bg-[#d2445a] hover:bg-[#bb2c41] transition px-3 py-2;
 }
 
 .btn-secondary {
@@ -53,6 +53,34 @@ body {
   @apply bg-transparent text-gray-500 float-right text-2xl font-bold hover:text-gray-700 hover:cursor-pointer;
 }
 
-.btn-pagination{
-  @apply relative float-left cursor-pointer px-2 py-2 leading-6 no-underline border transition hover:bg-gray-300 ;
+.btn-pagination {
+  @apply relative float-left cursor-pointer px-2 py-2 leading-6 no-underline border transition hover:bg-gray-300;
+}
+
+@keyframes progressBar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.progressBar {
+  animation: progressBar 1.5s linear forwards;
+}
+
+@keyframes popoutModal {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.popoutModal {
+  animation: popoutModal 0.5s;
 }

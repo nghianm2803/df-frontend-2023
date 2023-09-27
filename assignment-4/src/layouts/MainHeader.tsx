@@ -20,7 +20,7 @@ const MainHeader = () => {
           <Image
             src={Avatar}
             alt="Avatar"
-            className="inline-block h-10 w-10 rounded-full ring-2 ring-white mr-2"
+            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
             priority
           />
           <div className="flex items-center"> Du Xa Xiu</div>
