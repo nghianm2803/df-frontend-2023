@@ -24,6 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  /* background-color: white; */
 }
 
 .header-cell {
@@ -39,7 +40,7 @@ body {
 }
 
 .btn-secondary {
-  @apply inline-block rounded-md text-base font-bold text-black bg-gray-400 hover:bg-gray-500 transition px-3 py-2;
+  @apply inline-block rounded-md text-base font-bold text-black bg-white border border-gray-300 hover:bg-gray-300 transition px-3 py-2 ml-2;
 }
 
 .btn-close {

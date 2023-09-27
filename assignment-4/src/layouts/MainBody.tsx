@@ -30,6 +30,19 @@ function MainBody(): JSX.Element {
     localStorage.setItem('books', JSON.stringify(newBooks))
   }
 
+  const deleteBook = (bookToDelete: IBook) => {
+    const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
+    setBooks(updatedBooks)
+    // openToast()
+    // const message = `Delete <b>${bookToDelete.name}</b> successful!`
+    // setToastMessage(message)
+
+    localStorage.setItem('books', JSON.stringify(updatedBooks))
+    // if (displayedBooks.length === 1) {
+    //   setCurrentPage(1)
+    // }
+  }
+
   return (
     <>
       <div className="flex justify-between m-8">
@@ -41,7 +54,7 @@ function MainBody(): JSX.Element {
       {addModal && (
         <AddBook closeAddBook={handleCloseAddBook} addBook={addBook} />
       )}
-      <TableBook books={books} setBooks={setBooks} />
+      <TableBook books={books} setBooks={setBooks} deleteBook={deleteBook} />
     </>
   )
 }

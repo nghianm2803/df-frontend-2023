@@ -58,20 +58,21 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
   }
 
   return (
-    <div className="block fixed px-1 py-4 pt-40 left-0 right-0 overflow-auto z-10 bg-black">
-      <div className="m-auto bg-white p-5 border rounded-md ">
+    <div className="w-full h-full block fixed px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
+      <div className="m-auto bg-white p-5 border rounded-md w-96">
         <div className="flex flex-row justify-between">
-          <h2>Add book</h2>
+          <h2 className="text-gray-800 font-bold text-2xl">Add book</h2>
           <button className="btn-close" onClick={closeAddBook}>
             &times;
           </button>
         </div>
         <form onSubmit={submit}>
           <div className="flex flex-col align-middle justify-center text-center m-3">
-            <div className="fieldInput">
+            <div className="flex flex-col text-left m-2 text-gray-700 font-bold ">
               <label htmlFor="fieldName">
                 Name
                 <input
+                  className="outline-none box-border p-2 text-base rounded-lg border transition focus:border-gray-500 "
                   type="text"
                   placeholder="Book name"
                   id="fieldName"
@@ -84,15 +85,15 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
                   }}
                 />
               </label>
-
               {nameError && (
-                <p className="errorMessage">Name field is required.</p>
+                <p className="text-red-600">Name field is required.</p>
               )}
             </div>
-            <div className="fieldInput">
+            <div className="flex flex-col text-left m-2 text-gray-700 font-bold ">
               <label htmlFor="fieldAuthor">
                 Author
                 <input
+                  className="outline-none box-border p-2 text-base rounded-lg border transition focus:border-gray-500 "
                   type="text"
                   placeholder="Author"
                   id="fieldAuthor"
@@ -106,13 +107,17 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               </label>
 
               {authorError && (
-                <p className="errorMessage">Author field is required.</p>
+                <p className="text-red-600">Author field is required.</p>
               )}
             </div>
-            <div className="fieldInput">
+            <div className="flex flex-col text-left m-2 text-gray-700 font-bold ">
               <label htmlFor="fieldTopic">
                 Topic
-                <select onChange={handleChange} value={topic}>
+                <select
+                  className="w-80 p-2 border rounded-md outline-none text-base"
+                  onChange={handleChange}
+                  value={topic}
+                >
                   {topics.map((topic, index) => (
                     <option key={index} value={topic.value}>
                       {topic.label}
@@ -122,8 +127,8 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               </label>
             </div>
           </div>
-          <div className="modalFooter">
-            <button type="submit" className="btnPrimary" id="createBtn">
+          <div className="text-right mt-5">
+            <button type="submit" className="btn-primary" id="createBtn">
               Create
             </button>
           </div>

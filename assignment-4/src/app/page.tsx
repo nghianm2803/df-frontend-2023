@@ -1,12 +1,10 @@
 import React from 'react'
-import MainHeader from '../layouts/MainHeader'
-import MainBody from '../layouts/MainBody'
+import MainLayout from '../layouts/MainLayout'
 
 export default function Home() {
   return (
-    <main className="flex flex-col justify-between p-20">
-      <MainHeader />
-      <MainBody />
-    </main>
+    <div className="flex flex-col justify-between p-20">
+      <MainLayout />
+    </div>
   )
 }

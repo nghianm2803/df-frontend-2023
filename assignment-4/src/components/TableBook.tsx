@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { IBook } from '../lib/book'
 import EmptyData from '../components/EmptyData'
+import DeleteBook from './DeleteBook'
+import LoadingSkeleton from './LoadingSkeleton'
 
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
+  deleteBook: (book: IBook) => void
 }
 
-function TableBook({ books, setBooks }: TableBookProps): JSX.Element {
+function TableBook({
+  books,
+  setBooks,
+  deleteBook,
+}: TableBookProps): JSX.Element {
+  const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [bookToDelete, setBookToDelete] = useState<any>(null)
+
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -22,10 +32,22 @@ function TableBook({ books, setBooks }: TableBookProps): JSX.Element {
     }
     setIsLoading(false)
   }, [setBooks])
+
+  const handleDeleteBook = (book: IBook) => {
+    setBookToDelete(book)
+    setDeleteModal(true)
+  }
+
+  const confirmDelete = () => {
+    deleteBook(bookToDelete)
+    setDeleteModal(false)
+    setBookToDelete(null)
+  }
+
   return (
     <div>
       {isLoading ? (
-        <div className="loader">Loading...</div>
+        <LoadingSkeleton />
       ) : (
         <div className="pt-8 m-4">
           <table className="border-collapse border border-slate-300 w-full text-lg ">
@@ -44,20 +66,20 @@ function TableBook({ books, setBooks }: TableBookProps): JSX.Element {
                   <td className="data-cell">{book.author}</td>
                   <td className="data-cell">{book.topic}</td>
                   <td className="data-cell">
-                    <div className="flex w-3">
-                      {/* <button
-                  className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-green-500 text-lg transition hover:border-green-500 hover:bg-gray-200"
-                  // onClick={() => {
-                  //   handleEditBook(book)
-                  // }}
-                >
-                  Edit
-                </button> */}
+                    <div className="flex w-1">
+                      <button
+                        className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-green-500 text-lg transition hover:border-green-500 hover:bg-gray-200"
+                        // onClick={() => {
+                        //   handleEditBook(book)
+                        // }}
+                      >
+                        Edit
+                      </button>
                       <button
                         className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-red-500 text-lg transition hover:border-red-500 hover:bg-gray-200"
-                        // onClick={() => {
-                        //   handleDeleteBook(book)
-                        // }}
+                        onClick={() => {
+                          handleDeleteBook(book)
+                        }}
                       >
                         Delete
                       </button>
@@ -68,6 +90,13 @@ function TableBook({ books, setBooks }: TableBookProps): JSX.Element {
             </tbody>
           </table>
           {books.length === 0 ? <EmptyData /> : null}
+          {deleteModal && (
+            <DeleteBook
+              closeDeleteBook={() => setDeleteModal(false)}
+              deleteBook={confirmDelete}
+              bookToDelete={bookToDelete}
+            />
+          )}
         </div>
       )}
     </div>
