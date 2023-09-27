@@ -58,7 +58,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
   }
 
   return (
-    <div id="addBookModal" className="modal">
+    <div className="modal">
       <div className="modalContent">
         <div className="modalHeader">
           <h2>Add book</h2>
@@ -123,7 +123,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
             </div>
           </div>
           <div className="modalFooter">
-            <button type="submit" className="btnPrimary" id="createBtn">
+            <button type="submit" className="btnPrimary">
               Create
             </button>
           </div>

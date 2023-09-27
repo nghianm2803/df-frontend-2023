@@ -28,8 +28,8 @@ function DeleteBook({
             &times;
           </button>
         </div>
-        <div className="modalHody">
-          <p id="confirmMessage">
+        <div className="modalBody">
+          <p className="confirmMessage">
             Do you want to delete <b>{`${bookToDelete?.name}`}</b> book?
           </p>
         </div>

@@ -71,7 +71,7 @@ function EditBook({
   }
 
   return (
-    <div id="addBookModal" className="modal">
+    <div className="modal">
       <div className="modalContent">
         <div className="modalHeader">
           <h2>Edit book</h2>
@@ -134,7 +134,7 @@ function EditBook({
             </div>
           </div>
           <div className="modalFooter">
-            <button type="submit" className="btnPrimary" id="createBtn">
+            <button type="submit" className="btnPrimary">
               Save
             </button>
           </div>

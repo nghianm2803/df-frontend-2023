@@ -66,9 +66,6 @@ function MainBody(): JSX.Element {
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(updatedBooks))
-    if (displayedBooks.length === 1) {
-      setCurrentPage(1)
-    }
   }
 
   const handleSearch = (query: string) => {

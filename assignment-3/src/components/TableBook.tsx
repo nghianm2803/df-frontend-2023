@@ -93,7 +93,7 @@ function TableBook({
         <div className="loader">Loading...</div>
       ) : (
         <div className="tableContainer">
-          <table id="myTable">
+          <table className="tableBook">
             <thead>
               <tr className="tableHeader">
                 <th style={{ width: '50%' }}>Name</th>
@@ -111,7 +111,7 @@ function TableBook({
                   <td>
                     <div className="action">
                       <button
-                        className="editbtn"
+                        className="editBtn"
                         onClick={() => {
                           handleEditBook(book)
                         }}
@@ -119,7 +119,7 @@ function TableBook({
                         Edit
                       </button>
                       <button
-                        className="deletebtn"
+                        className="deleteBtn"
                         onClick={() => {
                           handleDeleteBook(book)
                         }}
