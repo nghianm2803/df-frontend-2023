@@ -22,7 +22,7 @@ function EditBook({ closeEditBook, editBook, bookToEdit }) {
     // eslint-disable-next-line
   }, []);
 
-  function ValidateInput() {
+  function validateInput() {
     if (name.trim() === "") {
       setNameError(true);
     }
@@ -38,7 +38,7 @@ function EditBook({ closeEditBook, editBook, bookToEdit }) {
 
   const submit = (e) => {
     e.preventDefault();
-    ValidateInput();
+    validateInput();
     if (name.trim() === "" || author.trim() === "") {
       return;
     }
@@ -105,7 +105,7 @@ function EditBook({ closeEditBook, editBook, bookToEdit }) {
               )}
             </div>
             <div className="fieldInput">
-              <label htmlFor="ftopic">Topic</label>
+              <label htmlFor="fieldTopic">Topic</label>
               <select onChange={handleChange} value={topic}>
                 {topics.map((topic, index) => (
                   <option key={index} value={topic.value}>

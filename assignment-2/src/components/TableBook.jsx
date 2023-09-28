@@ -71,6 +71,9 @@ function TableBook({
     deleteBook(bookToDelete);
     setDeleteModal(false);
     setBookToDelete(null);
+    if (slicedBooks.length === 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   const startIndex = (currentPage - 1) * 5;

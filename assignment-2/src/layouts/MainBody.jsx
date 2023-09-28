@@ -39,7 +39,11 @@ function MainBody() {
     const newBooks = [...books, newBook];
     setBooks(newBooks);
     openToast();
-    const message = `Add <b>${newBook.name}</b> successful!`;
+    const message = (
+      <React.Fragment>
+        Add <b>{newBook.name}</b> successful!
+      </React.Fragment>
+    );
     setToastMessage(message);
 
     localStorage.setItem("books", JSON.stringify(newBooks));
@@ -52,7 +56,11 @@ function MainBody() {
     setBooks(updatedBooks);
     openToast();
 
-    const message = `Edit <b>${editedBook.name}</b> successful!`;
+    const message = (
+      <React.Fragment>
+        Edit <b>{editedBook.name}</b> successful!
+      </React.Fragment>
+    );
     setToastMessage(message);
     localStorage.setItem("books", JSON.stringify(updatedBooks));
   };
@@ -61,8 +69,12 @@ function MainBody() {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id);
     setBooks(updatedBooks);
     openToast();
-
-    const message = `Delete <b>${bookToDelete.name}</b> successful!`;
+    
+    const message = (
+      <React.Fragment>
+        Delete <b>{bookToDelete.name}</b> successful!
+      </React.Fragment>
+    );
     setToastMessage(message);
     localStorage.setItem("books", JSON.stringify(updatedBooks));
   };

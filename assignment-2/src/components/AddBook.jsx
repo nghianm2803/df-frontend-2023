@@ -13,7 +13,7 @@ function AddBook({ closeAddBook, addBook }) {
     { label: "DevOps", value: "DevOps" },
   ];
 
-  function ValidateInput() {
+  function validateInput() {
     if (name.trim() === "") {
       setNameError(true);
     }
@@ -29,7 +29,7 @@ function AddBook({ closeAddBook, addBook }) {
 
   const submit = (e) => {
     e.preventDefault();
-    ValidateInput();
+    validateInput();
     if (name.trim() === "" || author.trim() === "") {
       return;
     }
@@ -95,7 +95,7 @@ function AddBook({ closeAddBook, addBook }) {
               )}
             </div>
             <div className="fieldInput">
-              <label htmlFor="ftopic">Topic</label>
+              <label htmlFor="fieldTopic">Topic</label>
               <select onChange={handleChange} value={topic}>
                 {topics.map((topic, index) => (
                   <option key={index} value={topic.value}>

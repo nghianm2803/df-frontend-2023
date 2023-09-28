@@ -6,6 +6,14 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
+const setTheme = (isDarkTheme) => {
+  try {
+    localStorage.setItem("theme", isDarkTheme ? "dark" : "light");
+  } catch (error) {
+    console.error("Set theme from localStorage error:", error);
+  }
+};
+
 export function ThemeProvider({ children }) {
   const [isDarkTheme, setIsDarkTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -13,7 +21,7 @@ export function ThemeProvider({ children }) {
   });
 
   useEffect(() => {
-    localStorage.setItem("theme", isDarkTheme ? "dark" : "light");
+    setTheme(isDarkTheme);
   }, [isDarkTheme]);
 
   const toggleTheme = () => {

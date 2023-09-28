@@ -61,35 +61,3 @@
   background-color: transparent;
   border-color: #ddd;
 }
-
-.pagination-lg > button > p {
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.3333333;
-}
-
-.pagination-lg > button:first-child > p {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-}
-
-.pagination-lg > button:last-child > p {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.pagination-sm > button > p {
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.pagination-sm > button:first-child > p {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.pagination-sm > button:last-child > p {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}

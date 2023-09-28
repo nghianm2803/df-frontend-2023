@@ -1,12 +1,12 @@
 import "./App.css";
 import { useTheme } from "../src/theme/ThemeContext";
 import MainLayout from "./layouts/MainLayout";
+import appTheme from "classnames";
 
 function App() {
   const { isDarkTheme } = useTheme();
-  // console.log("isDarkTheme:", isDarkTheme);
   return (
-    <div className={`App ${isDarkTheme ? "darkTheme" : ""}`}>
+    <div className={appTheme("App", { darkTheme: isDarkTheme })}>
       <MainLayout />
     </div>
   );
