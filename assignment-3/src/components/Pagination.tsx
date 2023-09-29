@@ -143,7 +143,8 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
           <AiOutlineArrowLeft />
         </p>
       </button>
-      {/* pageNumber: any */}
+
+      {/*Bad practice using type any. Need to improve*/}
       {paginationRange.map((pageNumber: any, index: number) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {

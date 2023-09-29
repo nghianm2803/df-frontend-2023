@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { IBook } from './BookModel'
+import { IBook } from '../constant/BookModel'
 import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
 import EmptyData from './EmptyData'
 import EditBook from './EditBook'
- 
+
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
@@ -28,16 +28,16 @@ function TableBook({
   const [bookToDelete, setBookToDelete] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
- const prevPageRef = useRef(currentPage);
+  const prevPageRef = useRef(currentPage)
   useEffect(() => {
     if (currentPage !== prevPageRef.current) {
-      const params = `?page=${currentPage}`;
+      const params = `?page=${currentPage}`
       // console.log("Updating URL with params:", params);
-      window.history.replaceState({}, "", params);
+      window.history.replaceState({}, '', params)
 
-      prevPageRef.current = currentPage;
+      prevPageRef.current = currentPage
     }
-  }, [currentPage]);
+  }, [currentPage])
 
   useEffect(() => {
     try {
@@ -55,15 +55,18 @@ function TableBook({
   const onChangePageNumber = useCallback(
     (numPage: number) => {
       setCurrentPage(numPage)
-      localStorage.setItem('currentPage', numPage.toString())
     },
     [setCurrentPage],
   )
 
   useEffect(() => {
-    const storedPage = localStorage.getItem('currentPage')
-    if (storedPage) {
-      setCurrentPage(parseInt(storedPage, 10))
+    const params = new URLSearchParams(window.location.search)
+    const pageParam = params.get('page')
+    if (pageParam !== null) {
+      const currentPageNumber = parseInt(pageParam, 10) || 1
+      setCurrentPage(currentPageNumber)
+    } else {
+      setCurrentPage(1)
     }
   }, [setCurrentPage])
 
@@ -81,6 +84,9 @@ function TableBook({
     deleteBook(bookToDelete)
     setDeleteModal(false)
     setBookToDelete(null)
+    if (slicedBooks.length === 1) {
+      setCurrentPage(currentPage - 1)
+    }
   }
 
   const startIndex = (currentPage - 1) * 5

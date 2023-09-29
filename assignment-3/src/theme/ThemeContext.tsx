@@ -23,6 +23,15 @@ export function useTheme(): ThemeContextType {
   }
   return context
 }
+
+const setTheme = (isDarkTheme: boolean) => {
+  try {
+    localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light')
+  } catch (error) {
+    console.error('Set theme from localStorage error:', error)
+  }
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(() => {
     const storedTheme = localStorage.getItem('theme')
@@ -30,7 +39,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   })
 
   useEffect(() => {
-    localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light')
+    setTheme(isDarkTheme)
   }, [isDarkTheme])
 
   const toggleTheme = () => {

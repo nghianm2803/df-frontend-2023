@@ -6,6 +6,7 @@
     "@typescript-eslint/eslint-plugin": "6.x",
     "@typescript-eslint/parser": "6.x",
     "babel-eslint": "10.x",
+    "classnames": "^2.3.2",
     "eslint": "8.x",
     "eslint-config-airbnb": "19.x",
     "eslint-config-airbnb-typescript": "17.x",

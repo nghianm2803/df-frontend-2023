@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { IBook } from './BookModel'
+import { IBook } from '../constant/BookModel'
 
 interface EditBookProps {
   closeEditBook: () => void
@@ -33,7 +33,7 @@ function EditBook({
     // eslint-disable-next-line
   }, [])
 
-  function ValidateInput() {
+  function validateInput() {
     if (name.trim() === '') {
       setNameError(true)
     }
@@ -48,7 +48,7 @@ function EditBook({
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    ValidateInput()
+    validateInput()
     if (name.trim() === '' || author.trim() === '') {
       return
     }

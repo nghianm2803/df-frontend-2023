@@ -177,7 +177,7 @@ input[type='search']:focus {
   line-height: 1;
   border-radius: 0.375rem;
   box-shadow: 0 0 1px rgb(0 0 0 / 0%);
-  border: 1px solid transparent;
+  border: 1px solid #838282;
   color: #000;
   display: inline-block;
   background-color: #ccc;
@@ -309,14 +309,9 @@ select {
   left: 0;
   right: 0;
   bottom: 0;
-  cursor: pointer;
-}
-
-.toast {
-  padding: 2px 16px;
-  font-size: 1.063rem;
-  overflow: auto;
   z-index: 4;
+  overflow: auto;
+  cursor: pointer;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }

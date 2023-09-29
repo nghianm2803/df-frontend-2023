@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { IBook } from './BookModel'
+import { IBook } from '../constant/BookModel'
 
 interface AddBookProps {
   closeAddBook: () => void
@@ -19,7 +19,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
     { label: 'DevOps', value: 'DevOps' },
   ]
 
-  function ValidateInput() {
+  function validateInput() {
     if (name.trim() === '') {
       setNameError(true)
     }
@@ -34,7 +34,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    ValidateInput()
+    validateInput()
     if (name.trim() === '' || author.trim() === '') {
       return
     }
@@ -112,7 +112,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
             <div className="fieldInput">
               <label htmlFor="fieldTopic">
                 Topic
-                <select onChange={handleChange} value={topic}>
+                <select  id="fieldTopic" onChange={handleChange} value={topic}>
                   {topics.map((topic, index) => (
                     <option key={index} value={topic.value}>
                       {topic.label}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IBook } from './BookModel'
+import { IBook } from '../constant/BookModel'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void
@@ -39,7 +39,6 @@ function DeleteBook({
             <button
               type="button"
               className="btnPrimary"
-              id="deleteBtnConfirm"
               onClick={handleDelete}
             >
               Delete
@@ -47,7 +46,6 @@ function DeleteBook({
             <button
               type="button"
               className="btnSecondary"
-              id="cancelBtn"
               onClick={closeDeleteBook}
             >
               Cancel
