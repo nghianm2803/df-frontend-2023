@@ -6,10 +6,10 @@ import ToggleTheme from '../components/ToggleTheme'
 
 const MainHeader = () => {
   return (
-    <div className="fixed inset-x-0 top-0 bg-white z-[10] custom-shadow h-fit py-2">
+    <div className="fixed  inset-x-0 top-0 bg-white dark:bg-slate-800 z-[10] custom-shadow h-fit py-2">
       <div className="flex items-center justify-between h-full gap-2 mx-auto max-w-7xl">
         <Link href="/" className="flex items-center">
-          <p className="rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white">
+          <p className="rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white dark:text-white">
             Bookstore
           </p>
         </Link>
@@ -26,7 +26,7 @@ const MainHeader = () => {
               className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
               priority
             />
-            <div className="flex items-center"> Du Xa Xiu</div>
+            <div className="flex items-center dark:text-white"> Du Xa Xiu</div>
           </Link>
         </div>
       </div>

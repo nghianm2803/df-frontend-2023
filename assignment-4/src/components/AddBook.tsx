@@ -19,7 +19,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
     { label: 'DevOps', value: 'DevOps' },
   ]
 
-  function ValidateInput() {
+  function validateInput() {
     if (name.trim() === '') {
       setNameError(true)
     }
@@ -34,7 +34,7 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    ValidateInput()
+    validateInput()
     if (name.trim() === '' || author.trim() === '') {
       return
     }
@@ -59,9 +59,9 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
 
   return (
     <div className="w-full h-full block fixed px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
-      <div className="m-auto bg-white p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">
+      <div className="m-auto bg-white dark:bg-slate-800 p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">
         <div className="flex flex-row justify-between">
-          <h2 className="text-gray-800 font-bold text-2xl">Add book</h2>
+          <h2 className="text-gray-800 dark:text-white font-bold text-2xl">Add book</h2>
           <button className="btn-close" onClick={closeAddBook}>
             &times;
           </button>
@@ -69,7 +69,10 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
         <form className="space-y-6" onSubmit={submit}>
           <div className="flex flex-col align-middle justify-center m-3">
             <div className="mb-4">
-              <label className="block mb-2 text-base font-bold text-gray-700 dark:text-white">
+              <label
+                htmlFor="fieldName"
+                className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
+              >
                 Name
               </label>
               <input
@@ -93,7 +96,10 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               )}
             </div>
             <div className="mb-4">
-              <label className="block mb-2 text-base font-bold text-gray-700 dark:text-white">
+              <label
+                htmlFor="fieldAuthor"
+                className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
+              >
                 Author
               </label>
               <input
@@ -115,11 +121,15 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
               )}
             </div>
             <div>
-              <label className="block mb-2 text-base font-bold text-gray-700 dark:text-white">
+              <label
+                htmlFor="fieldTopic"
+                className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
+              >
                 Topic
               </label>
               <select
                 className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                id="fieldTopic"
                 onChange={handleChange}
                 value={topic}
               >

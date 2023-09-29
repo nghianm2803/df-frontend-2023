@@ -13,7 +13,7 @@ function SearchBar({ onSearch }) {
     <div className="flex justify-between">
       <form id="searchForm" onSubmit={handleSearch}>
         <input
-          className="outline-none box-border p-2 text-base rounded-l-lg border transition focus:border-gray-500 "
+          className="outline-none box-border p-2 text-base rounded-l-lg border transition focus:border-gray-500 dark:bg-white"
           type="search"
           placeholder="Search books"
           name="search"

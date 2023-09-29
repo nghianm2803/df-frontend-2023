@@ -1,30 +1,48 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const ToggleTheme = () => {
-  const [isChecked, setIsChecked] = useState(false)
+  const { theme, setTheme } = useTheme()
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    const storedTheme = localStorage.getItem('theme')
+    return storedTheme === 'dark'
+  })
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked)
+  useEffect(() => {
+    setIsDarkTheme(theme === 'dark')
+  }, [theme])
+
+  const handleThemeChange = () => {
+    const newTheme = isDarkTheme ? 'light' : 'dark'
+    setTheme(newTheme)
+    setIsDarkTheme(!isDarkTheme)
+
+    try {
+      localStorage.setItem('theme', newTheme)
+    } catch (error) {
+      console.error('Set theme from localStorage error:', error)
+    }
   }
+
   return (
     <>
       <label className="relative inline-flex cursor-pointer select-none items-center rounded-3xl">
         <input
           type="checkbox"
-          checked={isChecked}
-          onChange={handleCheckboxChange}
+          checked={isDarkTheme}
+          onChange={handleThemeChange}
           className="sr-only"
         />
         <div
           className={`shadow-card flex h-8 w-16 items-center justify-center rounded-full ${
-            isChecked ? 'bg-[#354D69]' : 'bg-[#83CBD8]'
+            isDarkTheme ? 'bg-[#354D69]' : 'bg-[#83CBD8]'
           } transition-all`}
         >
           <span
             className={`flex h-8 w-9 items-center justify-center rounded-full ${
-              !isChecked ? 'bg-[#F8E664] text-white' : 'bg-transparent'
+              !isDarkTheme ? 'bg-[#F8E664] text-white' : 'bg-transparent'
             }`}
           >
             <svg
@@ -51,7 +69,7 @@ const ToggleTheme = () => {
           </span>
           <span
             className={`flex h-8 w-9 items-center justify-center rounded-full ${
-              isChecked ? 'bg-[#CCE6EE] text-white' : 'bg-transparent'
+              isDarkTheme ? 'bg-[#CCE6EE] text-white' : 'bg-transparent'
             }`}
           >
             <svg

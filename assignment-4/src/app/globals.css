@@ -42,11 +42,11 @@ body {
 }
 
 .header-cell {
-  @apply text-gray-800 border border-slate-300 border-collapse text-center p-2;
+  @apply text-gray-800 border border-slate-300 border-collapse text-center p-2 dark:text-white;
 }
 
 .data-cell {
-  @apply text-gray-800 border border-slate-300 border-collapse text-left p-2;
+  @apply text-gray-800 border border-slate-300 border-collapse text-left p-2 dark:text-white;
 }
 
 .btn-primary {

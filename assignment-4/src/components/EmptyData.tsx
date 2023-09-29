@@ -9,7 +9,7 @@ function EmptyData() {
         src={EmptyDataImage}
         alt="emptydata"
       />
-      <p className="text-center">
+      <p className="text-center dark:text-white">
         No record available. Try another page or add a new book
       </p>
       {/* View detail -> Delete -> Navigate to home */}

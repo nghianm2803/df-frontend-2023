@@ -76,7 +76,7 @@ function MainBody(): JSX.Element {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
-    // setCurrentPage(1)
+    setCurrentPage(1)
   }
 
   useEffect(() => {
