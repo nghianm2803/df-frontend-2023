@@ -4,15 +4,15 @@ import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
 const ToggleTheme = () => {
-  const { theme, setTheme } = useTheme()
-  const [isDarkTheme, setIsDarkTheme] = useState(() => {
-    const storedTheme = localStorage.getItem('theme')
-    return storedTheme === 'dark'
-  })
+  const { setTheme } = useTheme()
+  const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   useEffect(() => {
-    setIsDarkTheme(theme === 'dark')
-  }, [theme])
+    if (typeof localStorage !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme')
+      setIsDarkTheme(storedTheme === 'dark')
+    }
+  }, [])
 
   const handleThemeChange = () => {
     const newTheme = isDarkTheme ? 'light' : 'dark'
@@ -22,7 +22,7 @@ const ToggleTheme = () => {
     try {
       localStorage.setItem('theme', newTheme)
     } catch (error) {
-      console.error('Set theme from localStorage error:', error)
+      console.error('Set theme to localStorage error:', error)
     }
   }
 
@@ -41,7 +41,7 @@ const ToggleTheme = () => {
           } transition-all`}
         >
           <span
-            className={`flex h-8 w-9 items-center justify-center rounded-full ${
+            className={`flex h-8 w-9 items-center justify-center rounded-full transition-all ${
               !isDarkTheme ? 'bg-[#F8E664] text-white' : 'bg-transparent'
             }`}
           >
@@ -68,7 +68,7 @@ const ToggleTheme = () => {
             </svg>
           </span>
           <span
-            className={`flex h-8 w-9 items-center justify-center rounded-full ${
+            className={`flex h-8 w-9 items-center justify-center rounded-full transition-all ${
               isDarkTheme ? 'bg-[#CCE6EE] text-white' : 'bg-transparent'
             }`}
           >
