@@ -17,7 +17,6 @@ function MainBody(): JSX.Element {
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-
   const handleAddBook = () => {
     setAddModal(true)
   }
@@ -92,7 +91,7 @@ function MainBody(): JSX.Element {
   return (
     <>
       <div className="flex justify-between m-8">
-        <SearchBar  onSearch={handleSearch}/>
+        <SearchBar onSearch={handleSearch} />
         <button type="submit" className="btn-primary" onClick={handleAddBook}>
           Add Book
         </button>
@@ -108,6 +107,7 @@ function MainBody(): JSX.Element {
         deleteBook={deleteBook}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        searchQuery={searchQuery}
       />
     </>
   )

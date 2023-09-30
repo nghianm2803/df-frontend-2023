@@ -5,6 +5,7 @@ import DeleteBook from './DeleteBook'
 import LoadingSkeleton from './LoadingSkeleton'
 import EditBook from './EditBook'
 import Pagination from './Pagination'
+import { redirect } from 'next/navigation'
 
 interface TableBookProps {
   books: IBook[]
@@ -13,6 +14,7 @@ interface TableBookProps {
   editBook: (book: IBook) => void
   currentPage: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  searchQuery: string
 }
 
 function TableBook({
@@ -22,22 +24,13 @@ function TableBook({
   editBook,
   currentPage,
   setCurrentPage,
+  searchQuery,
 }: TableBookProps): JSX.Element {
   const [editModal, setEditModal] = useState<boolean>(false)
   const [bookToEdit, setBookToEdit] = useState<any>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-
-  const prevPageRef = useRef(currentPage)
-  useEffect(() => {
-    if (currentPage !== prevPageRef.current) {
-      const params = `?page=${currentPage}`
-      window.history.replaceState({}, '', params)
-
-      prevPageRef.current = currentPage
-    }
-  }, [currentPage])
 
   useEffect(() => {
     try {
@@ -52,12 +45,20 @@ function TableBook({
     setIsLoading(false)
   }, [setBooks])
 
-  const onChangePageNumber = useCallback(
-    (numPage: number) => {
-      setCurrentPage(numPage)
-    },
-    [setCurrentPage],
-  )
+  const prevPageRef = useRef(currentPage)
+  const prevQueryRef = useRef(searchQuery)
+  useEffect(() => {
+    if (
+      currentPage !== prevPageRef.current ||
+      searchQuery !== prevQueryRef.current
+    ) {
+      const params = `?query=${searchQuery}&page=${currentPage}`
+      window.history.replaceState({}, '', params)
+
+      prevPageRef.current = currentPage
+      prevQueryRef.current = searchQuery
+    }
+  }, [currentPage, searchQuery])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -69,6 +70,17 @@ function TableBook({
       setCurrentPage(1)
     }
   }, [setCurrentPage])
+
+  const onChangePageNumber = useCallback(
+    (numPage: number) => {
+      setCurrentPage(numPage)
+    },
+    [setCurrentPage],
+  )
+
+  const handleViewBook = (book: IBook) => {
+    console.log('go to detail book view', book.id)
+  }
 
   const handleEditBook = (book: IBook) => {
     setBookToEdit(book)
@@ -118,9 +130,9 @@ function TableBook({
                     <div className="flex w-1">
                       <button
                         className="bg-white rounded-md p-2 mr-3 cursor-pointer border text-blue-500 text-lg transition hover:border-blue-500 hover:bg-gray-200"
-                        // onClick={() => {
-                        //   handleViewBook(book)
-                        // }}
+                        onClick={() => {
+                          handleViewBook(book)
+                        }}
                       >
                         View
                       </button>

@@ -7,7 +7,7 @@ export const metadata = {
   title: ' Book Detail',
 }
 
-const BookDetail = () => {
+const BookView = async () => {
   return (
     <div className="fixed inset-x-0 top-0 bg-white dark:bg-gray-950 z-[10] shadow-lg h-fit border-b border-zinc-300 py-2">
       <div className="flex items-center justify-between h-full gap-2 mx-auto max-w-7xl">
@@ -34,4 +34,4 @@ const BookDetail = () => {
   )
 }
 
-export default BookDetail
+export default BookView
