@@ -5,8 +5,6 @@ import Pagination from './Pagination'
 import EmptyData from './EmptyData'
 import EditBook from './EditBook'
 
-var dsadqwd q sdwdqw
-
 interface TableBookProps {
   books: IBook[]
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
