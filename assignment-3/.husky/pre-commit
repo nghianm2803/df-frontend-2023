@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd assignment-3
-npx lint-staged
+cd ./assignment-3
+pnpm lint-staged
