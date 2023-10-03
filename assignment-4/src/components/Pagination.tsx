@@ -149,7 +149,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
         if (pageNumber === '...') {
           return (
             <button
-              className="btn-pagination opacity-50 cursor-not-allowed"
+              className="btn-pagination opacity-50  cursor-not-allowed dark:text-blue-400 "
               key={`dots_${index}`}
             >
               <p className="pagination-item dots">&#8230;</p>

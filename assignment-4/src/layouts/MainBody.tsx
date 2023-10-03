@@ -68,9 +68,6 @@ function MainBody(): JSX.Element {
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(updatedBooks))
-    // if (displayedBooks.length === 1) {
-    //   setCurrentPage(1)
-    // }
   }
 
   const handleSearch = (query: string) => {
@@ -90,7 +87,7 @@ function MainBody(): JSX.Element {
 
   return (
     <>
-      <div className="flex justify-between m-8">
+      <div className="flex justify-between m-8 px-20 pt-8">
         <SearchBar onSearch={handleSearch} />
         <button type="submit" className="btn-primary" onClick={handleAddBook}>
           Add Book

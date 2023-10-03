@@ -28,7 +28,7 @@ const ToggleTheme = () => {
 
   return (
     <>
-      <label className="relative inline-flex cursor-pointer select-none items-center rounded-3xl">
+      <label className="relative inline-flex cursor-pointer select-none items-center rounded-3xl mr-3">
         <input
           type="checkbox"
           checked={isDarkTheme}

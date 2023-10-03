@@ -5,7 +5,7 @@ import DeleteBook from './DeleteBook'
 import LoadingSkeleton from './LoadingSkeleton'
 import EditBook from './EditBook'
 import Pagination from './Pagination'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 interface TableBookProps {
   books: IBook[]
@@ -31,6 +31,9 @@ function TableBook({
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const ITEMS_PER_PAGE = 5
+
+  const router = useRouter()
 
   useEffect(() => {
     try {
@@ -80,6 +83,9 @@ function TableBook({
 
   const handleViewBook = (book: IBook) => {
     console.log('go to detail book view', book.id)
+    const bookId = book.id
+    // router.push(`/book`);
+    router.push(`/book/${bookId}`)
   }
 
   const handleEditBook = (book: IBook) => {
@@ -101,8 +107,8 @@ function TableBook({
     }
   }
 
-  const startIndex = (currentPage - 1) * 5
-  const endIndex = startIndex + 5
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
   const slicedBooks = books.slice(startIndex, endIndex)
 
   return (
@@ -110,14 +116,14 @@ function TableBook({
       {isLoading ? (
         <LoadingSkeleton />
       ) : (
-        <div className="pt-3 m-4 h-96 min-h-full">
+        <div className="pt-3 m-4 h-96 min-h-full px-20">
           <table className="border-collapse border border-slate-300 w-full text-lg ">
             <thead>
               <tr className="table-row">
-                <th className="header-cell">Name</th>
-                <th className="header-cell">Author</th>
-                <th className="header-cell">Topic</th>
-                <th className="header-cell">Action</th>
+                <th className="header-cell w-4/12">Name</th>
+                <th className="header-cell w-2/12">Author</th>
+                <th className="header-cell w-2/12">Topic</th>
+                <th className="header-cell w-2/12">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -176,11 +182,11 @@ function TableBook({
           )}
         </div>
       )}
-      {slicedBooks.length >= 5 || currentPage > 1 ? (
+      {slicedBooks.length >= ITEMS_PER_PAGE || currentPage > 1 ? (
         <Pagination
           totalCount={books.length}
           currentPage={currentPage}
-          pageSize={5}
+          pageSize={ITEMS_PER_PAGE}
           onChangePage={onChangePageNumber}
         />
       ) : null}
