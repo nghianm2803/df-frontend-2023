@@ -55,9 +55,10 @@
     ]
   },
   "lint-staged": {
-    "*.{html, css, tsx, jsx, ts, js}": "prettier --write",
-    "*.tsx": [
-      "pnpm run lint"
+    "*.{html, css, tsx, jsx, ts, js, md, json}": "prettier --write",
+    "*.{js,jsx,tsx,ts}": [
+      "prettier --write",
+      "eslint --fix"
     ]
   },
   "devDependencies": {

@@ -27,6 +27,7 @@ function TableBook({
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const ITEMS_PER_PAGE = 5
 
   const prevPageRef = useRef(currentPage)
   useEffect(() => {
@@ -89,8 +90,8 @@ function TableBook({
     }
   }
 
-  const startIndex = (currentPage - 1) * 5
-  const endIndex = startIndex + 5
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
   const slicedBooks = books.slice(startIndex, endIndex)
 
   return (
@@ -157,11 +158,11 @@ function TableBook({
       )}
       {/* <p>books count: {books.length}</p>
       <p>Slice books count: {slicedBooks.length}</p> */}
-      {slicedBooks.length >= 5 || currentPage > 1 ? (
+      {slicedBooks.length >= ITEMS_PER_PAGE || currentPage > 1 ? (
         <Pagination
           totalCount={books.length}
           currentPage={currentPage}
-          pageSize={5}
+          pageSize={ITEMS_PER_PAGE}
           onChangePage={onChangePageNumber}
         />
       ) : null}
