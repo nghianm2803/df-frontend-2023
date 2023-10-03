@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import MainBody from './MainBody'
 import MainFooter from './MainFooter'
@@ -8,7 +10,7 @@ function MainLayout() {
     <div className='dark:bg-slate-800'>
       <MainHeader />
       <MainBody />
-      <MainFooter />
+      {/* <MainFooter /> */}
     </div>
   )
 }

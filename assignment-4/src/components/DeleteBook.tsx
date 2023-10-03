@@ -12,10 +12,8 @@ function DeleteBook({
   deleteBook,
   bookToDelete,
 }: DeleteBookProps): JSX.Element {
-  const handleDelete = () => {
-    if (bookToDelete) {
-      deleteBook(bookToDelete)
-    }
+  const confirmDelete = () => {
+    deleteBook(bookToDelete)
     closeDeleteBook()
   }
 
@@ -41,7 +39,7 @@ function DeleteBook({
             <button
               type="button"
               className="btn-primary"
-              onClick={handleDelete}
+              onClick={confirmDelete}
             >
               Delete
             </button>

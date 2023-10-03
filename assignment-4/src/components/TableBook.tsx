@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IBook } from '../interface/book'
 import EmptyData from '../components/EmptyData'
@@ -84,7 +86,6 @@ function TableBook({
   const handleViewBook = (book: IBook) => {
     console.log('go to detail book view', book.id)
     const bookId = book.id
-    // router.push(`/book`);
     router.push(`/book/${bookId}`)
   }
 
@@ -101,7 +102,6 @@ function TableBook({
   const confirmDelete = () => {
     deleteBook(bookToDelete)
     setDeleteModal(false)
-    setBookToDelete(null)
     if (slicedBooks.length === 1) {
       setCurrentPage(currentPage - 1)
     }
