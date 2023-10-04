@@ -7,16 +7,22 @@ import { useEffect, useState } from 'react'
 import MainHeader from '../../../layouts/MainHeader'
 import DeleteBook from '../../../components/DeleteBook'
 import { ThemeProvider } from 'next-themes'
+import { BOOKS } from '../../../constant/book'
+import Toast from '../../../components/Toast'
+import EmptyData from '../../../components/EmptyData'
 
 interface BookDetailProps {
   id: string
-  deleteBook: (book: IBook) => void
 }
 
-function Page({ params: { id, deleteBook } }: { params: BookDetailProps }) {
+function Page({ params: { id } }: { params: BookDetailProps }) {
   const [bookDetail, setBookDetail] = useState<IBook | null>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
+  const [showToast, setShowToast] = useState<boolean>(false)
+  const [toastMessage, setToastMessage] = useState<string>('')
+  const [books, setBooks] = useState<IBook[]>(BOOKS)
+  const [notFound, setNotFound] = useState<boolean>(false)
   console.log('Books id:', id)
 
   const fetchBookDetail = (id: string) => {
@@ -26,6 +32,8 @@ function Page({ params: { id, deleteBook } }: { params: BookDetailProps }) {
 
       if (book) {
         setBookDetail(book)
+      } else {
+        setNotFound(true)
       }
     } catch (error) {
       console.error('Error getting book from local storage:', error)
@@ -36,6 +44,32 @@ function Page({ params: { id, deleteBook } }: { params: BookDetailProps }) {
     fetchBookDetail(id)
   }, [id])
   console.log('Book detail:', bookDetail)
+
+  const openToast = () => {
+    setShowToast(true)
+
+    setTimeout(() => {
+      setShowToast(false)
+    }, 1500)
+  }
+
+  const closeToast = () => {
+    setShowToast(false)
+    setToastMessage('')
+  }
+
+  const deleteBook = (bookToDelete: IBook) => {
+    const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
+    setBooks(updatedBooks)
+    openToast()
+    const message = `Delete <b>${bookToDelete.name}</b> successful!`
+    setToastMessage(message)
+
+    localStorage.setItem('books', JSON.stringify(updatedBooks))
+    if (bookToDelete.id === parseInt(id)) {
+      setNotFound(true)
+    }
+  }
 
   const handleDeleteBook = (book: IBook) => {
     setBookToDelete(book)
@@ -49,6 +83,19 @@ function Page({ params: { id, deleteBook } }: { params: BookDetailProps }) {
 
     setDeleteModal(false)
     console.log('Close confirm delete')
+  }
+
+  if (notFound) {
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <EmptyData />
+        <Link href="/">
+          <button className="bg-green-300  text-center w-32 h-10 rounded mt-4">
+            Go to Home
+          </button>
+        </Link>
+      </div>
+    )
   }
 
   return (
@@ -101,6 +148,7 @@ function Page({ params: { id, deleteBook } }: { params: BookDetailProps }) {
             <span className="sr-only">Loading...</span>
           </div>
         )}
+        {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
         {deleteModal && (
           <DeleteBook
             closeDeleteBook={() => setDeleteModal(false)}
