@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
-import { IBook } from '../constant/BookModel'
+import { IBook } from '../constant/book.modal'
 import Toast from '../components/Toast'
 import { BOOKS } from '../constant/book'
 
@@ -40,7 +40,7 @@ function MainBody(): JSX.Element {
     const newBooks = [...books, newBook]
     setBooks(newBooks)
     openToast()
-    const message = `Add new book successful!`
+    const message = `Add book ${newBook.name} successful!`
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(newBooks))
@@ -53,7 +53,7 @@ function MainBody(): JSX.Element {
     setBooks(updatedBooks)
     openToast()
 
-    const message = "Edit book successful!"
+    const message = `Edit book ${editedBook.name} successful!`
     setToastMessage(message)
     localStorage.setItem('books', JSON.stringify(updatedBooks))
   }
@@ -62,7 +62,7 @@ function MainBody(): JSX.Element {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
     setBooks(updatedBooks)
     openToast()
-    const message = `Delete book successful!`
+    const message = `Delete book ${bookToDelete.name} successful!`
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(updatedBooks))

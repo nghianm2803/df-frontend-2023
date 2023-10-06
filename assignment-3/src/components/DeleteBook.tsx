@@ -1,5 +1,5 @@
 import React from 'react'
-import { IBook } from '../constant/BookModel'
+import { IBook } from '../constant/book.modal'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void

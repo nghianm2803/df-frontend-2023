@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { IBook } from '../constant/BookModel'
+import { IBook } from '../constant/book.modal'
 
 interface EditBookProps {
   closeEditBook: () => void
