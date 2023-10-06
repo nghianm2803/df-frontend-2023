@@ -1,11 +1,8 @@
 import React from 'react'
+import { useBookContext } from '../contexts/bookContext'
 
-interface ToastProps {
-  closeToast: () => void
-  message: string
-}
-
-function Toast({ closeToast, message }: ToastProps): JSX.Element {
+function Toast(): JSX.Element {
+  const { toastMessage, closeToast } = useBookContext()
   return (
     // Semantic check
     <button
@@ -19,10 +16,7 @@ function Toast({ closeToast, message }: ToastProps): JSX.Element {
           </h2>
         </div>
         <div className="flex flex-col align-middle justify-center text-center m-3">
-          <p
-            className="text-center dark:text-slate-200"
-            dangerouslySetInnerHTML={{ __html: message }}
-          />
+          <p className="text-center dark:text-slate-200">{toastMessage}</p>
         </div>
         <div className="loaderSlice relative w-full h-1 bg-gray-300">
           <div className="progressBar absolute h-full bg-[#55d244] animate-progressBar"></div>

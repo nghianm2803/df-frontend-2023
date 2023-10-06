@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { AiOutlineLeft } from 'react-icons/ai'
-import { IBook } from '../../../interface/book'
+import { IBook } from '../../../interface/book.model'
 import { useEffect, useState } from 'react'
 import MainHeader from '../../../layouts/MainHeader'
 import DeleteBook from '../../../components/DeleteBook'
@@ -148,11 +148,10 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
             <span className="sr-only">Loading...</span>
           </div>
         )}
-        {showToast && <Toast message={toastMessage} closeToast={closeToast} />}
+        {showToast && <Toast />}
         {deleteModal && (
           <DeleteBook
             closeDeleteBook={() => setDeleteModal(false)}
-            deleteBook={confirmDelete}
             bookToDelete={bookToDelete}
           />
         )}

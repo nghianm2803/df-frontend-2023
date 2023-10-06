@@ -1,12 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { IBook } from '../interface/book'
+import { IBook } from '../interface/book.model'
+import { useBookContext } from '../contexts/bookContext'
 
 interface AddBookProps {
   closeAddBook: () => void
-  addBook: (book: IBook) => void
 }
 
-function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
+function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
+  const { addBook } = useBookContext()
   const [name, setName] = useState<string>('')
   const [author, setAuthor] = useState<string>('')
   const [topic, setTopic] = useState<string>('Programming')
@@ -48,7 +49,6 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
     }
 
     addBook(newBook)
-    // console.log('New Book:', newBook);
 
     setName('')
     setAuthor('')
@@ -61,7 +61,9 @@ function AddBook({ closeAddBook, addBook }: AddBookProps): JSX.Element {
     <div className="w-full h-full block fixed px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
       <div className="m-auto bg-white dark:bg-slate-800 p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">
         <div className="flex flex-row justify-between">
-          <h2 className="text-gray-800 dark:text-white font-bold text-2xl">Add book</h2>
+          <h2 className="text-gray-800 dark:text-white font-bold text-2xl">
+            Add book
+          </h2>
           <button className="btn-close" onClick={closeAddBook}>
             &times;
           </button>

@@ -1,17 +1,17 @@
 import React from 'react'
-import { IBook } from '../interface/book'
+import { IBook } from '../interface/book.model'
+import { useBookContext } from '../contexts/bookContext'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void
-  deleteBook: (book: IBook | null) => void
   bookToDelete: IBook
 }
 
 function DeleteBook({
   closeDeleteBook,
-  deleteBook,
   bookToDelete,
 }: DeleteBookProps): JSX.Element {
+  const { deleteBook } = useBookContext()
   const confirmDelete = () => {
     deleteBook(bookToDelete)
     closeDeleteBook()
