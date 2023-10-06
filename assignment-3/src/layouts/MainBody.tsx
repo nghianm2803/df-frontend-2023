@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
-import { IBook } from '../constant/book.modal'
+import { IBook } from '../interface/book.model'
 import Toast from '../components/Toast'
 import { BOOKS } from '../constant/book'
 

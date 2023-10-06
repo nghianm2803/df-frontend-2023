@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { IBook } from '../constant/book.modal'
+import { IBook } from '../interface/book.model'
 import DeleteBook from './DeleteBook'
 import Pagination from './Pagination'
 import EmptyData from './EmptyData'
