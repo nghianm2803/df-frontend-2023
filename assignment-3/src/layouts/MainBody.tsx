@@ -40,7 +40,7 @@ function MainBody(): JSX.Element {
     const newBooks = [...books, newBook]
     setBooks(newBooks)
     openToast()
-    const message = `Add <b>${newBook.name}</b> successful!`
+    const message = `Add new book successful!`
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(newBooks))
@@ -53,7 +53,7 @@ function MainBody(): JSX.Element {
     setBooks(updatedBooks)
     openToast()
 
-    const message = `Edit <b>${editedBook.name}</b> successful!`
+    const message = "Edit book successful!"
     setToastMessage(message)
     localStorage.setItem('books', JSON.stringify(updatedBooks))
   }
@@ -62,7 +62,7 @@ function MainBody(): JSX.Element {
     const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
     setBooks(updatedBooks)
     openToast()
-    const message = `Delete <b>${bookToDelete.name}</b> successful!`
+    const message = `Delete book successful!`
     setToastMessage(message)
 
     localStorage.setItem('books', JSON.stringify(updatedBooks))

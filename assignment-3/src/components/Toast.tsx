@@ -14,8 +14,8 @@ function Toast({ closeToast, message }: ToastProps): JSX.Element {
           <h2>Success!</h2>
         </div>
         <div className="modalBody">
-          <p id="toastMessage" dangerouslySetInnerHTML={{ __html: message }} />
-          {/* <p id="toastMessage">{message}</p> */}
+          {/* <p id="toastMessage" dangerouslySetInnerHTML={{ __html: message }} /> */}
+          <p id="toastMessage">{message}</p>
         </div>
         <div className="loaderSlice">
           <div className="progressBar" />
