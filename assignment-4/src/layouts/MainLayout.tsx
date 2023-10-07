@@ -7,10 +7,10 @@ import MainHeader from './MainHeader'
 
 function MainLayout() {
   return (
-    <div className='dark:bg-slate-800'>
+    <div className="dark:bg-slate-800">
       <MainHeader />
       <MainBody />
-      {/* <MainFooter /> */}
+      <MainFooter />
     </div>
   )
 }

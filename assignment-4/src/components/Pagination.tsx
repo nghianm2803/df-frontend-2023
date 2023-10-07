@@ -1,6 +1,5 @@
 import React, { useMemo, FunctionComponent } from 'react'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
-// import '../theme/pagination.css'
 
 interface PaginationProps {
   onChangePage: (pageNumber: number) => void
@@ -131,7 +130,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
   }
 
   return (
-    <div className="flex justify-center p-2 rounded">
+    <div className="flex justify-center p-1 rounded">
       {/* Left navigation arrow */}
       <button
         className={`btn-pagination rounded-tl-md rounded-bl-md inline-block bg-transparent text-blue-400 hover:text-black   ${

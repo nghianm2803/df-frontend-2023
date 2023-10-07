@@ -8,11 +8,13 @@ import { useRouter } from 'next/navigation'
 import { useBookContext } from '../contexts/bookContext'
 
 function TableBook(): JSX.Element {
-  const { books, filteredBooks, currentPage, setCurrentPage } = useBookContext()
+  const { books, filteredBooks, deleteBook, currentPage, setCurrentPage } =
+    useBookContext()
   const [editModal, setEditModal] = useState<boolean>(false)
   const [bookToEdit, setBookToEdit] = useState<any>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const [bookToDelete, setBookToDelete] = useState<any>(null)
+
   const ITEMS_PER_PAGE = 5
 
   const router = useRouter()
@@ -62,8 +64,14 @@ function TableBook(): JSX.Element {
     setDeleteModal(true)
   }
 
-  const displayedBooks = filteredBooks || books
+  const confirmDelete = () => {
+    if (bookToDelete) {
+      deleteBook(bookToDelete)
+      setDeleteModal(false)
+    }
+  }
 
+  const displayedBooks = filteredBooks || books
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
   const slicedBooks = displayedBooks.slice(startIndex, endIndex)
@@ -130,6 +138,7 @@ function TableBook(): JSX.Element {
           <DeleteBook
             closeDeleteBook={() => setDeleteModal(false)}
             bookToDelete={bookToDelete}
+            confirmDelete={confirmDelete}
           />
         )}
       </div>

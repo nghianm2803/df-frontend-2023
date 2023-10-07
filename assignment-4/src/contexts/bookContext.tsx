@@ -1,3 +1,5 @@
+'use client'
+
 import React, {
   createContext,
   useContext,
@@ -74,7 +76,7 @@ export function BookProvider({ children }) {
     openToast()
     const message = `Edit book ${editedBook.name} successful!`
     setToastMessage(message)
-    
+
     localStorage.setItem('books', JSON.stringify(updatedBooks))
   }
 

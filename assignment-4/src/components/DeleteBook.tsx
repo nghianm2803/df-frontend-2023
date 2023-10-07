@@ -1,22 +1,17 @@
 import React from 'react'
 import { IBook } from '../interface/book.model'
-import { useBookContext } from '../contexts/bookContext'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void
   bookToDelete: IBook
+  confirmDelete: () => void
 }
 
 function DeleteBook({
   closeDeleteBook,
   bookToDelete,
+  confirmDelete,
 }: DeleteBookProps): JSX.Element {
-  const { deleteBook } = useBookContext()
-  const confirmDelete = () => {
-    deleteBook(bookToDelete)
-    closeDeleteBook()
-  }
-
   return (
     <div className="fixed top-32 w-full h-full block px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
       <div className="m-auto bg-white dark:bg-slate-800 p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">
