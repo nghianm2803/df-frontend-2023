@@ -55,7 +55,7 @@ export const BOOKS = [
   },
   {
     id: 10,
-    name: 'A Craftsman\'s Guide to Software Structure and Design',
+    name: 'A Craftsman Guide to Software Structure and Design',
     author: 'Robert C. Martin',
     topic: 'Software Architecture',
   },
@@ -239,4 +239,4 @@ export const BOOKS = [
     author: 'Gigi Sayfan',
     topic: 'Kubernetes',
   },
-];
+]
