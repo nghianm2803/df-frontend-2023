@@ -142,7 +142,9 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
       >
         <AiOutlineArrowLeft />
       </button>
+
       {/* pageNumber: any */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {paginationRange.map((pageNumber: any, index: number) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === '...') {

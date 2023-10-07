@@ -19,7 +19,7 @@ function Toast(): JSX.Element {
           <p className="text-center dark:text-slate-200">{toastMessage}</p>
         </div>
         <div className="loaderSlice relative w-full h-1 bg-gray-300">
-          <div className="progressBar absolute h-full bg-[#55d244] animate-progressBar"></div>
+          <div className="progressBar absolute h-full bg-[#55d244] animate-progressBar" />
         </div>
       </div>
     </button>

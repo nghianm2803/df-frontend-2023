@@ -76,21 +76,21 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
                 Name
+                <input
+                  className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  type="text"
+                  placeholder="Book name"
+                  id="fieldName"
+                  name="fieldName"
+                  autoFocus
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value)
+                    setNameError(false)
+                  }}
+                />
               </label>
-              <input
-                className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                type="text"
-                placeholder="Book name"
-                id="fieldName"
-                name="fieldName"
-                autoFocus
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value)
-                  setNameError(false)
-                }}
-                // required
-              />
+
               {nameError && (
                 <p className="text-base font-bold text-red-600">
                   Name field is required.
@@ -103,19 +103,20 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
                 Author
+                <input
+                  className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  type="text"
+                  placeholder="Author"
+                  id="fieldAuthor"
+                  name="fieldAuthor"
+                  value={author}
+                  onChange={(e) => {
+                    setAuthor(e.target.value)
+                    setAuthorError(false)
+                  }}
+                />
               </label>
-              <input
-                className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                type="text"
-                placeholder="Author"
-                id="fieldAuthor"
-                name="fieldAuthor"
-                value={author}
-                onChange={(e) => {
-                  setAuthor(e.target.value)
-                  setAuthorError(false)
-                }}
-              />
+
               {authorError && (
                 <p className="text-base font-bold text-red-600">
                   Author field is required.
@@ -128,19 +129,19 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
                 Topic
+                <select
+                  className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  id="fieldTopic"
+                  onChange={handleChange}
+                  value={topic}
+                >
+                  {topics.map((topic, index) => (
+                    <option key={index} value={topic.value}>
+                      {topic.label}
+                    </option>
+                  ))}
+                </select>
               </label>
-              <select
-                className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                id="fieldTopic"
-                onChange={handleChange}
-                value={topic}
-              >
-                {topics.map((topic, index) => (
-                  <option key={index} value={topic.value}>
-                    {topic.label}
-                  </option>
-                ))}
-              </select>
             </div>
           </div>
           <div className="text-right">

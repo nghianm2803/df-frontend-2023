@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { IBook } from '../interface/book.model'
-import EmptyData from '../components/EmptyData'
+import { useRouter } from 'next/navigation'
 import DeleteBook from './DeleteBook'
 import EditBook from './EditBook'
 import Pagination from './Pagination'
-import { useRouter } from 'next/navigation'
 import { useBookContext } from '../contexts/bookContext'
+import { IBook } from '../interface/book.model'
+import EmptyData from './EmptyData'
 
 function TableBook(): JSX.Element {
   const { books, filteredBooks, deleteBook, currentPage, setCurrentPage } =
     useBookContext()
   const [editModal, setEditModal] = useState<boolean>(false)
-  const [bookToEdit, setBookToEdit] = useState<any>(null)
+  const [bookToEdit, setBookToEdit] = useState<IBook | null>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
-  const [bookToDelete, setBookToDelete] = useState<any>(null)
+  const [bookToDelete, setBookToDelete] = useState<IBook | null>(null)
 
   const ITEMS_PER_PAGE = 5
 
@@ -49,7 +49,6 @@ function TableBook(): JSX.Element {
   )
 
   const handleViewBook = (book: IBook) => {
-    console.log('go to detail book view', book.id)
     const bookId = book.id
     router.push(`/book/${bookId}`)
   }

@@ -3,7 +3,7 @@ import { IBook } from '../interface/book.model'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void
-  bookToDelete: IBook
+  bookToDelete: IBook | null
   confirmDelete: () => void
 }
 

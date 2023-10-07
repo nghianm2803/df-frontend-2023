@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { AiOutlineLeft } from 'react-icons/ai'
-import { IBook } from '../../../interface/book.model'
 import { useEffect, useState } from 'react'
+import { IBook } from '../../../interface/book.model'
 import MainHeader from '../../../layouts/MainHeader'
 import DeleteBook from '../../../components/DeleteBook'
 import Toast from '../../../components/Toast'
 import EmptyData from '../../../components/EmptyData'
 import { useBookContext } from '../../../contexts/bookContext'
+
 interface BookDetailProps {
   id: string
 }
@@ -17,11 +18,13 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
   const { books, showToast, deleteBook } = useBookContext()
   const [bookDetail, setBookDetail] = useState<IBook | null>(null)
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
-  const [bookToDelete, setBookToDelete] = useState<any>(null)
+  const [bookToDelete, setBookToDelete] = useState<IBook | null>(null)
 
   const fetchBookDetail = (id: string) => {
     try {
-      const book = books.filter((book: IBook) => book.id === parseInt(id))[0]
+      const book = books.filter(
+        (book: IBook) => book.id === parseInt(id, 10),
+      )[0]
 
       if (book) {
         setBookDetail(book)
@@ -35,6 +38,7 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
 
   useEffect(() => {
     fetchBookDetail(id)
+    // eslint-disable-next-line
   }, [id])
 
   const handleDeleteBook = (book: IBook) => {
@@ -78,15 +82,15 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
               </span>
               <span className="dark:text-white">{bookDetail?.topic}</span>
             </p>
-            <p
-              onClick={() => {
-                handleDeleteBook(bookDetail)
-              }}
-              className="text-red-500 font-semibold underline cursor-pointer mt-5"
-            >
-              Delete
-            </p>
           </div>
+          <button
+            onClick={() => {
+              handleDeleteBook(bookDetail)
+            }}
+            className="text-left text-red-500 font-semibold underline cursor-pointer mt-5"
+          >
+            Delete
+          </button>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center dark:bg-slate-800">
