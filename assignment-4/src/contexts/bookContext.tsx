@@ -38,7 +38,7 @@ export function useBookContext(): BookContextProps {
   return context
 }
 
-export function BookProvider({ children }) {
+export function BookProvider({ children }: { children: React.ReactNode }) {
   const [books, setBooks] = useState<IBook[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(1)
