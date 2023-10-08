@@ -1,7 +1,11 @@
 import React, { useState, FormEvent } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
-function SearchBar({ onSearch }) {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+function SearchBar({ onSearch }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState<string>('')
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {

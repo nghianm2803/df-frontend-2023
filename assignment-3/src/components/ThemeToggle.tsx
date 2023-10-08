@@ -2,11 +2,15 @@ import React from 'react'
 import '../theme/themeToggleStyle.css'
 import { useTheme } from '../theme/ThemeContext'
 
-function ThemeToggle({ toggleTheme }) {
+interface ThemeToggleProps {
+  toggleTheme: () => void
+}
+
+function ThemeToggle({ toggleTheme }: ThemeToggleProps) {
   const { isDarkTheme } = useTheme()
   const handleToggleChange = () => {
-    toggleTheme();
-  };
+    toggleTheme()
+  }
 
   return (
     <button id="theme-toggle-button" onClick={toggleTheme}>
