@@ -10,9 +10,9 @@ import EmptyData from './EmptyData'
 function TableBook(): JSX.Element {
   const { books, filteredBooks, deleteBook, currentPage, setCurrentPage } =
     useBookContext()
-  const [editModal, setEditModal] = useState<boolean>(false)
+  const [editModal, setEditModal] = useState(false)
   const [bookToEdit, setBookToEdit] = useState<IBook | null>(null)
-  const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   const [bookToDelete, setBookToDelete] = useState<IBook | null>(null)
 
   const ITEMS_PER_PAGE = 5

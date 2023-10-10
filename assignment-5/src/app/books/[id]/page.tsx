@@ -17,7 +17,7 @@ interface BookDetailProps {
 function Page({ params: { id } }: { params: BookDetailProps }) {
   const { books, showToast, deleteBook } = useBookContext()
   const [bookDetail, setBookDetail] = useState<IBook | null>(null)
-  const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   const [bookToDelete, setBookToDelete] = useState<IBook | null>(null)
 
   const fetchBookDetail = (id: string) => {

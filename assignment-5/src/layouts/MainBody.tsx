@@ -9,7 +9,7 @@ import { useBookContext } from '../contexts/bookContext'
 
 function MainBody(): JSX.Element {
   const { showToast, setCurrentPage, searchBooks } = useBookContext()
-  const [addModal, setAddModal] = useState<boolean>(false)
+  const [addModal, setAddModal] = useState(false)
 
   const handleAddBook = () => {
     setAddModal(true)
