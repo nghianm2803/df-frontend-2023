@@ -19,7 +19,7 @@ export default function NotFound() {
       <button
         type="button"
         className="bg-green-300 text-center w-48 h-10 rounded mt-4 "
-        onClick={() => router.push('/')}
+        onClick={() => router.push('/books')}
       >
         Back to home page
       </button>

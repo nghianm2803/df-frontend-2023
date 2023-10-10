@@ -50,7 +50,7 @@ function TableBook(): JSX.Element {
 
   const handleViewBook = (book: IBook) => {
     const bookId = book.id
-    router.push(`/book/${bookId}`)
+    router.push(`/books/${bookId}`)
   }
 
   const handleEditBook = (book: IBook) => {
