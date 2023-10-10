@@ -2,6 +2,7 @@
 
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -37,11 +38,11 @@ export function useBookContext(): BookContextProps {
   return context
 }
 
-export function BookProvider({ children }) {
+export function BookProvider({ children }: { children: React.ReactNode }) {
   const [books, setBooks] = useState<IBook[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [showToast, setShowToast] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState<string>('')
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([])
 
@@ -58,46 +59,57 @@ export function BookProvider({ children }) {
     setToastMessage('')
   }
 
-  const addBook = (newBook: IBook) => {
-    const newBooks = [...books, newBook]
-    setBooks(newBooks)
-    openToast()
-    const message = `Add book ${newBook.name} successful!`
-    setToastMessage(message)
+  const addBook = useCallback(
+    (newBook: IBook) => {
+      const newBooks = [...books, newBook]
+      setBooks(newBooks)
+      openToast()
+      const message = `Add book ${newBook.name} successful!`
+      setToastMessage(message)
 
-    localStorage.setItem('books', JSON.stringify(newBooks))
-  }
+      localStorage.setItem('books', JSON.stringify(newBooks))
+    },
+    [books],
+  )
 
-  const editBook = (editedBook: IBook) => {
-    const updatedBooks = books.map((book) =>
-      book.id === editedBook.id ? editedBook : book,
-    )
-    setBooks(updatedBooks)
-    openToast()
-    const message = `Edit book ${editedBook.name} successful!`
-    setToastMessage(message)
+  const editBook = useCallback(
+    (editedBook: IBook) => {
+      const updatedBooks = books.map((book) =>
+        book.id === editedBook.id ? editedBook : book,
+      )
+      setBooks(updatedBooks)
+      openToast()
+      const message = `Edit book ${editedBook.name} successful!`
+      setToastMessage(message)
 
-    localStorage.setItem('books', JSON.stringify(updatedBooks))
-  }
+      localStorage.setItem('books', JSON.stringify(updatedBooks))
+    },
+    [books],
+  )
 
-  const deleteBook = (bookToDelete: IBook) => {
-    const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
-    setBooks(updatedBooks)
-    openToast()
-    const message = `Delete book ${bookToDelete.name} successful!`
-    setToastMessage(message)
+  const deleteBook = useCallback(
+    (bookToDelete: IBook) => {
+      const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
+      setBooks(updatedBooks)
+      openToast()
+      const message = `Delete book ${bookToDelete.name} successful!`
+      setToastMessage(message)
 
-    localStorage.setItem('books', JSON.stringify(updatedBooks))
-  }
+      localStorage.setItem('books', JSON.stringify(updatedBooks))
+    },
+    [books],
+  )
 
-  const searchBooks = (query: string) => {
-    const formattedQuery = query.trim().toLowerCase()
-    const filtered = books.filter((book: IBook) =>
-      book.name.toLowerCase().includes(formattedQuery),
-    )
-    setFilteredBooks(filtered)
-    console.log('filtered books:', filtered)
-  }
+  const searchBooks = useCallback(
+    (query: string) => {
+      const formattedQuery = query.trim().toLowerCase()
+      const filtered = books.filter((book: IBook) =>
+        book.name.toLowerCase().includes(formattedQuery),
+      )
+      setFilteredBooks(filtered)
+    },
+    [books],
+  )
 
   useEffect(() => {
     const loadBooksFromLocalStorage = () => {
@@ -143,7 +155,17 @@ export function BookProvider({ children }) {
       searchBooks,
       filteredBooks,
     }),
-    [addBook, editBook, deleteBook, books],
+    [
+      books,
+      addBook,
+      editBook,
+      deleteBook,
+      currentPage,
+      toastMessage,
+      showToast,
+      searchBooks,
+      filteredBooks,
+    ],
   )
 
   return (

@@ -1,6 +1,9 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { IBook } from '../interface/book.model'
+import React from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useBookContext } from '../contexts/bookContext'
+import { IBook } from '../interface/book.model'
+import { bookSchema, BookSchemaType } from '../schemas/book'
 
 interface AddBookProps {
   closeAddBook: () => void
@@ -8,11 +11,6 @@ interface AddBookProps {
 
 function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
   const { addBook } = useBookContext()
-  const [name, setName] = useState<string>('')
-  const [author, setAuthor] = useState<string>('')
-  const [topic, setTopic] = useState<string>('Programming')
-  const [nameError, setNameError] = useState<boolean>(false)
-  const [authorError, setAuthorError] = useState<boolean>(false)
 
   const topics = [
     { label: 'Programming', value: 'Programming' },
@@ -20,26 +18,25 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
     { label: 'DevOps', value: 'DevOps' },
   ]
 
-  function validateInput() {
-    if (name.trim() === '') {
-      setNameError(true)
-    }
-    if (author.trim() === '') {
-      setAuthorError(true)
-    }
-  }
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+    watch,
+    reset,
+  } = useForm<BookSchemaType>({
+    resolver: zodResolver(bookSchema),
+    defaultValues: {
+      name: '',
+      author: '',
+      topic: 'Programming',
+    },
+  })
+  const name = watch('name')
+  const author = watch('author')
+  const topic = watch('topic')
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setTopic(e.target.value)
-  }
-
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    validateInput()
-    if (name.trim() === '' || author.trim() === '') {
-      return
-    }
-
+  const onSubmit: SubmitHandler<BookSchemaType> = () => {
     const bookId = Math.floor(Math.random() * 1000)
     const newBook: IBook = {
       id: bookId,
@@ -49,11 +46,7 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
     }
 
     addBook(newBook)
-
-    setName('')
-    setAuthor('')
-    setTopic('')
-
+    reset()
     closeAddBook()
   }
 
@@ -68,72 +61,59 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
             &times;
           </button>
         </div>
-        <form className="space-y-6" onSubmit={submit}>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col align-middle justify-center m-3">
             <div className="mb-4">
               <label
-                htmlFor="fieldName"
+                htmlFor="name"
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
                 Name
                 <input
+                  {...register('name')}
                   className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   type="text"
                   placeholder="Book name"
-                  id="fieldName"
-                  name="fieldName"
+                  id="name"
                   autoFocus
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value)
-                    setNameError(false)
-                  }}
                 />
               </label>
-
-              {nameError && (
-                <p className="text-base font-bold text-red-600">
-                  Name field is required.
+              {errors.name && (
+                <p className="text-sm font-bold text-red-400">
+                  {errors.name.message}
                 </p>
               )}
             </div>
             <div className="mb-4">
               <label
-                htmlFor="fieldAuthor"
+                htmlFor="author"
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
                 Author
                 <input
+                  {...register('author')}
                   className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   type="text"
                   placeholder="Author"
-                  id="fieldAuthor"
-                  name="fieldAuthor"
-                  value={author}
-                  onChange={(e) => {
-                    setAuthor(e.target.value)
-                    setAuthorError(false)
-                  }}
+                  id="author"
                 />
               </label>
-
-              {authorError && (
-                <p className="text-base font-bold text-red-600">
-                  Author field is required.
+              {errors.author && (
+                <p className="text-sm font-bold text-red-400">
+                  {errors.author.message}
                 </p>
               )}
             </div>
             <div>
               <label
-                htmlFor="fieldTopic"
+                htmlFor="topic"
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
                 Topic
                 <select
+                  {...register('topic')}
                   className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  id="fieldTopic"
-                  onChange={handleChange}
-                  value={topic}
+                  id="topic"
                 >
                   {topics.map((topic, index) => (
                     <option key={index} value={topic.value}>
