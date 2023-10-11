@@ -1,16 +1,3 @@
-// 'use client'
-
-// import React from 'react'
-// import MainLayout from '../layouts/MainLayout'
-
-// export default function Home() {
-//   return (
-//     <div className="flex flex-col justify-between min-h-screen dark:bg-slate-800">
-//       <MainLayout />
-//     </div>
-//   )
-// }
-
 'use client'
 
 import React from 'react'
@@ -18,23 +5,59 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { loginSchema, LoginSchemaType } from '../schemas/login'
+import useAuth from '../hooks/useAuth'
+// import apiService from './apiService'
 
 const LoginPage = () => {
   const Router = useRouter()
+  const auth = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'doo@gmail.com',
+      password: 'Doocharsiu1@',
     },
   })
 
-  const onSubmit: SubmitHandler<LoginSchemaType> = () => {
-    Router.push('/books')
+  // const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
+  //   // Router.push('/books')
+  //   const { email, password } = data
+  //   try {
+  //     await auth.login({ email, password }, () => {
+  //       console.log('Login success')
+  //       console.log('Email:', email)
+  //       console.log('Password:', password)
+  //       Router.push('/books')
+  //     })
+  //   } catch (error) {
+  //     reset()
+  //   }
+  // }
+
+  const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
+    const { email, password } = data
+
+    try {
+      const response = await auth.login({ email, password })
+      console.log('Login response:', response)
+
+      await new Promise(() => {
+        if (auth.isAuthenticated) {
+          console.log('Auth:', auth)
+          console.log('Email:', email)
+          console.log('Password:', password)
+          Router.push('/books')
+        }
+      })
+    } catch (error) {
+      console.error('Login error:', error)
+      reset()
+    }
   }
 
   return (
@@ -71,13 +94,14 @@ const LoginPage = () => {
                 htmlFor="password"
                 className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
               >
-                Password
+                Password (*)
                 <input
                   {...register('password')}
                   className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   type="password"
                   placeholder="Enter your password"
                   id="password"
+                  autoComplete="on"
                 />
                 {errors.password && (
                   <p className="text-sm font-bold text-red-400">

@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar'
 import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
 import Toast from '../components/Toast'
-import { useBookContext } from '../contexts/bookContext'
+import { useBookContext } from '../contexts/BookContext'
 
 function MainBody(): JSX.Element {
   const { showToast, setCurrentPage, searchBooks } = useBookContext()

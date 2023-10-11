@@ -8,7 +8,7 @@ import MainHeader from '../../../layouts/MainHeader'
 import DeleteBook from '../../../components/DeleteBook'
 import Toast from '../../../components/Toast'
 import EmptyData from '../../../components/EmptyData'
-import { useBookContext } from '../../../contexts/bookContext'
+import { useBookContext } from '../../../contexts/BookContext'
 
 interface BookDetailProps {
   id: string
