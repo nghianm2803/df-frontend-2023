@@ -10,6 +10,7 @@ import useAuth from '../hooks/useAuth'
 
 const MainHeader = () => {
   const { data, logout } = useAuth()
+
   const Router = useRouter()
   const [accountMenu, setAccountMenu] = useState(false)
 

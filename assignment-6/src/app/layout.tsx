@@ -30,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} dark:bg-slate-800`}>
         <AuthProvider>
           <ThemeProvider attribute="class">
             <BookProvider>{children}</BookProvider>

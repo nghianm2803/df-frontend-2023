@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiService = axios.create({
-  baseURL: 'https://develop-api.bookstore.dwarvesf.com/api/v1/',
+  baseURL: process.env.BASE_URL,
 })
 
 apiService.interceptors.request.use(

@@ -10,7 +10,6 @@ import { isValidToken } from '../utils/jwt'
 
 interface IUser {
   id: number
-  avatar: string
   email: string
   fullName: string
 }
@@ -22,7 +21,11 @@ interface IState {
 }
 
 interface IAuthAction {
-  type: 'AUTH.INITIALIZE' | 'AUTH.LOGIN_SUCCESS' | 'AUTH.LOGOUT'
+  type:
+    | 'AUTH.INITIALIZE'
+    | 'AUTH.LOGIN_SUCCESS'
+    | 'AUTH.REGISTER_SUCCESS'
+    | 'AUTH.LOGOUT'
   payload: { isAuthenticated: boolean; data: IUser }
 }
 
@@ -31,7 +34,6 @@ const initialState: IState = {
   isAuthenticated: false,
   data: {
     id: 1,
-    avatar: '',
     email: '',
     fullName: '',
   },
@@ -39,6 +41,7 @@ const initialState: IState = {
 
 const INITIALIZE = 'AUTH.INITIALIZE'
 const LOGIN_SUCCESS = 'AUTH.LOGIN_SUCCESS'
+const REGISTER_SUCCESS = 'AUTH.REGISTER_SUCCESS'
 const LOGOUT = 'AUTH.LOGOUT'
 
 const reducer = (state: IState, action: IAuthAction) => {
@@ -56,8 +59,15 @@ const reducer = (state: IState, action: IAuthAction) => {
       const { isAuthenticated, data } = action.payload
       return {
         ...state,
-        isInitialized: true,
         isAuthenticated,
+        data,
+      }
+    }
+    case REGISTER_SUCCESS: {
+      const { data } = action.payload
+      return {
+        ...state,
+        isAuthenticated: true,
         data,
       }
     }
@@ -91,13 +101,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken')
-
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken)
-
-          const response = await apiService.get('/users/me')
-          const { data } = response
-          console.log('Response:', response)
+          const response = await apiService.get('/me')
+          const { data } = response.data
           dispatch({
             type: INITIALIZE,
             payload: { isAuthenticated: true, data },
@@ -111,7 +118,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
               isAuthenticated: false,
               data: {
                 id: 1,
-                avatar: '',
                 email: '',
                 fullName: '',
               },
@@ -119,8 +125,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
           })
         }
       } catch (err) {
-        console.error(err)
-
+        console.error('Error in initialize:', err)
         setSession('')
         dispatch({
           type: INITIALIZE,
@@ -128,7 +133,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             isAuthenticated: false,
             data: {
               id: 1,
-              avatar: '',
               email: '',
               fullName: '',
             },
@@ -148,15 +152,44 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
           password,
         })
 
-        const { data, accessToken } = response.data
-
-        setSession(accessToken)
+        const { data } = response.data
+        setSession(data.accessToken)
         dispatch({
           type: LOGIN_SUCCESS,
           payload: { isAuthenticated: true, data },
         })
       } catch (error) {
         console.error('Login error:', error)
+      }
+    },
+    [],
+  )
+
+  const signup = useCallback(
+    async ({
+      fullName,
+      email,
+      password,
+    }: {
+      fullName: string
+      email: string
+      password: string
+    }) => {
+      try {
+        const response = await apiService.post('/auth/signup', {
+          fullName,
+          email,
+          password,
+        })
+
+        const { data } = response.data
+        setSession(data.accessToken)
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: { isAuthenticated: true, data },
+        })
+      } catch (error) {
+        console.error('Register error:', error)
       }
     },
     [],
@@ -170,7 +203,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated: false,
         data: {
           id: 1,
-          avatar: '',
           email: '',
           fullName: '',
         },
@@ -182,9 +214,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     () => ({
       ...state,
       login,
+      signup,
       logout,
     }),
-    [login, logout, state],
+    [login, signup, logout, state],
   )
 
   return (
