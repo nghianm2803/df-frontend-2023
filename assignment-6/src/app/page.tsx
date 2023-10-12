@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -9,8 +9,9 @@ import useAuth from '../hooks/useAuth'
 // import apiService from './apiService'
 
 const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const Router = useRouter()
-  const auth = useAuth()
+  const { login, isAuthenticated } = useAuth()
   const {
     register,
     handleSubmit,
@@ -24,44 +25,27 @@ const LoginPage = () => {
     },
   })
 
-  // const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
-  //   // Router.push('/books')
-  //   const { email, password } = data
-  //   try {
-  //     await auth.login({ email, password }, () => {
-  //       console.log('Login success')
-  //       console.log('Email:', email)
-  //       console.log('Password:', password)
-  //       Router.push('/books')
-  //     })
-  //   } catch (error) {
-  //     reset()
-  //   }
-  // }
-
   const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
     const { email, password } = data
-
     try {
-      const response = await auth.login({ email, password })
-      console.log('Login response:', response)
-
-      await new Promise(() => {
-        if (auth.isAuthenticated) {
-          console.log('Auth:', auth)
-          console.log('Email:', email)
-          console.log('Password:', password)
-          Router.push('/books')
-        }
-      })
+      setIsLoading(true)
+      await login({ email, password })
     } catch (error) {
       console.error('Login error:', error)
       reset()
+    } finally {
+      setIsLoading(false)
     }
   }
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      Router.push('/books')
+    }
+  }, [Router, isAuthenticated])
+
   return (
-    <div className="w-full h-full block fixed px-1 pt-16 left-0 right-0 overflow-auto z-10 bg-transparent dark:bg-slate-800">
+    <div className="w-full h-full block px-1 pt-16 left-0 right-0 overflow-auto z-10 bg-transparent dark:bg-slate-800">
       <div className="m-auto bg-white dark:bg-slate-800 p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">
         <h1 className="text-4xl text-[#d2445a] dark:text-white font-bold p-5 text-center">
           Bookstore
@@ -81,6 +65,7 @@ const LoginPage = () => {
                   placeholder="Enter your email"
                   id="email"
                   autoFocus
+                  autoComplete="on"
                 />
                 {errors.email && (
                   <p className="text-sm font-bold text-red-400">
@@ -111,8 +96,12 @@ const LoginPage = () => {
               </label>
             </div>
           </div>
-          <button type="submit" className="btn-primary w-full">
-            Login
+          <button
+            type="submit"
+            className={`btn-primary w-full ${isLoading ? 'loading' : ''}`}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
       </div>

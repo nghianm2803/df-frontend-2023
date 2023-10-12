@@ -9,7 +9,7 @@ import ToggleTheme from '../components/ToggleTheme'
 import useAuth from '../hooks/useAuth'
 
 const MainHeader = () => {
-  const { user, logout } = useAuth()
+  const { data, logout } = useAuth()
   const Router = useRouter()
   const [accountMenu, setAccountMenu] = useState(false)
 
@@ -49,8 +49,7 @@ const MainHeader = () => {
                 className="inline-block rounded-full ring-2 ring-white mr-3"
                 priority
               />
-              Du Xa Xiu
-              {user?.email}
+              {data?.email}
             </button>
             {accountMenu && (
               <button

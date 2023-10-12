@@ -1,12 +1,12 @@
 import {
   createContext,
   useReducer,
-  // useEffect,
+  useEffect,
   useMemo,
   useCallback,
 } from 'react'
 import apiService from '../app/apiService'
-// import { isValidToken } from '../utils/jwt'
+import { isValidToken } from '../utils/jwt'
 
 interface IUser {
   id: number
@@ -18,18 +18,18 @@ interface IUser {
 interface IState {
   isInitialized: boolean
   isAuthenticated: boolean
-  user: IUser | null
+  data: IUser | null
 }
 
 interface IAuthAction {
   type: 'AUTH.INITIALIZE' | 'AUTH.LOGIN_SUCCESS' | 'AUTH.LOGOUT'
-  payload: { isAuthenticated: boolean; user: IUser }
+  payload: { isAuthenticated: boolean; data: IUser }
 }
 
 const initialState: IState = {
   isInitialized: false,
   isAuthenticated: false,
-  user: {
+  data: {
     id: 1,
     avatar: '',
     email: '',
@@ -44,25 +44,28 @@ const LOGOUT = 'AUTH.LOGOUT'
 const reducer = (state: IState, action: IAuthAction) => {
   switch (action.type) {
     case INITIALIZE: {
-      const { isAuthenticated, user } = action.payload
+      const { isAuthenticated, data } = action.payload
       return {
         ...state,
         isInitialized: true,
         isAuthenticated,
-        user,
+        data,
       }
     }
-    case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS: {
+      const { isAuthenticated, data } = action.payload
       return {
         ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
+        isInitialized: true,
+        isAuthenticated,
+        data,
       }
+    }
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        data: null,
       }
     default:
       return state
@@ -84,58 +87,58 @@ const AuthContext = createContext({ ...initialState })
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // useEffect(() => {
-  //   const initialize = async () => {
-  //     try {
-  //       const accessToken = window.localStorage.getItem('accessToken')
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const accessToken = window.localStorage.getItem('accessToken')
 
-  //       if (accessToken && isValidToken(accessToken)) {
-  //         setSession(accessToken)
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken)
 
-  //         const response = await apiService.get('/users/me')
-  //         const user = response.data.data
+          const response = await apiService.get('/users/me')
+          const { data } = response
+          console.log('Response:', response)
+          dispatch({
+            type: INITIALIZE,
+            payload: { isAuthenticated: true, data },
+          })
+        } else {
+          setSession('')
 
-  //         dispatch({
-  //           type: INITIALIZE,
-  //           payload: { isAuthenticated: true, user },
-  //         })
-  //       } else {
-  //         setSession('')
+          dispatch({
+            type: INITIALIZE,
+            payload: {
+              isAuthenticated: false,
+              data: {
+                id: 1,
+                avatar: '',
+                email: '',
+                fullName: '',
+              },
+            },
+          })
+        }
+      } catch (err) {
+        console.error(err)
 
-  //         dispatch({
-  //           type: INITIALIZE,
-  //           payload: {
-  //             isAuthenticated: false,
-  //             user: {
-  //               id: 1,
-  //               avatar: '',
-  //               email: '',
-  //               fullName: '',
-  //             },
-  //           },
-  //         })
-  //       }
-  //     } catch (err) {
-  //       console.error(err)
+        setSession('')
+        dispatch({
+          type: INITIALIZE,
+          payload: {
+            isAuthenticated: false,
+            data: {
+              id: 1,
+              avatar: '',
+              email: '',
+              fullName: '',
+            },
+          },
+        })
+      }
+    }
 
-  //       setSession('')
-  //       dispatch({
-  //         type: INITIALIZE,
-  //         payload: {
-  //           isAuthenticated: false,
-  //           user: {
-  //             id: 1,
-  //             avatar: '',
-  //             email: '',
-  //             fullName: '',
-  //           },
-  //         },
-  //       })
-  //     }
-  //   }
-
-  //   initialize()
-  // }, [])
+    initialize()
+  }, [])
 
   const login = useCallback(
     async ({ email, password }: { email: string; password: string }) => {
@@ -144,14 +147,14 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
           email,
           password,
         })
-        const { user, accessToken } = response.data.data
+
+        const { data, accessToken } = response.data
 
         setSession(accessToken)
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: { isAuthenticated: true, user },
+          payload: { isAuthenticated: true, data },
         })
-        console.log('Login response:', response)
       } catch (error) {
         console.error('Login error:', error)
       }
@@ -165,7 +168,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       type: LOGOUT,
       payload: {
         isAuthenticated: false,
-        user: {
+        data: {
           id: 1,
           avatar: '',
           email: '',
