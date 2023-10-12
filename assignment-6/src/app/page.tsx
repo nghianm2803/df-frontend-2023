@@ -53,57 +53,53 @@ const LoginPage = () => {
         <h1 className="text-4xl text-[#d2445a] dark:text-white font-bold p-5 text-center">
           Bookstore
         </h1>
-        <div className="block ml-3 mb-2 text-base font-bold text-gray-700 dark:text-white">
+        <div className="block mb-2 text-base font-bold text-gray-700 dark:text-white">
           Don&apos;t have an account?{' '}
           <button onClick={handleRegister} className="text-red-400">
             Register
           </button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-col align-middle justify-center m-3">
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
-              >
-                Email (*)
-                <input
-                  {...register('email')}
-                  className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  type="text"
-                  placeholder="Enter your email"
-                  id="email"
-                  autoFocus
-                  autoComplete="on"
-                />
-                {errors.email && (
-                  <p className="text-sm font-bold text-red-400">
-                    {errors.email.message}
-                  </p>
-                )}
-              </label>
-            </div>
-            <div className="mb-1">
-              <label
-                htmlFor="password"
-                className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
-              >
-                Password (*)
-                <input
-                  {...register('password')}
-                  className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  type="password"
-                  placeholder="Enter your password"
-                  id="password"
-                  autoComplete="on"
-                />
-                {errors.password && (
-                  <p className="text-sm font-bold text-red-400">
-                    {errors.password.message}
-                  </p>
-                )}
-              </label>
-            </div>
+          <div className="flex flex-col align-middle justify-center">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
+            >
+              Email (*)
+              <input
+                {...register('email')}
+                className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                type="text"
+                placeholder="Enter your email"
+                id="email"
+                autoFocus
+                autoComplete="on"
+              />
+              {errors.email && (
+                <p className="text-sm font-bold text-red-400">
+                  {errors.email.message}
+                </p>
+              )}
+            </label>
+            <label
+              htmlFor="password"
+              className="block mb-2 text-base font-bold text-gray-700 dark:text-white"
+            >
+              Password (*)
+              <input
+                {...register('password')}
+                className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                type="password"
+                placeholder="Enter your password"
+                id="password"
+                autoComplete="on"
+              />
+              {errors.password && (
+                <p className="text-sm font-bold text-red-400">
+                  {errors.password.message}
+                </p>
+              )}
+            </label>
           </div>
           <button
             type="submit"

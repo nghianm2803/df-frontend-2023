@@ -2,7 +2,10 @@ import { z } from 'zod'
 
 export const registerSchema = z
   .object({
-    fullName: z.string().trim(),
+    fullName: z
+      .string()
+      .trim()
+      .min(3, 'Fullname must contain at least 3 characters!'),
     email: z.string().trim().email(),
     password: z
       .string()

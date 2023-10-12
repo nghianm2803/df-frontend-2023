@@ -7,12 +7,7 @@ import {
 } from 'react'
 import apiService from '../app/apiService'
 import { isValidToken } from '../utils/jwt'
-
-interface IUser {
-  id: number
-  email: string
-  fullName: string
-}
+import { IUser } from '../interface/user.model'
 
 interface IState {
   isInitialized: boolean
