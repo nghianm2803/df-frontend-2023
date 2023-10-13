@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { bookSchema, BookSchemaType } from '../schemas/book'
 import { IBook } from '../interface/book.model'
-import { useBookContext } from '../contexts/bookContext'
+import { useBookContext } from '../contexts/BookContext'
 
 interface EditBookProps {
   closeEditBook: () => void
