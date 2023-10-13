@@ -9,6 +9,8 @@ import ToggleTheme from '../components/ToggleTheme'
 import useAuth from '../hooks/useAuth'
 
 const MainHeader = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { data, logout } = useAuth()
 
   const Router = useRouter()
