@@ -139,30 +139,41 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     initialize()
   }, [])
 
-  const login = useCallback(async (email: string, password: string) => {
-    try {
-      const response = await apiService.post('/auth/login', {
-        email,
-        password,
-      })
+  const login = useCallback(
+    async ({ email, password }: { email: string; password: string }) => {
+      try {
+        const response = await apiService.post('/auth/login', {
+          email,
+          password,
+        })
 
-      const { data } = response.data
-      setSession(data.accessToken)
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { isAuthenticated: true, data },
-      })
-    } catch (error) {
-      if (error) {
-        throw new Error(error)
-      } else {
-        throw new Error('An error occurred. Please check your credentials.')
+        const { data } = response.data
+        setSession(data.accessToken)
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: { isAuthenticated: true, data },
+        })
+      } catch (error) {
+        if (error) {
+          throw new Error(error)
+        } else {
+          throw new Error('An error occurred. Please check your credentials.')
+        }
       }
-    }
-  }, [])
+    },
+    [],
+  )
 
   const signup = useCallback(
-    async (fullName: string, email: string, password: string) => {
+    async ({
+      fullName,
+      email,
+      password,
+    }: {
+      fullName: string
+      email: string
+      password: string
+    }) => {
       try {
         const response = await apiService.post('/auth/signup', {
           fullName,
