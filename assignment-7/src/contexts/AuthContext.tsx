@@ -31,6 +31,7 @@ const initialState: IState = {
     id: 1,
     email: '',
     fullName: '',
+    avatar: '',
   },
 }
 
@@ -115,6 +116,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
                 id: 1,
                 email: '',
                 fullName: '',
+                avatar: '',
               },
             },
           })
@@ -130,6 +132,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
               id: 1,
               email: '',
               fullName: '',
+              avatar: '',
             },
           },
         })
@@ -208,6 +211,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
           id: 1,
           email: '',
           fullName: '',
+          avatar: '',
         },
       },
     })
