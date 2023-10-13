@@ -63,7 +63,7 @@ const RegisterPage = () => {
             Login
           </button>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           <div className="flex flex-col align-middle justify-center">
             <label
               htmlFor="fullName"
@@ -146,7 +146,7 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
-            className={`btn-primary w-full ${isLoading ? 'loading' : ''}`}
+            className={`btn-primary w-full ${isLoading ? 'opacity-50' : ''}`}
             disabled={isLoading}
           >
             {isLoading ? 'Registering in...' : 'Register'}

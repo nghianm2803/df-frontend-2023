@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const Router = useRouter()
   const { login, isAuthenticated } = useAuth()
+
   const {
     register,
     handleSubmit,
@@ -19,8 +20,8 @@ const LoginPage = () => {
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'doo@gmail.com',
-      password: 'Doocharsiu1@',
+      email: '',
+      password: '',
     },
   })
 
@@ -59,7 +60,7 @@ const LoginPage = () => {
             Register
           </button>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           <div className="flex flex-col align-middle justify-center">
             <label
               htmlFor="email"
@@ -103,7 +104,7 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
-            className={`btn-primary w-full ${isLoading ? 'loading' : ''}`}
+            className={`btn-primary w-full ${isLoading ? 'opacity-50' : ''}`}
             disabled={isLoading}
           >
             {isLoading ? 'Logging in...' : 'Login'}

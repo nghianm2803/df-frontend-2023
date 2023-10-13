@@ -12,7 +12,7 @@ function AuthRequire({ children }: { children: React.ReactNode }) {
       return
     }
     if (!isAuthenticated) {
-      Router.push('/login')
+      Router.push('/')
     }
   }, [isAuthenticated, isInitialized, Router])
 
@@ -20,7 +20,7 @@ function AuthRequire({ children }: { children: React.ReactNode }) {
     return <LoadingSkeleton />
   }
 
-  return children
+  return <div>{children}</div>
 }
 
 export default AuthRequire

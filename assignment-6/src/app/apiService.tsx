@@ -22,7 +22,7 @@ apiService.interceptors.response.use(
   },
   function (error) {
     console.log('RESPONSE ERROR', error)
-    const message = error.response?.data?.errors.message || 'Unknown error'
+    const message = error.response?.data?.message || 'Unknown error'
     const rejectionError = new Error(message)
     return Promise.reject(rejectionError)
   },
