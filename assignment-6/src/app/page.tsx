@@ -36,7 +36,6 @@ const LoginPage = () => {
     } catch (error) {
       reset()
       setLoginError(error.message)
-    } finally {
       setIsLoading(false)
     }
   }

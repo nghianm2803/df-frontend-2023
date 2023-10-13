@@ -41,7 +41,6 @@ const RegisterPage = () => {
       console.error('Sign up error:', error)
       reset()
       setRegisterError(error.message)
-    } finally {
       setIsLoading(false)
     }
   }
