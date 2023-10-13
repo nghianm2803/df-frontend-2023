@@ -10,6 +10,8 @@ import useAuth from '../../hooks/useAuth'
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const Router = useRouter()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { signup, isAuthenticated } = useAuth()
   const [registerError, setRegisterError] = useState<string>('')
 
