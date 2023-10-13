@@ -15,8 +15,8 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "cd .. && husky install ./assignment-5/.husky",
-    "postinstall": "cd .. && husky install ./assignment-5/.husky"
+    "prepare": "cd .. && husky install ./assignment-6/.husky",
+    "postinstall": "cd .. && husky install ./assignment-6/.husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
