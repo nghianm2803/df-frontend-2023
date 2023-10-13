@@ -4,7 +4,7 @@ import './globals.css'
 // import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
-import { BookProvider } from '../contexts/bookContext'
+import { BookProvider } from '../contexts/BookContext'
 import { AuthProvider } from '../contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
