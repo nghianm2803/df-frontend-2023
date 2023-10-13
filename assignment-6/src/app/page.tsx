@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const Router = useRouter()
   const { login, isAuthenticated } = useAuth()
+  const [loginError, setLoginError] = useState<string>('')
 
   const {
     register,
@@ -31,8 +32,8 @@ const LoginPage = () => {
       setIsLoading(true)
       await login({ email, password })
     } catch (error) {
-      console.error('Login error:', error)
       reset()
+      setLoginError(error.message)
     } finally {
       setIsLoading(false)
     }
@@ -102,6 +103,9 @@ const LoginPage = () => {
               )}
             </label>
           </div>
+          {loginError && (
+            <p className="text-sm font-bold text-red-400">{loginError}</p>
+          )}
           <button
             type="submit"
             className={`btn-primary w-full ${isLoading ? 'opacity-50' : ''}`}

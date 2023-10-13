@@ -11,6 +11,8 @@ const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const Router = useRouter()
   const { signup, isAuthenticated } = useAuth()
+  const [registerError, setRegisterError] = useState<string>('')
+
   const {
     register,
     handleSubmit,
@@ -36,6 +38,7 @@ const RegisterPage = () => {
     } catch (error) {
       console.error('Sign up error:', error)
       reset()
+      setRegisterError(error.message)
     } finally {
       setIsLoading(false)
     }
@@ -144,6 +147,9 @@ const RegisterPage = () => {
               )}
             </label>
           </div>
+          {registerError && (
+            <p className="text-sm font-bold text-red-400">{registerError}</p>
+          )}
           <button
             type="submit"
             className={`btn-primary w-full ${isLoading ? 'opacity-50' : ''}`}

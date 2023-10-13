@@ -154,7 +154,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
           payload: { isAuthenticated: true, data },
         })
       } catch (error) {
-        console.error('Login error:', error)
+        if (error) {
+          throw new Error(error)
+        } else {
+          throw new Error('An error occurred. Please check your credentials.')
+        }
       }
     },
     [],
@@ -184,7 +188,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
           payload: { isAuthenticated: true, data },
         })
       } catch (error) {
-        console.error('Register error:', error)
+        if (error) {
+          throw new Error(error)
+        } else {
+          throw new Error('An error occurred.')
+        }
       }
     },
     [],
