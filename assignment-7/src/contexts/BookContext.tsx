@@ -14,14 +14,8 @@ import { useGetBooks } from '../generated/book/book'
 
 interface BookContextProps {
   books: Book[]
-  deleteBook: (book: Book) => void
   currentPage: number
   setCurrentPage: (page: number) => void
-  toastMessage: string
-  setToastMessage: (message: string) => void
-  showToast: boolean
-  setShowToast: (show: boolean) => void
-  closeToast: () => void
   searchBooks: (query: string) => void
   filteredBooks: Book[]
 }
@@ -41,22 +35,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
   const [books, setBooks] = useState<Book[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const [showToast, setShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState<string>('')
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([])
-
-  const openToast = () => {
-    setShowToast(true)
-
-    setTimeout(() => {
-      setShowToast(false)
-    }, 1500)
-  }
-
-  const closeToast = () => {
-    setShowToast(false)
-    setToastMessage('')
-  }
 
   useEffect(() => {
     if (booksData) {
@@ -68,19 +47,6 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false)
     }
   }, [booksData, error])
-
-  const deleteBook = useCallback(
-    (bookToDelete: Book) => {
-      const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
-      setBooks(updatedBooks)
-      openToast()
-      const message = `Delete book ${bookToDelete.name} successful!`
-      setToastMessage(message)
-
-      localStorage.setItem('books', JSON.stringify(updatedBooks))
-    },
-    [books],
-  )
 
   const searchBooks = useCallback(
     (query: string) => {
@@ -100,26 +66,12 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
   const contextValue = useMemo(
     () => ({
       books,
-      deleteBook,
       currentPage,
       setCurrentPage,
-      toastMessage,
-      setToastMessage,
-      showToast,
-      setShowToast,
-      closeToast,
       searchBooks,
       filteredBooks,
     }),
-    [
-      books,
-      deleteBook,
-      currentPage,
-      toastMessage,
-      showToast,
-      searchBooks,
-      filteredBooks,
-    ],
+    [books, currentPage, searchBooks, filteredBooks],
   )
 
   return (

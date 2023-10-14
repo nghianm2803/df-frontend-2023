@@ -4,11 +4,10 @@ import React, { useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
-import Toast from '../components/Toast'
 import { useBookContext } from '../contexts/BookContext'
 
 function MainBody(): JSX.Element {
-  const { showToast, setCurrentPage, searchBooks } = useBookContext()
+  const { setCurrentPage, searchBooks } = useBookContext()
   const [addModal, setAddModal] = useState(false)
 
   const handleAddBook = () => {
@@ -33,7 +32,6 @@ function MainBody(): JSX.Element {
         </button>
       </div>
       {addModal && <AddBook closeAddBook={handleCloseAddBook} />}
-      {showToast && <Toast />}
       <TableBook />
     </>
   )

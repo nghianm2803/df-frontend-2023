@@ -8,8 +8,7 @@ import { Book } from '../generated/model/book'
 import EmptyData from './EmptyData'
 
 function TableBook(): JSX.Element {
-  const { books, filteredBooks, deleteBook, currentPage, setCurrentPage } =
-    useBookContext()
+  const { books, filteredBooks, currentPage, setCurrentPage } = useBookContext()
   const [editModal, setEditModal] = useState(false)
   const [bookToEdit, setBookToEdit] = useState<Book | null>(null)
   const [deleteModal, setDeleteModal] = useState(false)
@@ -63,13 +62,6 @@ function TableBook(): JSX.Element {
     setDeleteModal(true)
   }
 
-  const confirmDelete = () => {
-    if (bookToDelete) {
-      deleteBook(bookToDelete)
-      setDeleteModal(false)
-    }
-  }
-
   const displayedBooks = filteredBooks || books
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
@@ -90,7 +82,9 @@ function TableBook(): JSX.Element {
           <tbody>
             {slicedBooks.map((book: Book, index: number) => (
               <tr key={index}>
-                <td className="data-cell">{book.name}</td>
+                <td className="data-cell">
+                  {book.id} | {book.name}
+                </td>
                 <td className="data-cell">{book.author}</td>
                 <td className="data-cell">{book.topic?.name}</td>
                 <td className="data-cell">
@@ -137,7 +131,6 @@ function TableBook(): JSX.Element {
           <DeleteBook
             closeDeleteBook={() => setDeleteModal(false)}
             bookToDelete={bookToDelete}
-            confirmDelete={confirmDelete}
           />
         )}
       </div>
