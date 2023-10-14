@@ -5,8 +5,8 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { Auth } from './auth';
+import type { Auth } from './auth'
 
 export interface LoginResponse {
-  data?: Auth;
+  data?: Auth
 }

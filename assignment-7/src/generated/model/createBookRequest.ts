@@ -7,7 +7,7 @@
  */
 
 export interface CreateBookRequest {
-  author: string;
-  name: string;
-  topicId: number;
+  author: string
+  name: string
+  topicId: number
 }

@@ -7,8 +7,8 @@
  */
 
 export interface SignupRequest {
-  avatar?: string;
-  email: string;
-  fullName: string;
-  password: string;
+  avatar?: string
+  email: string
+  fullName: string
+  password: string
 }

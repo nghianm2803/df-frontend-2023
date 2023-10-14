@@ -5,10 +5,10 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { Book } from './book';
-import type { Metadata } from './metadata';
+import type { Book } from './book'
+import type { Metadata } from './metadata'
 
 export interface BooksResponse {
-  data?: Book[];
-  metadata?: Metadata;
+  data?: Book[]
+  metadata?: Metadata
 }

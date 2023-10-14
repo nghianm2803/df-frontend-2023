@@ -7,7 +7,7 @@
  */
 
 export interface UpdateBookRequest {
-  author?: string;
-  name?: string;
-  topicId?: number;
+  author?: string
+  name?: string
+  topicId?: number
 }

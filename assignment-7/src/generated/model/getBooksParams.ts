@@ -7,24 +7,24 @@
  */
 
 export type GetBooksParams = {
-/**
- * Page
- */
-page?: number;
-/**
- * Page Size
- */
-pageSize?: number;
-/**
- * Sort
- */
-sort?: string;
-/**
- * Query
- */
-query?: string;
-/**
- * Topic ID
- */
-topicId?: number;
-};
+  /**
+   * Page
+   */
+  page?: number
+  /**
+   * Page Size
+   */
+  pageSize?: number
+  /**
+   * Sort
+   */
+  sort?: string
+  /**
+   * Query
+   */
+  query?: string
+  /**
+   * Topic ID
+   */
+  topicId?: number
+}

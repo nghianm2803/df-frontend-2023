@@ -7,8 +7,8 @@
  */
 
 export interface Me {
-  avatar: string;
-  email: string;
-  fullName: string;
-  id: number;
+  avatar: string
+  email: string
+  fullName: string
+  id: number
 }

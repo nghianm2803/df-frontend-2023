@@ -7,6 +7,6 @@
  */
 
 export interface ErrorDetail {
-  error: string;
-  field: string;
+  error: string
+  field: string
 }

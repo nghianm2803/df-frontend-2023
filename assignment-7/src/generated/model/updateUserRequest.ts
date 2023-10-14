@@ -7,6 +7,6 @@
  */
 
 export interface UpdateUserRequest {
-  avatar?: string;
-  fullName?: string;
+  avatar?: string
+  fullName?: string
 }

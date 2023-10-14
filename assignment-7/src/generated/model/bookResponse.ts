@@ -5,8 +5,8 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { Book } from './book';
+import type { Book } from './book'
 
 export interface BookResponse {
-  data?: Book;
+  data?: Book
 }

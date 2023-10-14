@@ -5,8 +5,8 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { User } from './user';
+import type { User } from './user'
 
 export interface UserResponse {
-  data?: User;
+  data?: User
 }

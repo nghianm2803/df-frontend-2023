@@ -7,10 +7,10 @@
  */
 
 export interface Metadata {
-  hasNext?: boolean;
-  page: number;
-  pageSize: number;
-  sort?: number;
-  totalPages: number;
-  totalRecords: number;
+  hasNext?: boolean
+  page: number
+  pageSize: number
+  sort?: number
+  totalPages: number
+  totalRecords: number
 }

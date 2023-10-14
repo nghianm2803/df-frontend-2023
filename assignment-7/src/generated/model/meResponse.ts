@@ -5,8 +5,8 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { Me } from './me';
+import type { Me } from './me'
 
 export interface MeResponse {
-  data?: Me;
+  data?: Me
 }

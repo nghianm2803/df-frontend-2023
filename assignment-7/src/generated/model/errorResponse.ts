@@ -5,11 +5,11 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { ErrorDetail } from './errorDetail';
+import type { ErrorDetail } from './errorDetail'
 
 export interface ErrorResponse {
-  code: string;
-  error: string;
-  errors?: ErrorDetail[];
-  traceId: string;
+  code: string
+  error: string
+  errors?: ErrorDetail[]
+  traceId: string
 }

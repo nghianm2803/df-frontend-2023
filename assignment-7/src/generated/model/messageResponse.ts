@@ -5,8 +5,8 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { Message } from './message';
+import type { Message } from './message'
 
 export interface MessageResponse {
-  data?: Message;
+  data?: Message
 }
