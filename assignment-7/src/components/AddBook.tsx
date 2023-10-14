@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { mutate } from 'swr'
 import { bookSchema, BookSchemaType } from '../schemas/book'
 import { useGetTopics } from '../generated/topic/topic'
-import { createBook } from '../generated/book/book'
+import { createBook, getGetBooksKey } from '../generated/book/book'
 import { Topic } from '../generated/model'
 
 interface AddBookProps {
@@ -17,7 +17,6 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
     register,
     handleSubmit,
     reset,
-    setError,
   } = useForm<BookSchemaType>({
     resolver: zodResolver(bookSchema),
     defaultValues: {
@@ -28,19 +27,17 @@ function AddBook({ closeAddBook }: AddBookProps): JSX.Element {
   })
   const { data: topicData } = useGetTopics()
 
-  const onSubmit: SubmitHandler<BookSchemaType> = async (data) => {
-    try {
-      await createBook({
-        name: data.name,
-        author: data.author,
-        topicId: parseInt(data.topic, 10),
-      })
-      mutate((key: string[]) => key[0].startsWith('/books'))
+  const onSubmit: SubmitHandler<BookSchemaType> = (data) => {
+    createBook({
+      name: data.name,
+      author: data.author,
+      topicId: parseInt(data.topic, 10),
+    }).then(() => {
+      const key = getGetBooksKey()
+      mutate(key)
       reset()
       closeAddBook()
-    } catch (error) {
-      setError('root', { message: error.message })
-    }
+    })
   }
 
   return (

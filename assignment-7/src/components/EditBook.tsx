@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { mutate } from 'swr'
 import { bookSchema, BookSchemaType } from '../schemas/book'
 import { Book } from '../generated/model/book'
-import { updateBook } from '../generated/book/book'
+import { updateBook, getGetBooksKey } from '../generated/book/book'
 import { Topic } from '../generated/model'
 import { useGetTopics } from '../generated/topic/topic'
 
@@ -19,7 +19,6 @@ function EditBook({ closeEditBook, bookToEdit }: EditBookProps): JSX.Element {
     register,
     handleSubmit,
     reset,
-    setError,
   } = useForm<BookSchemaType>({
     resolver: zodResolver(bookSchema),
     defaultValues: {
@@ -32,24 +31,17 @@ function EditBook({ closeEditBook, bookToEdit }: EditBookProps): JSX.Element {
   const { data: topicData } = useGetTopics()
 
   const onSubmit: SubmitHandler<BookSchemaType> = async (data) => {
-    try {
-      if (bookToEdit && typeof bookToEdit.id === 'number') {
-        const topicId = data.topic !== '' ? parseInt(data.topic, 10) : 0
-
-        await updateBook(bookToEdit.id, {
-          name: data.name,
-          author: data.author,
-          topicId,
-        })
-
-        mutate((key: string[]) => key[0].startsWith('/books'))
+    if (bookToEdit && typeof bookToEdit.id === 'number') {
+      updateBook(bookToEdit.id, {
+        name: data.name,
+        author: data.author,
+        topicId: parseInt(data.topic, 10),
+      }).then(() => {
+        const key = getGetBooksKey()
+        mutate(key)
         reset()
         closeEditBook()
-      } else {
-        console.error('Invalid bookToEdit')
-      }
-    } catch (error) {
-      setError('root', { message: error.message })
+      })
     }
   }
 

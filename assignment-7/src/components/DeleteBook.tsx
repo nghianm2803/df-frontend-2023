@@ -17,11 +17,14 @@ function DeleteBook({
   bookToDelete,
 }: DeleteBookProps): JSX.Element {
   const confirmDelete = () => {
-    const id = Number(bookToDelete!.id)
-    deleteBook(Number(id))
-    mutate(getGetBookKey(id))
-    mutate(getGetBooksKey())
-    closeDeleteBook()
+    if (bookToDelete) {
+      const id = Number(bookToDelete.id)
+      deleteBook(Number(id)).then(() => {
+        mutate(getGetBookKey(id), undefined, true)
+        mutate(getGetBooksKey(), undefined, true)
+        closeDeleteBook()
+      })
+    }
   }
 
   return (

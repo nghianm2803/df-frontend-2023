@@ -2,53 +2,38 @@
 
 import Link from 'next/link'
 import { AiOutlineLeft } from 'react-icons/ai'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Book } from '../../../generated/model/book'
 import MainHeader from '../../../layouts/MainHeader'
 import DeleteBook from '../../../components/DeleteBook'
 import EmptyData from '../../../components/EmptyData'
-import { useBookContext } from '../../../contexts/BookContext'
 import AuthRequire from '../../AuthRequire'
+import { useGetBook } from '../../../generated/book/book'
+import LoadingSkeleton from '../../../components/LoadingSkeleton'
 
 interface BookDetailProps {
   id: string
 }
 
 function Page({ params: { id } }: { params: BookDetailProps }) {
-  const { books } = useBookContext()
-  const [bookDetail, setBookDetail] = useState<Book | null>(null)
+  const { data: detailBook, isLoading } = useGetBook(Number(id))
   const [deleteModal, setDeleteModal] = useState(false)
   const [bookToDelete, setBookToDelete] = useState<Book | null>(null)
-
-  const fetchBookDetail = (id: string) => {
-    try {
-      const book = books.filter((book: Book) => book.id === parseInt(id, 10))[0]
-
-      if (book) {
-        setBookDetail(book)
-      } else {
-        setBookDetail(null)
-      }
-    } catch (error) {
-      console.error('Error getting book:', error)
-    }
-  }
-
-  useEffect(() => {
-    fetchBookDetail(id)
-    // eslint-disable-next-line
-  }, [id])
 
   const handleDeleteBook = (book: Book) => {
     setBookToDelete(book)
     setDeleteModal(true)
   }
 
-  return (
+  return isLoading ? (
+    <div className="h-[20vh]">
+      <LoadingSkeleton />
+    </div>
+  ) : (
     <AuthRequire>
       <div className="min-h-screen px-p50 mt-m30 leading-[1.5] dark:bg-slate-800">
         <MainHeader />
-        {bookDetail ? (
+        {detailBook && detailBook.data ? (
           <div className="px-5 pt-5 dark:bg-slate-800">
             <Link
               href="/"
@@ -59,27 +44,29 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
             </Link>
             <div className="flex flex-col gap-2">
               <h2 className="text-gray-800 dark:text-white font-bold text-2xl py-5">
-                {bookDetail?.name}
+                {detailBook?.data.name}
               </h2>
               <p>
                 <span className="text-gray-800 dark:text-white text-base font-semibold">
                   Author:&nbsp;
                 </span>
-                <span className="dark:text-white">{bookDetail?.author}</span>
+                <span className="dark:text-white">
+                  {detailBook?.data.author}
+                </span>
               </p>
               <p>
                 <span className="text-gray-800 dark:text-white text-base font-semibold">
                   Topic:&nbsp;
                 </span>
                 <span className="dark:text-white">
-                  {bookDetail?.topic?.name}
+                  {detailBook?.data.topic?.name}
                 </span>
               </p>
             </div>
             <button
-              onClick={() => {
-                handleDeleteBook(bookDetail)
-              }}
+              onClick={() =>
+                detailBook.data && handleDeleteBook(detailBook.data)
+              }
               className="text-left text-red-500 font-semibold underline cursor-pointer mt-5 mr-2"
             >
               Delete
