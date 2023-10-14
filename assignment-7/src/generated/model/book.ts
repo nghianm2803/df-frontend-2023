@@ -5,11 +5,11 @@
  * This is a swagger for API.
  * OpenAPI spec version: 1.0
  */
-import type { Topic } from './topic';
+import type { Topic } from './topic'
 
 export interface Book {
-  author?: string;
-  id: number;
-  name: string;
-  topic?: Topic;
+  author?: string
+  id: number
+  name: string
+  topic?: Topic
 }

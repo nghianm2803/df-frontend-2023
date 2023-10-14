@@ -9,7 +9,7 @@ apiService.interceptors.request.use(
     console.log('Start Request', request)
     return request
   },
-  function RequestError(error) {
+  function (error) {
     console.log('REQUEST ERROR', error)
     return Promise.reject(error)
   },
@@ -21,7 +21,7 @@ apiService.interceptors.response.use(
     return response
   },
   function ResponseError(error) {
-    console.log('RESPONSE ERROR', error)
+    // console.log('RESPONSE ERROR', error)
     const message = error.response?.data?.message || 'Unknown error'
     const rejectionError = new Error(message)
     return Promise.reject(rejectionError)

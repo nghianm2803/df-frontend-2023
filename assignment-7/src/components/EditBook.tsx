@@ -1,50 +1,56 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { mutate } from 'swr'
 import { bookSchema, BookSchemaType } from '../schemas/book'
-import { IBook } from '../interface/book.model'
-import { useBookContext } from '../contexts/BookContext'
+import { Book } from '../generated/model/book'
+import { updateBook } from '../generated/book/book'
+import { Topic } from '../generated/model'
+import { useGetTopics } from '../generated/topic/topic'
 
 interface EditBookProps {
   closeEditBook: () => void
-  bookToEdit: IBook | null
+  bookToEdit: Book | null
 }
 
 function EditBook({ closeEditBook, bookToEdit }: EditBookProps): JSX.Element {
-  const { editBook } = useBookContext()
-
-  const topics = [
-    { label: 'Programming', value: 'Programming' },
-    { label: 'Database', value: 'Database' },
-    { label: 'DevOps', value: 'DevOps' },
-  ]
-
   const {
     formState: { errors },
     register,
     handleSubmit,
-    watch,
     reset,
+    setError,
   } = useForm<BookSchemaType>({
     resolver: zodResolver(bookSchema),
     defaultValues: {
       name: bookToEdit?.name || '',
       author: bookToEdit?.author || '',
-      topic: (bookToEdit?.topic as BookSchemaType['topic']) || 'Programming',
+      topic: bookToEdit?.topic?.id?.toString() || 'Programming',
     },
   })
 
-  const onSubmit: SubmitHandler<BookSchemaType> = () => {
-    const editedBook: IBook = {
-      id: bookToEdit!.id,
-      name: watch('name'),
-      author: watch('author'),
-      topic: watch('topic'),
-    }
+  const { data: topicData } = useGetTopics()
 
-    editBook(editedBook)
-    reset()
-    closeEditBook()
+  const onSubmit: SubmitHandler<BookSchemaType> = async (data) => {
+    try {
+      if (bookToEdit && typeof bookToEdit.id === 'number') {
+        const topicId = data.topic !== '' ? parseInt(data.topic, 10) : 0
+
+        await updateBook(bookToEdit.id, {
+          name: data.name,
+          author: data.author,
+          topicId,
+        })
+
+        mutate((key: string[]) => key[0].startsWith('/books'))
+        reset()
+        closeEditBook()
+      } else {
+        console.error('Invalid bookToEdit')
+      }
+    } catch (error) {
+      setError('root', { message: error.message })
+    }
   }
 
   return (
@@ -112,13 +118,19 @@ function EditBook({ closeEditBook, bookToEdit }: EditBookProps): JSX.Element {
                   id="topic"
                   className="outline-none box-border transition bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 >
-                  {topics.map((topic, index) => (
-                    <option key={index} value={topic.value}>
-                      {topic.label}
+                  <option value="">Select a topic</option>
+                  {topicData?.data?.map((topic: Topic) => (
+                    <option key={topic.id} value={topic.id}>
+                      {topic.name}
                     </option>
                   ))}
                 </select>
               </label>
+              {errors.topic && (
+                <p className="text-sm font-bold text-red-400">
+                  {errors.topic.message}
+                </p>
+              )}
             </div>
           </div>
           <div className="text-right mt-5">

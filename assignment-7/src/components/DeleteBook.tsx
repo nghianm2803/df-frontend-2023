@@ -1,9 +1,9 @@
 import React from 'react'
-import { IBook } from '../interface/book.model'
+import { Book } from '../generated/model/book'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void
-  bookToDelete: IBook | null
+  bookToDelete: Book | null
   confirmDelete: () => void
 }
 

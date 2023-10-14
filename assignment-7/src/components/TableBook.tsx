@@ -4,16 +4,16 @@ import DeleteBook from './DeleteBook'
 import EditBook from './EditBook'
 import Pagination from './Pagination'
 import { useBookContext } from '../contexts/BookContext'
-import { IBook } from '../interface/book.model'
+import { Book } from '../generated/model/book'
 import EmptyData from './EmptyData'
 
 function TableBook(): JSX.Element {
   const { books, filteredBooks, deleteBook, currentPage, setCurrentPage } =
     useBookContext()
   const [editModal, setEditModal] = useState(false)
-  const [bookToEdit, setBookToEdit] = useState<IBook | null>(null)
+  const [bookToEdit, setBookToEdit] = useState<Book | null>(null)
   const [deleteModal, setDeleteModal] = useState(false)
-  const [bookToDelete, setBookToDelete] = useState<IBook | null>(null)
+  const [bookToDelete, setBookToDelete] = useState<Book | null>(null)
 
   const ITEMS_PER_PAGE = 5
 
@@ -48,17 +48,17 @@ function TableBook(): JSX.Element {
     [setCurrentPage],
   )
 
-  const handleViewBook = (book: IBook) => {
+  const handleViewBook = (book: Book) => {
     const bookId = book.id
     router.push(`/books/${bookId}`)
   }
 
-  const handleEditBook = (book: IBook) => {
+  const handleEditBook = (book: Book) => {
     setBookToEdit(book)
     setEditModal(true)
   }
 
-  const handleDeleteBook = (book: IBook) => {
+  const handleDeleteBook = (book: Book) => {
     setBookToDelete(book)
     setDeleteModal(true)
   }
@@ -88,11 +88,11 @@ function TableBook(): JSX.Element {
             </tr>
           </thead>
           <tbody>
-            {slicedBooks.map((book: IBook, index: number) => (
+            {slicedBooks.map((book: Book, index: number) => (
               <tr key={index}>
                 <td className="data-cell">{book.name}</td>
                 <td className="data-cell">{book.author}</td>
-                <td className="data-cell">{book.topic}</td>
+                <td className="data-cell">{book.topic?.name}</td>
                 <td className="data-cell">
                   <div className="flex w-1">
                     <button

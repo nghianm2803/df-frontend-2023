@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { AiOutlineLeft } from 'react-icons/ai'
 import { useEffect, useState } from 'react'
-import { IBook } from '../../../interface/book.model'
+import { Book } from '../../../generated/model/book'
 import MainHeader from '../../../layouts/MainHeader'
 import DeleteBook from '../../../components/DeleteBook'
 import Toast from '../../../components/Toast'
@@ -17,15 +17,13 @@ interface BookDetailProps {
 
 function Page({ params: { id } }: { params: BookDetailProps }) {
   const { books, showToast, deleteBook } = useBookContext()
-  const [bookDetail, setBookDetail] = useState<IBook | null>(null)
+  const [bookDetail, setBookDetail] = useState<Book | null>(null)
   const [deleteModal, setDeleteModal] = useState(false)
-  const [bookToDelete, setBookToDelete] = useState<IBook | null>(null)
+  const [bookToDelete, setBookToDelete] = useState<Book | null>(null)
 
   const fetchBookDetail = (id: string) => {
     try {
-      const book = books.filter(
-        (book: IBook) => book.id === parseInt(id, 10),
-      )[0]
+      const book = books.filter((book: Book) => book.id === parseInt(id, 10))[0]
 
       if (book) {
         setBookDetail(book)
@@ -42,7 +40,7 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
     // eslint-disable-next-line
   }, [id])
 
-  const handleDeleteBook = (book: IBook) => {
+  const handleDeleteBook = (book: Book) => {
     setBookToDelete(book)
     setDeleteModal(true)
   }
@@ -82,7 +80,9 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
                 <span className="text-gray-800 dark:text-white text-base font-semibold">
                   Topic:&nbsp;
                 </span>
-                <span className="dark:text-white">{bookDetail?.topic}</span>
+                <span className="dark:text-white">
+                  {bookDetail?.topic?.name}
+                </span>
               </p>
             </div>
             <button
@@ -97,7 +97,7 @@ function Page({ params: { id } }: { params: BookDetailProps }) {
         ) : (
           <div className="flex flex-col justify-center items-center dark:bg-slate-800">
             <EmptyData />
-            <Link href="/books">
+            <Link href="/">
               <button className="bg-green-300  text-center w-32 h-10 rounded mt-4 ">
                 Go to Home
               </button>

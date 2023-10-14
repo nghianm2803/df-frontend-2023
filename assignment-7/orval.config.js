@@ -6,12 +6,11 @@ module.exports = {
       target: 'src/generated/bookstore.ts',
       schemas: 'src/generated/model',
       client: 'swr',
-      mock: true,
-    },
-    override: {
-      mutator: {
-        path: './api/mutator/custom-instance.ts',
-        name: 'customInstance',
+      override: {
+        mutator: {
+          path: 'src/libs/custom-instance.ts',
+          name: 'customInstance',
+        },
       },
     },
   },

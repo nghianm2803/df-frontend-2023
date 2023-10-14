@@ -7,7 +7,7 @@
  */
 
 export interface Auth {
-  accessToken: string;
-  email: string;
-  id: number;
+  accessToken: string
+  email: string
+  id: number
 }

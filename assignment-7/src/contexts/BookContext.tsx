@@ -9,14 +9,12 @@ import React, {
   useState,
 } from 'react'
 import LoadingSkeleton from '../components/LoadingSkeleton'
-import { IBook } from '../interface/book.model'
-import { BOOKS } from '../constant/book'
+import { Book } from '../generated/model/book'
+import { useGetBooks } from '../generated/book/book'
 
 interface BookContextProps {
-  books: IBook[]
-  addBook: (book: IBook) => void
-  editBook: (book: IBook) => void
-  deleteBook: (book: IBook) => void
+  books: Book[]
+  deleteBook: (book: Book) => void
   currentPage: number
   setCurrentPage: (page: number) => void
   toastMessage: string
@@ -25,7 +23,7 @@ interface BookContextProps {
   setShowToast: (show: boolean) => void
   closeToast: () => void
   searchBooks: (query: string) => void
-  filteredBooks: IBook[]
+  filteredBooks: Book[]
 }
 
 const BookContext = createContext<BookContextProps | undefined>(undefined)
@@ -39,12 +37,13 @@ export function useBookContext(): BookContextProps {
 }
 
 export function BookProvider({ children }: { children: React.ReactNode }) {
-  const [books, setBooks] = useState<IBook[]>([])
+  const { data: booksData, error } = useGetBooks()
+  const [books, setBooks] = useState<Book[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState<string>('')
-  const [filteredBooks, setFilteredBooks] = useState<IBook[]>([])
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([])
 
   const openToast = () => {
     setShowToast(true)
@@ -59,36 +58,19 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
     setToastMessage('')
   }
 
-  const addBook = useCallback(
-    (newBook: IBook) => {
-      const newBooks = [...books, newBook]
-      setBooks(newBooks)
-      openToast()
-      const message = `Add book ${newBook.name} successful!`
-      setToastMessage(message)
-
-      localStorage.setItem('books', JSON.stringify(newBooks))
-    },
-    [books],
-  )
-
-  const editBook = useCallback(
-    (editedBook: IBook) => {
-      const updatedBooks = books.map((book) =>
-        book.id === editedBook.id ? editedBook : book,
-      )
-      setBooks(updatedBooks)
-      openToast()
-      const message = `Edit book ${editedBook.name} successful!`
-      setToastMessage(message)
-
-      localStorage.setItem('books', JSON.stringify(updatedBooks))
-    },
-    [books],
-  )
+  useEffect(() => {
+    if (booksData) {
+      setBooks(booksData?.data || [])
+      setIsLoading(false)
+    }
+    if (error) {
+      console.error('Error getting books from the API:', error)
+      setIsLoading(false)
+    }
+  }, [booksData, error])
 
   const deleteBook = useCallback(
-    (bookToDelete: IBook) => {
+    (bookToDelete: Book) => {
       const updatedBooks = books.filter((book) => book.id !== bookToDelete.id)
       setBooks(updatedBooks)
       openToast()
@@ -103,7 +85,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
   const searchBooks = useCallback(
     (query: string) => {
       const formattedQuery = query.trim().toLowerCase()
-      const filtered = books.filter((book: IBook) =>
+      const filtered = books.filter((book: Book) =>
         book.name.toLowerCase().includes(formattedQuery),
       )
       setFilteredBooks(filtered)
@@ -112,38 +94,12 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
   )
 
   useEffect(() => {
-    const loadBooksFromLocalStorage = () => {
-      try {
-        const storedBooksString = localStorage.getItem('books')
-        if (storedBooksString) {
-          const storedBooks = JSON.parse(storedBooksString) as IBook[]
-          setBooks(storedBooks)
-          setFilteredBooks(storedBooks)
-        } else {
-          setBooks(BOOKS)
-          setFilteredBooks(BOOKS)
-        }
-        setIsLoading(false)
-      } catch (error) {
-        console.error('Error getting books from localStorage:', error)
-        setIsLoading(false)
-      }
-    }
-
-    if (typeof window !== 'undefined') {
-      loadBooksFromLocalStorage()
-    }
-  }, [])
-
-  useEffect(() => {
     setFilteredBooks(books)
   }, [books])
 
   const contextValue = useMemo(
     () => ({
       books,
-      addBook,
-      editBook,
       deleteBook,
       currentPage,
       setCurrentPage,
@@ -157,8 +113,6 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
     }),
     [
       books,
-      addBook,
-      editBook,
       deleteBook,
       currentPage,
       toastMessage,
