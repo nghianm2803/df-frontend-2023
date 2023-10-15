@@ -82,9 +82,7 @@ function TableBook(): JSX.Element {
           <tbody>
             {slicedBooks.map((book: Book, index: number) => (
               <tr key={index}>
-                <td className="data-cell">
-                  {book.id} | {book.name}
-                </td>
+                <td className="data-cell">{book.name}</td>
                 <td className="data-cell">{book.author}</td>
                 <td className="data-cell">{book.topic?.name}</td>
                 <td className="data-cell">
