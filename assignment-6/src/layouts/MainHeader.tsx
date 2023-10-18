@@ -23,7 +23,7 @@ const MainHeader = () => {
   const handleLogout = async () => {
     try {
       await logout()
-      Router.push('/')
+      Router.push('/login')
     } catch (error) {
       console.error(error)
     }

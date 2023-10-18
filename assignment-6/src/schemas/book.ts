@@ -6,7 +6,12 @@ export const bookSchema = z.object({
     .string()
     .trim()
     .regex(/^[a-zA-Z\s]+$/i, 'Please input only letters and spaces'),
-  topic: z.enum(['Programming', 'Database', 'DevOps']),
+  topic: z.string().min(1, { message: 'Please choose 1 topic' }),
+  // topic: z.enum(['Programming', 'Database', 'DevOps']),
+  // topic: z.object({
+  //   code: z.string().trim(),
+  //   name: z.enum(['Programming', 'Database', 'DevOps']),
+  // }),
 })
 
 export type BookSchemaType = z.infer<typeof bookSchema>

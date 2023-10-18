@@ -1,17 +1,32 @@
 import React from 'react'
-import { IBook } from '../interface/book.model'
+import { mutate } from 'swr'
+import { Book } from '../generated/model/book'
+import {
+  deleteBook,
+  getGetBookKey,
+  getGetBooksKey,
+} from '../generated/book/book'
 
 interface DeleteBookProps {
   closeDeleteBook: () => void
-  bookToDelete: IBook | null
-  confirmDelete: () => void
+  bookToDelete: Book | null
 }
 
 function DeleteBook({
   closeDeleteBook,
   bookToDelete,
-  confirmDelete,
 }: DeleteBookProps): JSX.Element {
+  const confirmDelete = () => {
+    if (bookToDelete) {
+      const id = Number(bookToDelete.id)
+      deleteBook(Number(id)).then(() => {
+        mutate(getGetBookKey(id), undefined, true)
+        mutate(getGetBooksKey(), undefined, true)
+        closeDeleteBook()
+      })
+    }
+  }
+
   return (
     <div className="fixed top-32 w-full h-full block px-1 py-4 left-0 right-0 overflow-auto z-10 bg-transparent">
       <div className="m-auto bg-white dark:bg-slate-800 p-5 border rounded-md w-96 shadow-2xl popoutModal animation-popoutModal">

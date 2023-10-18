@@ -4,19 +4,10 @@ import './globals.css'
 // import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
-import { BookProvider } from '../contexts/bookContext'
+import { BookProvider } from '../contexts/BookContext'
 import { AuthProvider } from '../contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
-
-/**
- * I have an issue here:
- * I want to use the book context for the main page and the detail page, so I wrapped them both in layout.tsx
- * However, createContext only works in client components
- * So I marked layout.tsx with use client to change it from server component to client component.
- * This caused an error: export "metadata" is disallowed with "use client".
- * To fix this, I removed the export of metadata from the component, but I'm not sure if this is a good solution.
- */
 
 // export const metadata: Metadata = {
 //   title: 'Bookstore',
