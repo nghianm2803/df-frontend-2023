@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import TableBook from '../components/TableBook'
 import AddBook from '../components/AddBook'
-import { useBookContext } from '../contexts/BookContext'
+import { useBookContext } from '../contexts/bookContext'
 
 function MainBody(): JSX.Element {
   const { setCurrentPage, searchBooks } = useBookContext()
